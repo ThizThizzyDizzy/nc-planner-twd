@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <theme name="Light">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b6b6b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="333333" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b6b6b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="999999" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e5e5e5" />
+        <val key="Form.bgColor" value="646464" />
+        <val key="Label.bgColor" value="8c8c8c" />
+        <val key="MultiButton.dis#bgColor" value="6b6b6b" />
+        <val key="MultiButton.press#bgColor" value="6b6b6b" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5855577" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5855577" />
+        <val key="SliderFull.bgColor" value="7f7f7f" />
+        <val key="TextField.bgColor" value="7f7f7f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5855577" />
+        <val key="Tooltip.bgColor" value="e5e5e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3355443" />
+        <val key="bgColor" value="999999" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b6b6b" />
+        <val key="dis#fgColor" value="333333" />
+        <val key="fgColor" value="333333" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b6b6b" />
+        <val key="press#fgColor" value="333333" />
+        <val key="sel#bgColor" value="999999" />
+        <val key="sel#fgColor" value="333333" />
+    </theme>
+</resource>

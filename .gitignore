@@ -1,0 +1,9 @@
+*.jar
+/nbproject/
+/lib/
+/native/internal_tmp/
+/build.xml
+/manifest.mf
+/icon.png
+/codenameone_settings.properties
+/Versions.properties
