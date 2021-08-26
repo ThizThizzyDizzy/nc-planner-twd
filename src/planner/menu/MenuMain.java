@@ -7,7 +7,14 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import java.util.ArrayList;
+import multiblock.Multiblock;
+import planner.Core;
+import planner.exception.MissingConfigurationEntryException;
+import planner.file.FileReader;
+import planner.file.NCPFFile;
 public class MenuMain extends Form{
+    private final Button editMetadata;
     public MenuMain(){
         super(BoxLayout.y());
         Container header = new Container(new BorderLayout());
@@ -18,16 +25,56 @@ public class MenuMain extends Form{
         if(hasFileChooser){
             Button imprt = new Button("Import");
             leftButtons.add(imprt);
+            imprt.addActionListener((evt) -> {
+                FileChooser.showOpenDialog(true, ".ncpf,.json", (e) -> {
+                    if(e!=null&&e.getSource()!=null){
+                        String[] files = (String[])e.getSource();
+                        for(String file : files){
+                            NCPFFile ncpf = FileReader.read(file);
+                            if(ncpf==null)return;
+                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
+                                Core.showWarningDialog("Configuration mismatch", "File configuration '"+ncpf.configuration.name+"' does not match currently loaded configuration '"+Core.configuration.name+"'!");
+                            }
+                            convertAndImportMultiblocks(ncpf.multiblocks);
+                            refresh();
+                        }
+                    }
+                });
+            });
         }
         Button export = new Button("Export");
         leftButtons.add(export);
+        export.addActionListener((evt) -> {
+            
+        });
         Button save = new Button("Save");
         leftButtons.add(save);
         if(hasFileChooser){
             Button load = new Button("Load");
             leftButtons.add(load);
+            load.addActionListener((evt) -> {
+                FileChooser.showOpenDialog(".ncpf,.json", (e) -> {
+                    if(e!=null&&e.getSource()!=null){
+                        String file = (String)e.getSource();
+                        NCPFFile ncpf = FileReader.read(file);
+                        if(ncpf==null)return;
+                        Core.multiblocks.clear();
+                        Core.metadata.clear();
+                        Core.metadata.putAll(ncpf.metadata);
+                        if(ncpf.configuration==null||ncpf.configuration.isPartial()){
+                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
+                                Core.showWarningDialog("Configuration mismatch", "File configuration '"+ncpf.configuration.name+"' does not match currently loaded configuration '"+Core.configuration.name+"'!");
+                            }
+                        }else{
+                            Core.configuration = ncpf.configuration;
+                        }
+                        convertAndImportMultiblocks(ncpf.multiblocks);
+                        refresh();
+                    }
+                });
+            });
         }
-        Button editMetadata = new Button("Edit Metadata");
+        editMetadata = new Button("Edit Metadata");
         header.add(CENTER, editMetadata);
         Button settings = new Button();
         int h = editMetadata.getPreferredH()-1;
@@ -38,6 +85,7 @@ public class MenuMain extends Form{
         settings.getPressedStyle().setPadding(0, 0, 0, 0);
         settings.setText("");
         header.add(RIGHT, settings);
+        refresh();
     }
     private Image genGear(int size, int bgColor, int fgColor){
         Image image = Image.createImage(size, size);
@@ -74,5 +122,24 @@ public class MenuMain extends Form{
             g.fillPolygon(ix, iy, actualRes);
         }
         return image;
+    }
+    private void refresh(){
+//        multiblocks.components.clear();
+//        for(Multiblock multi : Core.multiblocks){
+//            multiblocks.add(new MenuComponentMultiblock(this, multi));
+//        }
+        String name = Core.metadata.containsKey("Name")?Core.metadata.get("Name"):"";
+        editMetadata.setText(name.isEmpty()?"Edit Metadata":(name+" | Edit Metadata"));
+    }
+    private void convertAndImportMultiblocks(ArrayList<Multiblock> multiblocks){
+        for(Multiblock mb : multiblocks){
+            try{
+                mb.convertTo(Core.configuration);
+            }catch(MissingConfigurationEntryException ex){
+                Core.showWarningDialog("Failed to load multiblock", ex.getMessage()+"\nAre you missing an addon?");
+                continue;
+            }
+            Core.multiblocks.add(mb);
+        }
     }
 }
