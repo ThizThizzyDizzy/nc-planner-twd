@@ -102,6 +102,10 @@ public class MenuMain extends Form{
             });
         }
         Button deleteButton = new Button("Delete Multiblock");
+        deleteButton.getStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
+        deleteButton.getSelectedStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
+        deleteButton.getPressedStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
+        deleteButton.getDisabledStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
         deleteButton.addActionListener((evt) -> {
             if(selectedMultiblock!=null){
                 Dialog.show("Confirm Delete", "Delete "+(selectedMultiblock.getName().isEmpty()?selectedMultiblock.getDefinitionName():selectedMultiblock.getName())+"?", new Command("Delete"){
