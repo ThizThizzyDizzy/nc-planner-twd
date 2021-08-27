@@ -14,6 +14,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.FocusListener;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
@@ -238,9 +239,14 @@ public class MenuMain extends Form{
         multiblocksPane.add(CENTER, multiblocksList);
         Label multiblocksTitle = new Label("Multiblocks");
         multiblocksListHeader.add(CENTER, multiblocksTitle);
-        Button addMultiblock = new Button("+");
-        addMultiblock.getStyle().setPaddingLeft(13);
-        addMultiblock.getStyle().setPaddingRight(13);
+        Button addMultiblock = new Button("+"){
+            @Override
+            protected Dimension calcPreferredSize(){
+                Dimension size = super.calcPreferredSize();
+                size.setWidth(Math.max(size.getWidth(), size.getHeight()));
+                return size;
+            }
+        };
         multiblocksListHeader.add(RIGHT, addMultiblock);
         addMultiblock.addActionListener((evt) -> {
             new MenuAddMultiblock().show();
@@ -327,6 +333,12 @@ public class MenuMain extends Form{
                     g.fillPolygon(new int[]{x+w*2/5, x+w*11/40, x+w/2, x+w*5/8}, new int[]{y+h*29/40, y+h*3/5, y+h*3/8, y+h/2}, 4);
                     g.fillPolygon(new int[]{x+w*21/40, x+w*13/20, x+w*3/4, x+w*5/8}, new int[]{y+h*7/20, y+h*19/40, y+h*3/8, y+h/4}, 4);
                 }
+                @Override
+                protected Dimension calcPreferredSize(){
+                    Dimension size = super.calcPreferredSize();
+                    size.setWidth(Math.max(size.getWidth(), size.getHeight()));
+                    return size;
+                }
             };
             edit.getStyle().setBgColor(Core.theme.getSecondaryComponentColor().getRGB());
             edit.getSelectedStyle().setBgColor(Core.theme.getSecondaryComponentColor().getRGB());
@@ -341,13 +353,10 @@ public class MenuMain extends Form{
             labelHolder.add(label = new Label(multi.getDefinitionName()));
             label.getStyle().setBgTransparency(0);
             add(CENTER, labelHolder);
-            int mg = 18;
+            int mg = edit.getPreferredH()/2;
             edit.getStyle().setMargin(mg, mg, mg, mg);
             edit.getSelectedStyle().setMargin(mg, mg, mg, mg);
             edit.getPressedStyle().setMargin(mg, mg, mg, mg);
-            edit.getStyle().setPadding(6, 6, 16, 16);
-            edit.getSelectedStyle().setPadding(6, 6, 16, 16);
-            edit.getPressedStyle().setPadding(6, 6, 16, 16);
             add(RIGHT, edit);
         }
     }
