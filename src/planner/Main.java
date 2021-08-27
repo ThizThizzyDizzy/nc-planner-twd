@@ -43,8 +43,7 @@ public class Main {
             Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
         });        
     }
-    
-    public void start() {
+    public void start(){
         System.out.println("Loading fonts");
         FileSystemStorage fs = FileSystemStorage.getInstance();
         String f = fs.getAppHomePath()+"/settings.dat";
@@ -112,8 +111,7 @@ public class Main {
         }
         new MenuMain().show();
     }
-
-    public void stop() {
+    public void stop(){
         current = getCurrentForm();
         if(current instanceof Dialog) {
             ((Dialog)current).dispose();
@@ -121,8 +119,7 @@ public class Main {
         }
         save();
     }
-    
-    public void destroy() {
+    public void destroy(){
         save();
     }
     public void save(){
