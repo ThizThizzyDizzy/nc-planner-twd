@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <data name="e2e.ncpf" />
+    <data name="fusion_test.ncpf" />
+    <data name="nuclearcraft.ncpf" />
+    <data name="po3.ncpf" />
+</resource>

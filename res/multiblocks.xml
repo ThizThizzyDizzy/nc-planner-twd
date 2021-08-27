@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="overhaul_msr.png" type="multi"  />
+    <image name="overhaul_sfr.png" type="multi"  />
+    <image name="overhaul_turbine.png" type="multi"  />
+    <image name="underhaul_sfr.png" type="multi"  />
+</resource>

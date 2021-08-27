@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <data name="alloy_heat_sinks.ncpf" />
+    <data name="aop.ncpf" />
+    <data name="bes.ncpf" />
+    <data name="extreme_reactors.ncpf" />
+    <data name="ic2.ncpf" />
+    <data name="inert_matrix_fuels.ncpf" />
+    <data name="moar_fuels.ncpf" />
+    <data name="moar_fuels_lite.ncpf" />
+    <data name="moar_fuels_ultra_lite.ncpf" />
+    <data name="moar_heat_sinks.ncpf" />
+    <data name="moar_reactor_functionality.ncpf" />
+    <data name="nco_confectionery.ncpf" />
+    <data name="ncouto.ncpf" />
+    <data name="nuclear_oil_refining.ncpf" />
+    <data name="nuclear_tree_factory.ncpf" />
+    <data name="qmd.ncpf" />
+    <data name="spicy_heat_sinks_stable.ncpf" />
+    <data name="spicy_heat_sinks_unstable.ncpf" />
+    <data name="thorium_mixed_fuels.ncpf" />
+    <data name="trinity.ncpf" />
+</resource>

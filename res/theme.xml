@@ -1,6 +1,1042 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <theme name="Aluminum">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="586661" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="2a312e" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="586661" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="7f938b" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="bfdcd1" />
+        <val key="Form.bgColor" value="53605b" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="758680" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4871505" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4871505" />
+        <val key="SliderFull.bgColor" value="6a7a74" />
+        <val key="TextField.bgColor" value="6a7a74" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4871505" />
+        <val key="Tooltip.bgColor" value="bfdcd1" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2765102" />
+        <val key="bgColor" value="7f938b" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="586661" />
+        <val key="dis#fgColor" value="2a312e" />
+        <val key="fgColor" value="2a312e" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="586661" />
+        <val key="press#fgColor" value="2a312e" />
+        <val key="sel#bgColor" value="7f938b" />
+        <val key="sel#fgColor" value="2a312e" />
+    </theme>
+    <theme name="Aqua">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="006b6b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="003333" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="006b6b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="009999" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="00e5e5" />
+        <val key="Form.bgColor" value="006464" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="008c8c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22616" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22616" />
+        <val key="SliderFull.bgColor" value="007f7f" />
+        <val key="TextField.bgColor" value="007f7f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22616" />
+        <val key="Tooltip.bgColor" value="00e5e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="13107" />
+        <val key="bgColor" value="009999" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="006b6b" />
+        <val key="dis#fgColor" value="003333" />
+        <val key="fgColor" value="003333" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="006b6b" />
+        <val key="press#fgColor" value="003333" />
+        <val key="sel#bgColor" value="009999" />
+        <val key="sel#fgColor" value="003333" />
+    </theme>
+    <theme name="Arsenic">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="3d3e39" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1d1d1b" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="3d3e39" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="585952" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="84867b" />
+        <val key="Form.bgColor" value="393a35" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="50514b" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3355439" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3355439" />
+        <val key="SliderFull.bgColor" value="494a44" />
+        <val key="TextField.bgColor" value="494a44" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3355439" />
+        <val key="Tooltip.bgColor" value="84867b" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1907995" />
+        <val key="bgColor" value="585952" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="3d3e39" />
+        <val key="dis#fgColor" value="1d1d1b" />
+        <val key="fgColor" value="1d1d1b" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="3d3e39" />
+        <val key="press#fgColor" value="1d1d1b" />
+        <val key="sel#bgColor" value="585952" />
+        <val key="sel#fgColor" value="1d1d1b" />
+    </theme>
+    <theme name="Beryllium">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="646662" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="30302f" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="646662" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="90928d" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="d8dbd4" />
+        <val key="Form.bgColor" value="5e5f5c" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="848681" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526866" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526866" />
+        <val key="SliderFull.bgColor" value="787a76" />
+        <val key="TextField.bgColor" value="787a76" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526866" />
+        <val key="Tooltip.bgColor" value="d8dbd4" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3158063" />
+        <val key="bgColor" value="90928d" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="646662" />
+        <val key="dis#fgColor" value="30302f" />
+        <val key="fgColor" value="30302f" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="646662" />
+        <val key="press#fgColor" value="30302f" />
+        <val key="sel#bgColor" value="90928d" />
+        <val key="sel#fgColor" value="30302f" />
+    </theme>
+    <theme name="Blue">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="00006b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="000033" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="00006b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="000099" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="0000e5" />
+        <val key="Form.bgColor" value="000064" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="00008c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="88" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="88" />
+        <val key="SliderFull.bgColor" value="00007f" />
+        <val key="TextField.bgColor" value="00007f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="88" />
+        <val key="Tooltip.bgColor" value="0000e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="51" />
+        <val key="bgColor" value="000099" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="00006b" />
+        <val key="dis#fgColor" value="000033" />
+        <val key="fgColor" value="000033" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="00006b" />
+        <val key="press#fgColor" value="000033" />
+        <val key="sel#bgColor" value="000099" />
+        <val key="sel#fgColor" value="000033" />
+    </theme>
+    <theme name="Bluish green">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="006b35" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="003319" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="006b35" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="00994c" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="00e572" />
+        <val key="Form.bgColor" value="006432" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="008c45" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22572" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22572" />
+        <val key="SliderFull.bgColor" value="007f3f" />
+        <val key="TextField.bgColor" value="007f3f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22572" />
+        <val key="Tooltip.bgColor" value="00e572" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="13081" />
+        <val key="bgColor" value="00994c" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="006b35" />
+        <val key="dis#fgColor" value="003319" />
+        <val key="fgColor" value="003319" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="006b35" />
+        <val key="press#fgColor" value="003319" />
+        <val key="sel#bgColor" value="00994c" />
+        <val key="sel#fgColor" value="003319" />
+    </theme>
+    <theme name="Boron">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="434343" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="202020" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="434343" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="606060" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="909090" />
+        <val key="Form.bgColor" value="3e3e3e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="585858" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3684408" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3684408" />
+        <val key="SliderFull.bgColor" value="505050" />
+        <val key="TextField.bgColor" value="505050" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3684408" />
+        <val key="Tooltip.bgColor" value="909090" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2105376" />
+        <val key="bgColor" value="606060" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="434343" />
+        <val key="dis#fgColor" value="202020" />
+        <val key="fgColor" value="202020" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="434343" />
+        <val key="press#fgColor" value="202020" />
+        <val key="sel#bgColor" value="606060" />
+        <val key="sel#fgColor" value="202020" />
+    </theme>
+    <theme name="Carobbiite">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="434622" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="202110" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="434622" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="606431" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="909649" />
+        <val key="Form.bgColor" value="3e4120" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="585b2d" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3684892" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3684892" />
+        <val key="SliderFull.bgColor" value="505329" />
+        <val key="TextField.bgColor" value="505329" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3684892" />
+        <val key="Tooltip.bgColor" value="909649" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2105616" />
+        <val key="bgColor" value="606431" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="434622" />
+        <val key="dis#fgColor" value="202110" />
+        <val key="fgColor" value="202110" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="434622" />
+        <val key="press#fgColor" value="202110" />
+        <val key="sel#bgColor" value="606431" />
+        <val key="sel#fgColor" value="202110" />
+    </theme>
+    <theme name="Chocolate">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="280800" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="130400" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="280800" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="3a0c00" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="571200" />
+        <val key="Form.bgColor" value="260700" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="350b00" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2164480" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2164480" />
+        <val key="SliderFull.bgColor" value="300a00" />
+        <val key="TextField.bgColor" value="300a00" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2164480" />
+        <val key="Tooltip.bgColor" value="571200" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1246208" />
+        <val key="bgColor" value="3a0c00" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="280800" />
+        <val key="dis#fgColor" value="130400" />
+        <val key="fgColor" value="130400" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="280800" />
+        <val key="press#fgColor" value="130400" />
+        <val key="sel#bgColor" value="3a0c00" />
+        <val key="sel#fgColor" value="130400" />
+    </theme>
+    <theme name="Conductor">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="353535" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="191919" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="353535" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4d4d4d" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="747474" />
+        <val key="Form.bgColor" value="323232" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="464646" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <val key="SliderFull.bgColor" value="404040" />
+        <val key="TextField.bgColor" value="404040" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <val key="Tooltip.bgColor" value="747474" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1644825" />
+        <val key="bgColor" value="4d4d4d" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="353535" />
+        <val key="dis#fgColor" value="191919" />
+        <val key="fgColor" value="191919" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="353535" />
+        <val key="press#fgColor" value="191919" />
+        <val key="sel#bgColor" value="4d4d4d" />
+        <val key="sel#fgColor" value="191919" />
+    </theme>
+    <theme name="Copper">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="5d3e2d" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="2c1e15" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="5d3e2d" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="855a41" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="c78762" />
+        <val key="Form.bgColor" value="573b2a" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="7a533b" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5059621" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5059621" />
+        <val key="SliderFull.bgColor" value="6f4b36" />
+        <val key="TextField.bgColor" value="6f4b36" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5059621" />
+        <val key="Tooltip.bgColor" value="c78762" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2891285" />
+        <val key="bgColor" value="855a41" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="5d3e2d" />
+        <val key="dis#fgColor" value="2c1e15" />
+        <val key="fgColor" value="2c1e15" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="5d3e2d" />
+        <val key="press#fgColor" value="2c1e15" />
+        <val key="sel#bgColor" value="855a41" />
+        <val key="sel#fgColor" value="2c1e15" />
+    </theme>
+    <theme name="Cracker">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="54431a" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="28200c" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="54431a" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="786126" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="b49239" />
+        <val key="Form.bgColor" value="4e3f19" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="6e5923" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4601878" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4601878" />
+        <val key="SliderFull.bgColor" value="645120" />
+        <val key="TextField.bgColor" value="645120" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4601878" />
+        <val key="Tooltip.bgColor" value="b49239" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2629644" />
+        <val key="bgColor" value="786126" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="54431a" />
+        <val key="dis#fgColor" value="28200c" />
+        <val key="fgColor" value="28200c" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="54431a" />
+        <val key="press#fgColor" value="28200c" />
+        <val key="sel#bgColor" value="786126" />
+        <val key="sel#fgColor" value="28200c" />
+    </theme>
+    <theme name="Cryotheum">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="003e51" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="001e26" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="003e51" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="005a74" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="0087ae" />
+        <val key="Form.bgColor" value="003a4c" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="00526a" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="13379" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="13379" />
+        <val key="SliderFull.bgColor" value="004b61" />
+        <val key="TextField.bgColor" value="004b61" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="13379" />
+        <val key="Tooltip.bgColor" value="0087ae" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="7718" />
+        <val key="bgColor" value="005a74" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="003e51" />
+        <val key="dis#fgColor" value="001e26" />
+        <val key="fgColor" value="001e26" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="003e51" />
+        <val key="press#fgColor" value="001e26" />
+        <val key="sel#bgColor" value="005a74" />
+        <val key="sel#fgColor" value="001e26" />
+    </theme>
+    <theme name="Diamond">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="38605e" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1b2e2d" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="38605e" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="518a87" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="7acfcb" />
+        <val key="Form.bgColor" value="355a58" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="4a7e7c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3100751" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3100751" />
+        <val key="SliderFull.bgColor" value="447371" />
+        <val key="TextField.bgColor" value="447371" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3100751" />
+        <val key="Tooltip.bgColor" value="7acfcb" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1781293" />
+        <val key="bgColor" value="518a87" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="38605e" />
+        <val key="dis#fgColor" value="1b2e2d" />
+        <val key="fgColor" value="1b2e2d" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="38605e" />
+        <val key="press#fgColor" value="1b2e2d" />
+        <val key="sel#bgColor" value="518a87" />
+        <val key="sel#fgColor" value="1b2e2d" />
+    </theme>
+    <theme name="Emerald">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="225c31" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="102c17" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="225c31" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="318447" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="49c66b" />
+        <val key="Form.bgColor" value="20562e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="2d7941" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1854761" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1854761" />
+        <val key="SliderFull.bgColor" value="296e3b" />
+        <val key="TextField.bgColor" value="296e3b" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1854761" />
+        <val key="Tooltip.bgColor" value="49c66b" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1059863" />
+        <val key="bgColor" value="318447" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="225c31" />
+        <val key="dis#fgColor" value="102c17" />
+        <val key="fgColor" value="102c17" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="225c31" />
+        <val key="press#fgColor" value="102c17" />
+        <val key="sel#bgColor" value="318447" />
+        <val key="sel#fgColor" value="102c17" />
+    </theme>
+    <theme name="End Stone">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="5e5f47" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="2d2d22" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="5e5f47" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="878866" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="cacd99" />
+        <val key="Form.bgColor" value="585942" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="7b7d5d" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5132091" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5132091" />
+        <val key="SliderFull.bgColor" value="707255" />
+        <val key="TextField.bgColor" value="707255" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5132091" />
+        <val key="Tooltip.bgColor" value="cacd99" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2960674" />
+        <val key="bgColor" value="878866" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="5e5f47" />
+        <val key="dis#fgColor" value="2d2d22" />
+        <val key="fgColor" value="2d2d22" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="5e5f47" />
+        <val key="press#fgColor" value="2d2d22" />
+        <val key="sel#bgColor" value="878866" />
+        <val key="sel#fgColor" value="2d2d22" />
+    </theme>
+    <theme name="Enderium">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="001d1f" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="000e0f" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="001d1f" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="002a2d" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="003f43" />
+        <val key="Form.bgColor" value="001b1d" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="002729" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="6169" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="6169" />
+        <val key="SliderFull.bgColor" value="002325" />
+        <val key="TextField.bgColor" value="002325" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="6169" />
+        <val key="Tooltip.bgColor" value="003f43" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3599" />
+        <val key="bgColor" value="002a2d" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="001d1f" />
+        <val key="dis#fgColor" value="000e0f" />
+        <val key="fgColor" value="000e0f" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="001d1f" />
+        <val key="press#fgColor" value="000e0f" />
+        <val key="sel#bgColor" value="002a2d" />
+        <val key="sel#fgColor" value="000e0f" />
+    </theme>
+    <theme name="Fluorite">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="37433b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1a201c" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="37433b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4f6055" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="76907f" />
+        <val key="Form.bgColor" value="333e37" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="48584e" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3029041" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3029041" />
+        <val key="SliderFull.bgColor" value="425047" />
+        <val key="TextField.bgColor" value="425047" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3029041" />
+        <val key="Tooltip.bgColor" value="76907f" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1712156" />
+        <val key="bgColor" value="4f6055" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="37433b" />
+        <val key="dis#fgColor" value="1a201c" />
+        <val key="fgColor" value="1a201c" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="37433b" />
+        <val key="press#fgColor" value="1a201c" />
+        <val key="sel#bgColor" value="4f6055" />
+        <val key="sel#fgColor" value="1a201c" />
+    </theme>
+    <theme name="Glowstone">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="3b311c" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1c170d" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="3b311c" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="554628" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="80693d" />
+        <val key="Form.bgColor" value="382d1a" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="4e4025" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3221527" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3221527" />
+        <val key="SliderFull.bgColor" value="473a22" />
+        <val key="TextField.bgColor" value="473a22" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3221527" />
+        <val key="Tooltip.bgColor" value="80693d" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1840909" />
+        <val key="bgColor" value="554628" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="3b311c" />
+        <val key="dis#fgColor" value="1c170d" />
+        <val key="fgColor" value="1c170d" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="3b311c" />
+        <val key="press#fgColor" value="1c170d" />
+        <val key="sel#bgColor" value="554628" />
+        <val key="sel#fgColor" value="1c170d" />
+    </theme>
+    <theme name="Gold">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6a6823" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="323111" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6a6823" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="989533" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e4e04c" />
+        <val key="Form.bgColor" value="636121" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8b882e" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789213" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789213" />
+        <val key="SliderFull.bgColor" value="7f7c2a" />
+        <val key="TextField.bgColor" value="7f7c2a" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789213" />
+        <val key="Tooltip.bgColor" value="e4e04c" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3289361" />
+        <val key="bgColor" value="989533" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6a6823" />
+        <val key="dis#fgColor" value="323111" />
+        <val key="fgColor" value="323111" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6a6823" />
+        <val key="press#fgColor" value="323111" />
+        <val key="sel#bgColor" value="989533" />
+        <val key="sel#fgColor" value="323111" />
+    </theme>
+    <theme name="Graphite">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="070707" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="030303" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="070707" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="0a0a0a" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="101010" />
+        <val key="Form.bgColor" value="070707" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="090909" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="394758" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="394758" />
+        <val key="SliderFull.bgColor" value="090909" />
+        <val key="TextField.bgColor" value="090909" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="394758" />
+        <val key="Tooltip.bgColor" value="101010" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="197379" />
+        <val key="bgColor" value="0a0a0a" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="070707" />
+        <val key="dis#fgColor" value="030303" />
+        <val key="fgColor" value="030303" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="070707" />
+        <val key="press#fgColor" value="030303" />
+        <val key="sel#bgColor" value="0a0a0a" />
+        <val key="sel#fgColor" value="030303" />
+    </theme>
+    <theme name="Green">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="006b00" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="003300" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="006b00" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="009900" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="00e500" />
+        <val key="Form.bgColor" value="006400" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="008c00" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22528" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22528" />
+        <val key="SliderFull.bgColor" value="007f00" />
+        <val key="TextField.bgColor" value="007f00" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22528" />
+        <val key="Tooltip.bgColor" value="00e500" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="13056" />
+        <val key="bgColor" value="009900" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="006b00" />
+        <val key="dis#fgColor" value="003300" />
+        <val key="fgColor" value="003300" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="006b00" />
+        <val key="press#fgColor" value="003300" />
+        <val key="sel#bgColor" value="009900" />
+        <val key="sel#fgColor" value="003300" />
+    </theme>
+    <theme name="Greenish Blue">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="00356b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="001933" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="00356b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="004c99" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="0072e5" />
+        <val key="Form.bgColor" value="003264" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="00458c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="11352" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="11352" />
+        <val key="SliderFull.bgColor" value="003f7f" />
+        <val key="TextField.bgColor" value="003f7f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="11352" />
+        <val key="Tooltip.bgColor" value="0072e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="6451" />
+        <val key="bgColor" value="004c99" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="00356b" />
+        <val key="dis#fgColor" value="001933" />
+        <val key="fgColor" value="001933" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="00356b" />
+        <val key="press#fgColor" value="001933" />
+        <val key="sel#bgColor" value="004c99" />
+        <val key="sel#fgColor" value="001933" />
+    </theme>
+    <theme name="Heavy Water">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="2a1d58" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="140e2a" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="2a1d58" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="3d2a7e" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="5c3fbd" />
+        <val key="Form.bgColor" value="281b52" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="382773" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2299977" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2299977" />
+        <val key="SliderFull.bgColor" value="332369" />
+        <val key="TextField.bgColor" value="332369" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2299977" />
+        <val key="Tooltip.bgColor" value="5c3fbd" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1314346" />
+        <val key="bgColor" value="3d2a7e" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="2a1d58" />
+        <val key="dis#fgColor" value="140e2a" />
+        <val key="fgColor" value="140e2a" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="2a1d58" />
+        <val key="press#fgColor" value="140e2a" />
+        <val key="sel#bgColor" value="3d2a7e" />
+        <val key="sel#fgColor" value="140e2a" />
+    </theme>
+    <theme name="Helium">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="541f1e" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="280f0e" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="541f1e" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="782d2b" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="b44441" />
+        <val key="Form.bgColor" value="4e1d1c" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="6e2928" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4594201" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4594201" />
+        <val key="SliderFull.bgColor" value="642624" />
+        <val key="TextField.bgColor" value="642624" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4594201" />
+        <val key="Tooltip.bgColor" value="b44441" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2625294" />
+        <val key="bgColor" value="782d2b" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="541f1e" />
+        <val key="dis#fgColor" value="280f0e" />
+        <val key="fgColor" value="280f0e" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="541f1e" />
+        <val key="press#fgColor" value="280f0e" />
+        <val key="sel#bgColor" value="782d2b" />
+        <val key="sel#fgColor" value="280f0e" />
+    </theme>
+    <theme name="Iron">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="5f5f5f" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="2d2d2d" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="5f5f5f" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="898989" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="cecece" />
+        <val key="Form.bgColor" value="595959" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="7d7d7d" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5197647" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5197647" />
+        <val key="SliderFull.bgColor" value="727272" />
+        <val key="TextField.bgColor" value="727272" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5197647" />
+        <val key="Tooltip.bgColor" value="cecece" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2960685" />
+        <val key="bgColor" value="898989" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="5f5f5f" />
+        <val key="dis#fgColor" value="2d2d2d" />
+        <val key="fgColor" value="2d2d2d" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="5f5f5f" />
+        <val key="press#fgColor" value="2d2d2d" />
+        <val key="sel#bgColor" value="898989" />
+        <val key="sel#fgColor" value="2d2d2d" />
+    </theme>
+    <theme name="Lapis">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="0f1b3a" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="070d1b" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="0f1b3a" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="162753" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="213a7d" />
+        <val key="Form.bgColor" value="0e1936" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="14234c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="792112" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="792112" />
+        <val key="SliderFull.bgColor" value="122045" />
+        <val key="TextField.bgColor" value="122045" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="792112" />
+        <val key="Tooltip.bgColor" value="213a7d" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="462107" />
+        <val key="bgColor" value="162753" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="0f1b3a" />
+        <val key="dis#fgColor" value="070d1b" />
+        <val key="fgColor" value="070d1b" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="0f1b3a" />
+        <val key="press#fgColor" value="070d1b" />
+        <val key="sel#bgColor" value="162753" />
+        <val key="sel#fgColor" value="070d1b" />
+    </theme>
+    <theme name="Lead">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="1b2020" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="0d0f0f" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="1b2020" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="272e2e" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="3a4545" />
+        <val key="Form.bgColor" value="191e1e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="232a2a" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1448474" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1448474" />
+        <val key="SliderFull.bgColor" value="202626" />
+        <val key="TextField.bgColor" value="202626" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1448474" />
+        <val key="Tooltip.bgColor" value="3a4545" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="855823" />
+        <val key="bgColor" value="272e2e" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="1b2020" />
+        <val key="dis#fgColor" value="0d0f0f" />
+        <val key="fgColor" value="0d0f0f" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="1b2020" />
+        <val key="press#fgColor" value="0d0f0f" />
+        <val key="sel#bgColor" value="272e2e" />
+        <val key="sel#fgColor" value="0d0f0f" />
+    </theme>
     <theme name="Light">
         <val key="Button.align" value="4" />
         <border key="Button.border" type="empty" />
@@ -10,20 +1046,20 @@
         <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
         <val key="Button.press#bgColor" value="6b6b6b" />
         <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
         <val key="Button.sel#align" value="4" />
         <val key="Button.sel#bgColor" value="999999" />
         <border key="Button.sel#border" type="empty" />
         <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
         <val key="DialogTitle.bgColor" value="e5e5e5" />
         <val key="Form.bgColor" value="646464" />
+        <val key="Label.align" value="4" />
         <val key="Label.bgColor" value="8c8c8c" />
-        <val key="MultiButton.dis#bgColor" value="6b6b6b" />
-        <val key="MultiButton.press#bgColor" value="6b6b6b" />
-        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5855577" />
-        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5855577" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789784" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789784" />
         <val key="SliderFull.bgColor" value="7f7f7f" />
         <val key="TextField.bgColor" value="7f7f7f" />
-        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5855577" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789784" />
         <val key="Tooltip.bgColor" value="e5e5e5" />
         <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3355443" />
         <val key="bgColor" value="999999" />
@@ -37,5 +1073,1004 @@
         <val key="press#fgColor" value="333333" />
         <val key="sel#bgColor" value="999999" />
         <val key="sel#fgColor" value="333333" />
+    </theme>
+    <theme name="Light Pink">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b2e53" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="331627" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b2e53" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="994277" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e563b3" />
+        <val key="Form.bgColor" value="642b4e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c3c6d" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5776965" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5776965" />
+        <val key="SliderFull.bgColor" value="7f3763" />
+        <val key="TextField.bgColor" value="7f3763" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5776965" />
+        <val key="Tooltip.bgColor" value="e563b3" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3348007" />
+        <val key="bgColor" value="994277" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b2e53" />
+        <val key="dis#fgColor" value="331627" />
+        <val key="fgColor" value="331627" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b2e53" />
+        <val key="press#fgColor" value="331627" />
+        <val key="sel#bgColor" value="994277" />
+        <val key="sel#fgColor" value="331627" />
+    </theme>
+    <theme name="Light, but darker">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="353535" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="191919" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="353535" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4c4c4c" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="727272" />
+        <val key="Form.bgColor" value="323232" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="454545" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <val key="SliderFull.bgColor" value="3f3f3f" />
+        <val key="TextField.bgColor" value="3f3f3f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <val key="Tooltip.bgColor" value="727272" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1644825" />
+        <val key="bgColor" value="4c4c4c" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="353535" />
+        <val key="dis#fgColor" value="191919" />
+        <val key="fgColor" value="191919" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="353535" />
+        <val key="press#fgColor" value="191919" />
+        <val key="sel#bgColor" value="4c4c4c" />
+        <val key="sel#fgColor" value="191919" />
+    </theme>
+    <theme name="Lime">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="356b00" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="193300" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="356b00" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4c9900" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="72e500" />
+        <val key="Form.bgColor" value="326400" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="458c00" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2906112" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2906112" />
+        <val key="SliderFull.bgColor" value="3f7f00" />
+        <val key="TextField.bgColor" value="3f7f00" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2906112" />
+        <val key="Tooltip.bgColor" value="72e500" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1651456" />
+        <val key="bgColor" value="4c9900" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="356b00" />
+        <val key="dis#fgColor" value="193300" />
+        <val key="fgColor" value="193300" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="356b00" />
+        <val key="press#fgColor" value="193300" />
+        <val key="sel#bgColor" value="4c9900" />
+        <val key="sel#fgColor" value="193300" />
+    </theme>
+    <theme name="Lithium">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="646464" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="303030" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="646464" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="909090" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="d8d8d8" />
+        <val key="Form.bgColor" value="5e5e5e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="848484" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526612" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526612" />
+        <val key="SliderFull.bgColor" value="787878" />
+        <val key="TextField.bgColor" value="787878" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526612" />
+        <val key="Tooltip.bgColor" value="d8d8d8" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3158064" />
+        <val key="bgColor" value="909090" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="646464" />
+        <val key="dis#fgColor" value="303030" />
+        <val key="fgColor" value="303030" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="646464" />
+        <val key="press#fgColor" value="303030" />
+        <val key="sel#bgColor" value="909090" />
+        <val key="sel#fgColor" value="303030" />
+    </theme>
+    <theme name="Magenta">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b006b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="330033" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b006b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="990099" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e500e5" />
+        <val key="Form.bgColor" value="640064" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c008c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767256" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767256" />
+        <val key="SliderFull.bgColor" value="7f007f" />
+        <val key="TextField.bgColor" value="7f007f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767256" />
+        <val key="Tooltip.bgColor" value="e500e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3342387" />
+        <val key="bgColor" value="990099" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b006b" />
+        <val key="dis#fgColor" value="330033" />
+        <val key="fgColor" value="330033" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b006b" />
+        <val key="press#fgColor" value="330033" />
+        <val key="sel#bgColor" value="990099" />
+        <val key="sel#fgColor" value="330033" />
+    </theme>
+    <theme name="Magnesium">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="655c5f" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="302c2d" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="655c5f" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="918489" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="d9c6ce" />
+        <val key="Form.bgColor" value="5e5659" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="85797d" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5524815" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5524815" />
+        <val key="SliderFull.bgColor" value="796e72" />
+        <val key="TextField.bgColor" value="796e72" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5524815" />
+        <val key="Tooltip.bgColor" value="d9c6ce" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3157037" />
+        <val key="bgColor" value="918489" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="655c5f" />
+        <val key="dis#fgColor" value="302c2d" />
+        <val key="fgColor" value="302c2d" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="655c5f" />
+        <val key="press#fgColor" value="302c2d" />
+        <val key="sel#bgColor" value="918489" />
+        <val key="sel#fgColor" value="302c2d" />
+    </theme>
+    <theme name="Manganese">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="484954" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="222328" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="484954" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="676978" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="9b9eb4" />
+        <val key="Form.bgColor" value="43454e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="5f606e" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3947846" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3947846" />
+        <val key="SliderFull.bgColor" value="565864" />
+        <val key="TextField.bgColor" value="565864" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3947846" />
+        <val key="Tooltip.bgColor" value="9b9eb4" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2237224" />
+        <val key="bgColor" value="676978" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="484954" />
+        <val key="dis#fgColor" value="222328" />
+        <val key="fgColor" value="222328" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="484954" />
+        <val key="press#fgColor" value="222328" />
+        <val key="sel#bgColor" value="676978" />
+        <val key="sel#fgColor" value="222328" />
+    </theme>
+    <theme name="Marshmallow">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="676767" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="313131" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="676767" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="949494" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="dfdfdf" />
+        <val key="Form.bgColor" value="616161" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="888888" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5658198" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5658198" />
+        <val key="SliderFull.bgColor" value="7c7c7c" />
+        <val key="TextField.bgColor" value="7c7c7c" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5658198" />
+        <val key="Tooltip.bgColor" value="dfdfdf" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3223857" />
+        <val key="bgColor" value="949494" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="676767" />
+        <val key="dis#fgColor" value="313131" />
+        <val key="fgColor" value="313131" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="676767" />
+        <val key="press#fgColor" value="313131" />
+        <val key="sel#bgColor" value="949494" />
+        <val key="sel#fgColor" value="313131" />
+    </theme>
+    <theme name="Nether Brick">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="1c0102" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="0d0001" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="1c0102" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="280204" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="3d0306" />
+        <val key="Form.bgColor" value="1a0102" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="250203" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1507586" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1507586" />
+        <val key="SliderFull.bgColor" value="220203" />
+        <val key="TextField.bgColor" value="220203" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1507586" />
+        <val key="Tooltip.bgColor" value="3d0306" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="851969" />
+        <val key="bgColor" value="280204" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="1c0102" />
+        <val key="dis#fgColor" value="0d0001" />
+        <val key="fgColor" value="0d0001" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="1c0102" />
+        <val key="press#fgColor" value="0d0001" />
+        <val key="sel#bgColor" value="280204" />
+        <val key="sel#fgColor" value="0d0001" />
+    </theme>
+    <theme name="Nitrogen">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="1a451d" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="0c210e" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="1a451d" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="26632a" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="39953f" />
+        <val key="Form.bgColor" value="19411b" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="235b26" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1456664" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1456664" />
+        <val key="SliderFull.bgColor" value="205323" />
+        <val key="TextField.bgColor" value="205323" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1456664" />
+        <val key="Tooltip.bgColor" value="39953f" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="794894" />
+        <val key="bgColor" value="26632a" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="1a451d" />
+        <val key="dis#fgColor" value="0c210e" />
+        <val key="fgColor" value="0c210e" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="1a451d" />
+        <val key="press#fgColor" value="0c210e" />
+        <val key="sel#bgColor" value="26632a" />
+        <val key="sel#fgColor" value="0c210e" />
+    </theme>
+    <theme name="Obsidian">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="08070c" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="040306" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="08070c" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="0c0a12" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="12101b" />
+        <val key="Form.bgColor" value="07070b" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="0b0910" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="460298" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="460298" />
+        <val key="SliderFull.bgColor" value="0a090f" />
+        <val key="TextField.bgColor" value="0a090f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="460298" />
+        <val key="Tooltip.bgColor" value="12101b" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="262918" />
+        <val key="bgColor" value="0c0a12" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="08070c" />
+        <val key="dis#fgColor" value="040306" />
+        <val key="fgColor" value="040306" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="08070c" />
+        <val key="press#fgColor" value="040306" />
+        <val key="sel#bgColor" value="0c0a12" />
+        <val key="sel#fgColor" value="040306" />
+    </theme>
+    <theme name="Old Heavy Water">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="35356b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="191933" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="35356b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4c4c99" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="7272e5" />
+        <val key="Form.bgColor" value="283264" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="45458c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894936" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894936" />
+        <val key="SliderFull.bgColor" value="3f3f7f" />
+        <val key="TextField.bgColor" value="3f3f7f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894936" />
+        <val key="Tooltip.bgColor" value="7272e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1644851" />
+        <val key="bgColor" value="4c4c99" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="35356b" />
+        <val key="dis#fgColor" value="191933" />
+        <val key="fgColor" value="191933" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="35356b" />
+        <val key="press#fgColor" value="191933" />
+        <val key="sel#bgColor" value="4c4c99" />
+        <val key="sel#fgColor" value="191933" />
+    </theme>
+    <theme name="Orange">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b3500" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="331900" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b3500" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="994c00" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e57200" />
+        <val key="Form.bgColor" value="643200" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c4500" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5778432" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5778432" />
+        <val key="SliderFull.bgColor" value="7f3f00" />
+        <val key="TextField.bgColor" value="7f3f00" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5778432" />
+        <val key="Tooltip.bgColor" value="e57200" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3348736" />
+        <val key="bgColor" value="994c00" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b3500" />
+        <val key="dis#fgColor" value="331900" />
+        <val key="fgColor" value="331900" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b3500" />
+        <val key="press#fgColor" value="331900" />
+        <val key="sel#bgColor" value="994c00" />
+        <val key="sel#fgColor" value="331900" />
+    </theme>
+    <theme name="Pink">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b0035" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="330019" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b0035" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="99004c" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e50072" />
+        <val key="Form.bgColor" value="640032" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c0045" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767212" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767212" />
+        <val key="SliderFull.bgColor" value="7f003f" />
+        <val key="TextField.bgColor" value="7f003f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767212" />
+        <val key="Tooltip.bgColor" value="e50072" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3342361" />
+        <val key="bgColor" value="99004c" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b0035" />
+        <val key="dis#fgColor" value="330019" />
+        <val key="fgColor" value="330019" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b0035" />
+        <val key="press#fgColor" value="330019" />
+        <val key="sel#bgColor" value="99004c" />
+        <val key="sel#fgColor" value="330019" />
+    </theme>
+    <theme name="Prismarine">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="2a433c" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="14201c" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="2a433c" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="3c6156" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="5a9181" />
+        <val key="Form.bgColor" value="273f38" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="37594f" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2308146" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2308146" />
+        <val key="SliderFull.bgColor" value="325148" />
+        <val key="TextField.bgColor" value="325148" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2308146" />
+        <val key="Tooltip.bgColor" value="5a9181" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1318940" />
+        <val key="bgColor" value="3c6156" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="2a433c" />
+        <val key="dis#fgColor" value="14201c" />
+        <val key="fgColor" value="14201c" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="2a433c" />
+        <val key="press#fgColor" value="14201c" />
+        <val key="sel#bgColor" value="3c6156" />
+        <val key="sel#fgColor" value="14201c" />
+    </theme>
+    <theme name="Purple">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="35006b" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="190033" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="35006b" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="4c0099" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="7200e5" />
+        <val key="Form.bgColor" value="320064" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="45008c" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2883672" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2883672" />
+        <val key="SliderFull.bgColor" value="3f007f" />
+        <val key="TextField.bgColor" value="3f007f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2883672" />
+        <val key="Tooltip.bgColor" value="7200e5" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1638451" />
+        <val key="bgColor" value="4c0099" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="35006b" />
+        <val key="dis#fgColor" value="190033" />
+        <val key="fgColor" value="190033" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="35006b" />
+        <val key="press#fgColor" value="190033" />
+        <val key="sel#bgColor" value="4c0099" />
+        <val key="sel#fgColor" value="190033" />
+    </theme>
+    <theme name="Purpur">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="453245" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="211821" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="453245" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="634863" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="946c94" />
+        <val key="Form.bgColor" value="402f40" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="5a425a" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3746361" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3746361" />
+        <val key="SliderFull.bgColor" value="523c52" />
+        <val key="TextField.bgColor" value="523c52" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3746361" />
+        <val key="Tooltip.bgColor" value="946c94" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2168865" />
+        <val key="bgColor" value="634863" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="453245" />
+        <val key="dis#fgColor" value="211821" />
+        <val key="fgColor" value="211821" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="453245" />
+        <val key="press#fgColor" value="211821" />
+        <val key="sel#bgColor" value="634863" />
+        <val key="sel#fgColor" value="211821" />
+    </theme>
+    <theme name="Quartz">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="454443" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="212020" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="454443" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="636260" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="959390" />
+        <val key="Form.bgColor" value="41403e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="5b5a58" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3815736" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3815736" />
+        <val key="SliderFull.bgColor" value="535250" />
+        <val key="TextField.bgColor" value="535250" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3815736" />
+        <val key="Tooltip.bgColor" value="959390" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2170912" />
+        <val key="bgColor" value="636260" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="454443" />
+        <val key="dis#fgColor" value="212020" />
+        <val key="fgColor" value="212020" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="454443" />
+        <val key="press#fgColor" value="212020" />
+        <val key="sel#bgColor" value="636260" />
+        <val key="sel#fgColor" value="212020" />
+    </theme>
+    <theme name="Red">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b0000" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="330000" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b0000" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="990000" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e50000" />
+        <val key="Form.bgColor" value="640000" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c0000" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767168" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767168" />
+        <val key="SliderFull.bgColor" value="7f0000" />
+        <val key="TextField.bgColor" value="7f0000" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767168" />
+        <val key="Tooltip.bgColor" value="e50000" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3342336" />
+        <val key="bgColor" value="990000" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b0000" />
+        <val key="dis#fgColor" value="330000" />
+        <val key="fgColor" value="330000" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b0000" />
+        <val key="press#fgColor" value="330000" />
+        <val key="sel#bgColor" value="990000" />
+        <val key="sel#fgColor" value="330000" />
+    </theme>
+    <theme name="Redstone">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="3c0602" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1c0301" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="3c0602" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="560904" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="810e07" />
+        <val key="Form.bgColor" value="380603" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="4f0804" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3278082" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3278082" />
+        <val key="SliderFull.bgColor" value="480804" />
+        <val key="TextField.bgColor" value="480804" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3278082" />
+        <val key="Tooltip.bgColor" value="810e07" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1835777" />
+        <val key="bgColor" value="560904" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="3c0602" />
+        <val key="dis#fgColor" value="1c0301" />
+        <val key="fgColor" value="1c0301" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="3c0602" />
+        <val key="press#fgColor" value="1c0301" />
+        <val key="sel#bgColor" value="560904" />
+        <val key="sel#fgColor" value="1c0301" />
+    </theme>
+    <theme name="Reflector">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="4d3c27" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="251c12" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="4d3c27" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="6f5638" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="a78154" />
+        <val key="Form.bgColor" value="483824" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="664f33" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4272672" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4272672" />
+        <val key="SliderFull.bgColor" value="5d482f" />
+        <val key="TextField.bgColor" value="5d482f" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4272672" />
+        <val key="Tooltip.bgColor" value="a78154" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2432018" />
+        <val key="bgColor" value="6f5638" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="4d3c27" />
+        <val key="dis#fgColor" value="251c12" />
+        <val key="fgColor" value="251c12" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="4d3c27" />
+        <val key="press#fgColor" value="251c12" />
+        <val key="sel#bgColor" value="6f5638" />
+        <val key="sel#fgColor" value="251c12" />
+    </theme>
+    <theme name="Silver">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="646366" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="302f31" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="646366" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="908e93" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="d8d6dd" />
+        <val key="Form.bgColor" value="5e5d60" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="848287" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526358" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526358" />
+        <val key="SliderFull.bgColor" value="78777b" />
+        <val key="TextField.bgColor" value="78777b" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526358" />
+        <val key="Tooltip.bgColor" value="d8d6dd" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3157809" />
+        <val key="bgColor" value="908e93" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="646366" />
+        <val key="dis#fgColor" value="302f31" />
+        <val key="fgColor" value="302f31" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="646366" />
+        <val key="press#fgColor" value="302f31" />
+        <val key="sel#bgColor" value="908e93" />
+        <val key="sel#fgColor" value="302f31" />
+    </theme>
+    <theme name="Slime">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="314e2a" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="172514" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="314e2a" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="47703c" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="6ba85a" />
+        <val key="Form.bgColor" value="2e4927" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="416637" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2703651" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2703651" />
+        <val key="SliderFull.bgColor" value="3b5d32" />
+        <val key="TextField.bgColor" value="3b5d32" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2703651" />
+        <val key="Tooltip.bgColor" value="6ba85a" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1516820" />
+        <val key="bgColor" value="47703c" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="314e2a" />
+        <val key="dis#fgColor" value="172514" />
+        <val key="fgColor" value="172514" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="314e2a" />
+        <val key="press#fgColor" value="172514" />
+        <val key="sel#bgColor" value="47703c" />
+        <val key="sel#fgColor" value="172514" />
+    </theme>
+    <theme name="Tin">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="5d5e65" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="2c2d30" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="5d5e65" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="858791" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="c7cad9" />
+        <val key="Form.bgColor" value="57585e" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="7a7b85" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5066324" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5066324" />
+        <val key="SliderFull.bgColor" value="6f7079" />
+        <val key="TextField.bgColor" value="6f7079" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5066324" />
+        <val key="Tooltip.bgColor" value="c7cad9" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="2895152" />
+        <val key="bgColor" value="858791" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="5d5e65" />
+        <val key="dis#fgColor" value="2c2d30" />
+        <val key="fgColor" value="2c2d30" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="5d5e65" />
+        <val key="press#fgColor" value="2c2d30" />
+        <val key="sel#bgColor" value="858791" />
+        <val key="sel#fgColor" value="2c2d30" />
+    </theme>
+    <theme name="Villiaumite">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="402d28" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="1e1513" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="402d28" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="5c413a" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="8a6257" />
+        <val key="Form.bgColor" value="3c2a26" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="543b35" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3482913" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3482913" />
+        <val key="SliderFull.bgColor" value="4d3630" />
+        <val key="TextField.bgColor" value="4d3630" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3482913" />
+        <val key="Tooltip.bgColor" value="8a6257" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="1971475" />
+        <val key="bgColor" value="5c413a" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="402d28" />
+        <val key="dis#fgColor" value="1e1513" />
+        <val key="fgColor" value="1e1513" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="402d28" />
+        <val key="press#fgColor" value="1e1513" />
+        <val key="sel#bgColor" value="5c413a" />
+        <val key="sel#fgColor" value="1e1513" />
+    </theme>
+    <theme name="Water">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="1a2054" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="0c0f28" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="1a2054" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="262e79" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="3946b6" />
+        <val key="Form.bgColor" value="191e4f" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="232a6f" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1448774" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1448774" />
+        <val key="SliderFull.bgColor" value="202765" />
+        <val key="TextField.bgColor" value="202765" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1448774" />
+        <val key="Tooltip.bgColor" value="3946b6" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="790312" />
+        <val key="bgColor" value="262e79" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="1a2054" />
+        <val key="dis#fgColor" value="0c0f28" />
+        <val key="fgColor" value="0c0f28" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="1a2054" />
+        <val key="press#fgColor" value="0c0f28" />
+        <val key="sel#bgColor" value="262e79" />
+        <val key="sel#fgColor" value="0c0f28" />
+    </theme>
+    <theme name="Yellow">
+        <val key="Button.align" value="4" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.dis#bgColor" value="6b6b00" />
+        <border key="Button.dis#border" type="empty" />
+        <val key="Button.dis#fgColor" value="333300" />
+        <val key="Button.padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.press#bgColor" value="6b6b00" />
+        <border key="Button.press#border" type="empty" />
+        <val key="Button.press#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="Button.sel#align" value="4" />
+        <val key="Button.sel#bgColor" value="999900" />
+        <border key="Button.sel#border" type="empty" />
+        <val key="Button.sel#padding" value="6.0,6.0,6.0,6.0" />
+        <val key="DialogTitle.bgColor" value="e5e500" />
+        <val key="Form.bgColor" value="646400" />
+        <val key="Label.align" value="4" />
+        <val key="Label.bgColor" value="8c8c00" />
+        <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789696" />
+        <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789696" />
+        <val key="SliderFull.bgColor" value="7f7f00" />
+        <val key="TextField.bgColor" value="7f7f00" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789696" />
+        <val key="Tooltip.bgColor" value="e5e500" />
+        <border key="Tooltip.border" type="line" millimeters="false" thickness="2.0" color="3355392" />
+        <val key="bgColor" value="999900" />
+        <border key="border" type="empty" />
+        <val key="dis#bgColor" value="6b6b00" />
+        <val key="dis#fgColor" value="333300" />
+        <val key="fgColor" value="333300" />
+        <font key="font" type="system" face="0" style="0" size="16" />
+        <val key="margin" value="0.0,0.0,0.0,0.0" />
+        <val key="press#bgColor" value="6b6b00" />
+        <val key="press#fgColor" value="333300" />
+        <val key="sel#bgColor" value="999900" />
+        <val key="sel#fgColor" value="333300" />
     </theme>
 </resource>
