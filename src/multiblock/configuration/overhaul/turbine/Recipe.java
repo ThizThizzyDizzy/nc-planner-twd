@@ -13,9 +13,9 @@ public class Recipe implements Pinnable{
         Recipe recipe = new Recipe(inputName, outputName, power, coefficient);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.getImage(inputTexture));
+        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
+        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
         return recipe;
     }
     public String inputName;

@@ -15,8 +15,8 @@ public class LineTool extends EditorTool{
     private int[] leftDragEnd;
     private int[] rightDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         g.fillPolygon(new int[]{x+width/8, x+width/4, x+width*7/8, x+width*3/4}, new int[]{y+height*3/4, y+height*7/8, y+height/4, y+height/8}, 4);
     }
     @Override

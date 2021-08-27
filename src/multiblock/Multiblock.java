@@ -597,4 +597,8 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
         groupCache.clear();
     }
     public abstract String getPreviewTexture();
+    /**
+     *initialize a new multiblock, filling it with default features
+     */
+    public void init(){}
 }

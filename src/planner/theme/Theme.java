@@ -1,15 +1,11 @@
 package planner.theme;
 import java.util.ArrayList;
-import java.util.Random;
-import planner.theme.legacy.LegacyTheme;
 import planner.theme.legacy.SolidColorTheme;
 import simplelibrary.image.Color;
 public abstract class Theme{
     public static ArrayList<ThemeCategory> themes = new ArrayList<>();
     public static final SolidColorTheme STANDARD, GOLD, CRACKER, CHOCOLATE, MARSHMALLOW;
-    public static final Theme QUESTIONQUESTIONQUESTION;
     static{
-        Random rand = new Random();
         newCategory("General");
         addTheme(STANDARD = new StandardTheme("Light", new Color(100, 100, 100), new Color(1f, 1f, 1f, 1f), .625f, .75f));
         addTheme(new StandardTheme("Light, but darker", new Color(50, 50, 50), new Color(.5f, .5f, .5f, 1f), .3125f, .75f));
@@ -52,91 +48,6 @@ public abstract class Theme{
         addTheme(new SolidColorTheme("Reflector", new Color(186, 144, 94)));
         addTheme(new SolidColorTheme("Conductor", new Color(129, 129, 129)));
         addTheme(new SolidColorTheme("Old Heavy Water", new Color(40, 50, 100), new Color(0.5f, 0.5f, 1f, 1f), .625f, .875f, new Color(.875f,.875f,1f,1f)));
-        addTheme(new LegacyTheme("Air"){
-            @Override
-            public Color getBackgroundColor(){
-                return average(Color.WHITE, STANDARD.getBackgroundColor());
-            }
-            @Override
-            public Color getTextColor(){
-                return process(STANDARD.getTextColor());
-            }
-            @Override
-            public Color getHeaderColor(){
-                return process(STANDARD.getHeaderColor());
-            }
-            @Override
-            public Color getHeader2Color(){
-                return process(STANDARD.getHeader2Color());
-            }
-            @Override
-            public Color getListColor(){
-                return process(STANDARD.getListColor());
-            }
-            @Override
-            public Color getSelectedMultiblockColor(){
-                return process(STANDARD.getSelectedMultiblockColor());
-            }
-            @Override
-            public Color getListBackgroundColor(){
-                return process(STANDARD.getListBackgroundColor());
-            }
-            @Override
-            public Color getMetadataPanelBackgroundColor(){
-                return process(STANDARD.getMetadataPanelBackgroundColor());
-            }
-            @Override
-            public Color getMetadataPanelHeaderColor(){
-                return process(STANDARD.getMetadataPanelHeaderColor());
-            }
-            @Override
-            public Color getRed(){
-                return process(STANDARD.getRed());
-            }
-            @Override
-            public Color getGreen(){
-                return process(STANDARD.getGreen());
-            }
-            @Override
-            public Color getBlue(){
-                return process(STANDARD.getBlue());
-            }
-            @Override
-            public Color getEditorListBorderColor(){
-                return process(STANDARD.getEditorListBorderColor());
-            }
-            @Override
-            public Color getDarkButtonColor(){
-                return process(STANDARD.getDarkButtonColor());
-            }
-            @Override
-            public Color getButtonColor(){
-                return process(STANDARD.getButtonColor());
-            }
-            @Override
-            public Color getSelectionColor(){
-                return process(STANDARD.getSelectionColor());
-            }
-            @Override
-            public Color getRGBA(float r, float g, float b, float a){
-                return process(STANDARD.getRGBA(r,g,b, a));
-            }
-            @Override
-            public Color getWhite(){
-                return process(STANDARD.getWhite());
-            }
-            private Color process(Color c){
-                return new Color(c.getRed(), c.getBlue(), c.getGreen(), c.getAlpha()/16);
-            }
-            @Override
-            public Color getSidebarColor(){
-                return process(STANDARD.getSidebarColor());
-            }
-            @Override
-            public Color getFadeout(){
-                return process(STANDARD.getFadeout());
-            }
-        });
         newCategory("Colors");
         addTheme(new SolidColorTheme("Red", new Color(100, 0, 0), new Color(1f, 0f, 0f, 1f), .625f, 1f));
         addTheme(new SolidColorTheme("Orange", new Color(100, 50, 0), new Color(1, 0.5f, 0), .625f, 1f));
@@ -155,13 +66,6 @@ public abstract class Theme{
         addTheme(CRACKER = new SolidColorTheme("Cracker", new Color(201, 163, 64)));//or 150 106 1
         addTheme(CHOCOLATE = new SolidColorTheme("Chocolate", new Color(97, 20, 0)));
         addTheme(MARSHMALLOW = new SolidColorTheme("Marshmallow", new Color(248, 248, 248)));
-        newCategory("Other");
-        addTheme(new ChangingColorTheme("Random", () -> {
-            return new SolidColorTheme("Random", new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-        }));
-        addTheme(QUESTIONQUESTIONQUESTION = new ChangingColorTheme("???", () -> {
-            return new RandomColorsTheme("???");
-        }));
     }
     private static ThemeCategory currentCategory;
     private static void newCategory(String name){
@@ -215,48 +119,48 @@ public abstract class Theme{
     public abstract Color getClusterInvalidColor();
     public abstract Color getTooltipInvalidTextColor();
     public abstract Color getTooltipTextColor();
-    public abstract Color getEditorToolTextColor(int index);
-    public abstract Color getEditorToolBackgroundColor(int index);
+    public abstract Color getEditorToolTextColor();
+    public abstract Color getEditorToolBackgroundColor();
     public abstract Color getSelectionColor();
     public abstract Color getEditorBackgroundColor();
     public abstract Color getImageExportBackgroundColor();
     public abstract Color getImageExportTextColor();
-    public abstract Color getComponentTextColor(int index);
-    public abstract Color getMouseoverSelectedComponentColor(int index);
-    public abstract Color getSelectedComponentColor(int index);
-    public abstract Color getMouseoverComponentColor(int index);
-    public abstract Color getComponentColor(int index);
+    public abstract Color getComponentTextColor();
+    public abstract Color getMouseoverSelectedComponentColor();
+    public abstract Color getSelectedComponentColor();
+    public abstract Color getMouseoverComponentColor();
+    public abstract Color getComponentColor();
     public abstract Color getEditorBackgroundMouseoverColor();
     public abstract Color getEditorGridColor();
     public abstract Color getSuggestionOutlineColor();
     public abstract Color getEditorMouseoverLightColor();
     public abstract Color getEditorMouseoverDarkColor();
     public abstract Color getEditorMouseoverLineColor();
-    public abstract Color getEditorListBackgroundMouseoverColor(int index);
-    public abstract Color getEditorListBackgroundColor(int index);
-    public abstract Color getEditorListLightSelectedColor(int index);
-    public abstract Color getEditorListDarkSelectedColor(int index);
-    public abstract Color getEditorListLightMouseoverColor(int index);
-    public abstract Color getEditorListDarkMouseoverColor(int index);
+    public abstract Color getEditorListBackgroundMouseoverColor();
+    public abstract Color getEditorListBackgroundColor();
+    public abstract Color getEditorListLightSelectedColor();
+    public abstract Color getEditorListDarkSelectedColor();
+    public abstract Color getEditorListLightMouseoverColor();
+    public abstract Color getEditorListDarkMouseoverColor();
     public abstract Color getMultiblockSelectedInputColor();
     public abstract Color getMultiblockInvalidInputColor();
-    public abstract Color getSecondaryComponentColor(int index);
+    public abstract Color getSecondaryComponentColor();
     public abstract Color getProgressBarBackgroundColor();
     public abstract Color getProgressBarColor();
     public abstract Color getMultiblockDisplayBorderColor();
     public abstract Color getMultiblockDisplayBackgroundColor();
-    public abstract Color getToggleBlockFadeout(int index);
+    public abstract Color getToggleBlockFadeout();
     public abstract Color getTutorialBackgroundColor();
     public abstract Color getScrollbarButtonColor();
     public abstract Color getBlockUnknownColor();
     public abstract Color getBlockTextColor();
     public abstract Color getScrollbarBackgroundColor();
-    public abstract Color getComponentPressedColor(int index);
-    public abstract Color getComponentMouseoverColor(int index);
-    public abstract Color getComponentDisabledColor(int index);
-    public abstract Color getSecondaryComponentPressedColor(int index);
-    public abstract Color getSecondaryComponentMouseoverColor(int index);
-    public abstract Color getSecondaryComponentDisabledColor(int index);
+    public abstract Color getComponentPressedColor();
+    public abstract Color getComponentMouseoverColor();
+    public abstract Color getComponentDisabledColor();
+    public abstract Color getSecondaryComponentPressedColor();
+    public abstract Color getSecondaryComponentMouseoverColor();
+    public abstract Color getSecondaryComponentDisabledColor();
     public abstract Color getSliderColor();
     public abstract Color getSliderPressedColor();
     public abstract Color getSliderMouseoverColor();
@@ -268,12 +172,12 @@ public abstract class Theme{
     public abstract Color getTextBoxBorderColor();
     public abstract Color getTextBoxColor();
     public abstract Color getTextViewBackgroundColor();
-    public abstract Color getToggleBoxBorderColor(int index);
-    public abstract Color getSecondaryToggleBoxBorderColor(int index);
-    public abstract Color getToggleBoxBackgroundColor(int index);
-    public abstract Color getToggleBoxSelectedColor(int index);
-    public abstract Color getToggleBoxMouseoverColor(int index);
-    public abstract Color getMouseoverUnselectableComponentColor(int index);
+    public abstract Color getToggleBoxBorderColor();
+    public abstract Color getSecondaryToggleBoxBorderColor();
+    public abstract Color getToggleBoxBackgroundColor();
+    public abstract Color getToggleBoxSelectedColor();
+    public abstract Color getToggleBoxMouseoverColor();
+    public abstract Color getMouseoverUnselectableComponentColor();
     public abstract Color getConfigurationSidebarColor();
     public abstract Color getConfigurationWarningTextColor();
     public abstract Color getConfigurationDividerColor();
@@ -300,11 +204,6 @@ public abstract class Theme{
     public abstract Color getSettingsSidebarColor();
     public abstract Color getWhiteColor();
     public abstract Color getTutorialTextColor();
-    public abstract Color getVRComponentColor(int index);
-    public abstract Color getVRDeviceoverComponentColor(int index);
-    public abstract Color getVRSelectedOutlineColor(int index);
-    public abstract Color getVRPanelOutlineColor();
-    public abstract Color getVRMultitoolTextColor();
     public abstract Color getSettingsMergeTextColor();
     public static Color average(Color c1, Color c2){
         return new Color((c1.getRed()+c2.getRed())/2, (c1.getGreen()+c2.getGreen())/2, (c1.getBlue()+c2.getBlue())/2, (c1.getAlpha()+c2.getAlpha())/2);
@@ -332,5 +231,50 @@ public abstract class Theme{
                          Math.max((int)(color.getGreen()*FACTOR), 0),
                          Math.max((int)(color.getBlue() *FACTOR), 0),
                          color.getAlpha());
+    }
+    public void printXML(){
+        System.out.println("    <theme name=\""+name+"\">");
+        System.out.println("        <val key=\"Button.align\" value=\"4\" />");
+        System.out.println("        <border key=\"Button.border\" type=\"empty\" />");
+        System.out.println("        <val key=\"Button.dis#bgColor\" value=\""+hex(getComponentDisabledColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Button.dis#border\" type=\"empty\" />");
+        System.out.println("        <val key=\"Button.dis#fgColor\" value=\""+hex(getComponentTextColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"Button.padding\" value=\"6.0,6.0,6.0,6.0\" />");
+        System.out.println("        <val key=\"Button.press#bgColor\" value=\""+hex(getComponentPressedColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Button.press#border\" type=\"empty\" />");
+        System.out.println("        <val key=\"Button.press#padding\" value=\"6.0,6.0,6.0,6.0\" />");
+        System.out.println("        <val key=\"Button.sel#align\" value=\"4\" />");
+        System.out.println("        <val key=\"Button.sel#bgColor\" value=\""+hex(getComponentColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Button.sel#border\" type=\"empty\" />");
+        System.out.println("        <val key=\"Button.sel#padding\" value=\"6.0,6.0,6.0,6.0\" />");
+        System.out.println("        <val key=\"DialogTitle.bgColor\" value=\""+hex(getDialogBackgroundColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"Form.bgColor\" value=\""+hex(getMenuBackgroundColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"Label.align\" value=\"4\" />");
+        System.out.println("        <val key=\"Label.bgColor\" value=\""+hex(getSecondaryComponentColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Slider.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Slider.sel#border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"SliderFull.bgColor\" value=\""+hex(getTextBoxColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"TextField.bgColor\" value=\""+hex(getTextBoxColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"TextField.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"Tooltip.bgColor\" value=\""+hex(getDialogBackgroundColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"Tooltip.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTooltipTextColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"bgColor\" value=\""+hex(getComponentColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"border\" type=\"empty\" />");
+        System.out.println("        <val key=\"dis#bgColor\" value=\""+hex(getComponentDisabledColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"dis#fgColor\" value=\""+hex(getComponentTextColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"fgColor\" value=\""+hex(getComponentTextColor().getRGB())+"\" />");
+        System.out.println("        <font key=\"font\" type=\"system\" face=\"0\" style=\"0\" size=\"16\" />");
+        System.out.println("        <val key=\"margin\" value=\"0.0,0.0,0.0,0.0\" />");
+        System.out.println("        <val key=\"press#bgColor\" value=\""+hex(getComponentPressedColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"press#fgColor\" value=\""+hex(getComponentTextColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"sel#bgColor\" value=\""+hex(getComponentColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"sel#fgColor\" value=\""+hex(getComponentTextColor().getRGB())+"\" />");
+        System.out.println("    </theme>");
+    }
+    private static String hex(int rgb){
+        return Integer.toHexString(rgb).substring(2);
+    }
+    private static int num(int rgb){
+        return Integer.parseInt(hex(rgb), 16);
     }
 }

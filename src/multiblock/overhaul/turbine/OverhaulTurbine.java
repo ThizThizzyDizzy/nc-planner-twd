@@ -857,6 +857,11 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
     }
     @Override
     public String getPreviewTexture(){
-        return "tutorials/planner/introduction/overhaul_turbine";
+        return "multiblocks/overhaul_turbine";
+    }
+    @Override
+    public void init(){
+        super.init();
+        setBearing(1);
     }
 }

@@ -19,8 +19,8 @@ public class MoveTool extends EditorTool{
     private int[] leftDragStart;
     private int[] leftDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         int w = width/16;
         int h = height/16;
         g.fillRect(x+width/2-w, y+height/4, x+width/2+w, y+height*3/4);

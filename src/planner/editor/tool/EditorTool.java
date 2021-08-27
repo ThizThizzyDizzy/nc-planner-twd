@@ -13,7 +13,7 @@ public abstract class EditorTool{
         this.editor = editor;
         this.id = id;
     }
-    public abstract void render(Graphics g, int x, int y, int width, int height, int themeIndex);
+    public abstract void render(Graphics g, int x, int y, int width, int height);
     public abstract void mouseReset(EditorSpace editorSpace, int button);
     public abstract void mousePressed(Object obj, EditorSpace editorSpace, int x, int y, int z, int button);
     public abstract void mouseReleased(Object obj, EditorSpace editorSpace, int x, int y, int z, int button);

@@ -122,12 +122,12 @@ public class ChangingTheme extends Theme{
         return current.getTooltipTextColor();
     }
     @Override
-    public Color getEditorToolTextColor(int index){
-        return current.getEditorToolTextColor(index);
+    public Color getEditorToolTextColor(){
+        return current.getEditorToolTextColor();
     }
     @Override
-    public Color getEditorToolBackgroundColor(int index){
-        return current.getEditorToolBackgroundColor(index);
+    public Color getEditorToolBackgroundColor(){
+        return current.getEditorToolBackgroundColor();
     }
     @Override
     public Color getSelectionColor(){
@@ -146,24 +146,24 @@ public class ChangingTheme extends Theme{
         return current.getImageExportTextColor();
     }
     @Override
-    public Color getComponentTextColor(int index){
-        return current.getComponentTextColor(index);
+    public Color getComponentTextColor(){
+        return current.getComponentTextColor();
     }
     @Override
-    public Color getMouseoverSelectedComponentColor(int index){
-        return current.getMouseoverSelectedComponentColor(index);
+    public Color getMouseoverSelectedComponentColor(){
+        return current.getMouseoverSelectedComponentColor();
     }
     @Override
-    public Color getSelectedComponentColor(int index){
-        return current.getSelectedComponentColor(index);
+    public Color getSelectedComponentColor(){
+        return current.getSelectedComponentColor();
     }
     @Override
-    public Color getMouseoverComponentColor(int index){
-        return current.getMouseoverComponentColor(index);
+    public Color getMouseoverComponentColor(){
+        return current.getMouseoverComponentColor();
     }
     @Override
-    public Color getComponentColor(int index){
-        return current.getComponentColor(index);
+    public Color getComponentColor(){
+        return current.getComponentColor();
     }
     @Override
     public Color getEditorBackgroundMouseoverColor(){
@@ -190,28 +190,28 @@ public class ChangingTheme extends Theme{
         return current.getEditorMouseoverLineColor();
     }
     @Override
-    public Color getEditorListBackgroundMouseoverColor(int index){
-        return current.getEditorListBackgroundMouseoverColor(index);
+    public Color getEditorListBackgroundMouseoverColor(){
+        return current.getEditorListBackgroundMouseoverColor();
     }
     @Override
-    public Color getEditorListBackgroundColor(int index){
-        return current.getEditorListBackgroundColor(index);
+    public Color getEditorListBackgroundColor(){
+        return current.getEditorListBackgroundColor();
     }
     @Override
-    public Color getEditorListLightSelectedColor(int index){
-        return current.getEditorListLightSelectedColor(index);
+    public Color getEditorListLightSelectedColor(){
+        return current.getEditorListLightSelectedColor();
     }
     @Override
-    public Color getEditorListDarkSelectedColor(int index){
-        return current.getEditorListDarkSelectedColor(index);
+    public Color getEditorListDarkSelectedColor(){
+        return current.getEditorListDarkSelectedColor();
     }
     @Override
-    public Color getEditorListLightMouseoverColor(int index){
-        return current.getEditorListLightMouseoverColor(index);
+    public Color getEditorListLightMouseoverColor(){
+        return current.getEditorListLightMouseoverColor();
     }
     @Override
-    public Color getEditorListDarkMouseoverColor(int index){
-        return current.getEditorListDarkMouseoverColor(index);
+    public Color getEditorListDarkMouseoverColor(){
+        return current.getEditorListDarkMouseoverColor();
     }
     @Override
     public Color getMultiblockSelectedInputColor(){
@@ -222,8 +222,8 @@ public class ChangingTheme extends Theme{
         return current.getMultiblockInvalidInputColor();
     }
     @Override
-    public Color getSecondaryComponentColor(int index){
-        return current.getSecondaryComponentColor(index);
+    public Color getSecondaryComponentColor(){
+        return current.getSecondaryComponentColor();
     }
     @Override
     public Color getProgressBarBackgroundColor(){
@@ -242,8 +242,8 @@ public class ChangingTheme extends Theme{
         return current.getMultiblockDisplayBackgroundColor();
     }
     @Override
-    public Color getToggleBlockFadeout(int index){
-        return current.getToggleBlockFadeout(index);
+    public Color getToggleBlockFadeout(){
+        return current.getToggleBlockFadeout();
     }
     @Override
     public Color getTutorialBackgroundColor(){
@@ -266,28 +266,28 @@ public class ChangingTheme extends Theme{
         return current.getScrollbarBackgroundColor();
     }
     @Override
-    public Color getComponentPressedColor(int index){
-        return current.getComponentPressedColor(index);
+    public Color getComponentPressedColor(){
+        return current.getComponentPressedColor();
     }
     @Override
-    public Color getComponentMouseoverColor(int index){
-        return current.getComponentMouseoverColor(index);
+    public Color getComponentMouseoverColor(){
+        return current.getComponentMouseoverColor();
     }
     @Override
-    public Color getComponentDisabledColor(int index){
-        return current.getComponentDisabledColor(index);
+    public Color getComponentDisabledColor(){
+        return current.getComponentDisabledColor();
     }
     @Override
-    public Color getSecondaryComponentPressedColor(int index){
-        return current.getSecondaryComponentPressedColor(index);
+    public Color getSecondaryComponentPressedColor(){
+        return current.getSecondaryComponentPressedColor();
     }
     @Override
-    public Color getSecondaryComponentMouseoverColor(int index){
-        return current.getSecondaryComponentMouseoverColor(index);
+    public Color getSecondaryComponentMouseoverColor(){
+        return current.getSecondaryComponentMouseoverColor();
     }
     @Override
-    public Color getSecondaryComponentDisabledColor(int index){
-        return current.getSecondaryComponentDisabledColor(index);
+    public Color getSecondaryComponentDisabledColor(){
+        return current.getSecondaryComponentDisabledColor();
     }
     @Override
     public Color getSliderColor(){
@@ -334,28 +334,28 @@ public class ChangingTheme extends Theme{
         return current.getTextViewBackgroundColor();
     }
     @Override
-    public Color getToggleBoxBorderColor(int index){
-        return current.getToggleBoxBorderColor(index);
+    public Color getToggleBoxBorderColor(){
+        return current.getToggleBoxBorderColor();
     }
     @Override
-    public Color getSecondaryToggleBoxBorderColor(int index){
-        return current.getSecondaryToggleBoxBorderColor(index);
+    public Color getSecondaryToggleBoxBorderColor(){
+        return current.getSecondaryToggleBoxBorderColor();
     }
     @Override
-    public Color getToggleBoxBackgroundColor(int index){
-        return current.getToggleBoxBackgroundColor(index);
+    public Color getToggleBoxBackgroundColor(){
+        return current.getToggleBoxBackgroundColor();
     }
     @Override
-    public Color getToggleBoxSelectedColor(int index){
-        return current.getToggleBoxSelectedColor(index);
+    public Color getToggleBoxSelectedColor(){
+        return current.getToggleBoxSelectedColor();
     }
     @Override
-    public Color getToggleBoxMouseoverColor(int index){
-        return current.getToggleBoxMouseoverColor(index);
+    public Color getToggleBoxMouseoverColor(){
+        return current.getToggleBoxMouseoverColor();
     }
     @Override
-    public Color getMouseoverUnselectableComponentColor(int index){
-        return current.getMouseoverUnselectableComponentColor(index);
+    public Color getMouseoverUnselectableComponentColor(){
+        return current.getMouseoverUnselectableComponentColor();
     }
     @Override
     public Color getConfigurationSidebarColor(){
@@ -460,26 +460,6 @@ public class ChangingTheme extends Theme{
     @Override
     public Color getTutorialTextColor(){
         return current.getTutorialTextColor();
-    }
-    @Override
-    public Color getVRComponentColor(int index){
-        return current.getVRComponentColor(index);
-    }
-    @Override
-    public Color getVRDeviceoverComponentColor(int index){
-        return current.getVRDeviceoverComponentColor(index);
-    }
-    @Override
-    public Color getVRSelectedOutlineColor(int index){
-        return current.getVRSelectedOutlineColor(index);
-    }
-    @Override
-    public Color getVRPanelOutlineColor(){
-        return current.getVRPanelOutlineColor();
-    }
-    @Override
-    public Color getVRMultitoolTextColor(){
-        return current.getVRMultitoolTextColor();
     }
     @Override
     public Color getSettingsMergeTextColor(){

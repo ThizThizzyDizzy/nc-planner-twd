@@ -15,8 +15,8 @@ public class RectangleTool extends EditorTool{
     private int[] leftDragEnd;
     private int[] rightDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         int n = 3;
         double border = width/24;
         x+=border;

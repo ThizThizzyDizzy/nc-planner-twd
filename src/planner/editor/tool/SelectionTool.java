@@ -14,8 +14,8 @@ public class SelectionTool extends EditorTool{
     private int[] rightDragStart;
     private int[] rightDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         g.fillRect(x+width/10, y+height/10, x+width/3, y+height/6);
         g.fillRect(x+width/10, y+height/10, x+width/6, y+height/3);
         g.fillRect(x+width-width/10, y+height/10, x+width-width/3, y+height/6);

@@ -19,8 +19,8 @@ public class PencilTool extends EditorTool{
     private ArrayList<int[]> leftSelectedBlocks = new ArrayList<>();
     private ArrayList<int[]> rightSelectedBlocks = new ArrayList<>();
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         g.fillPolygon(new int[]{x+width/4, x+width*3/8, x+width/4}, new int[]{y+height*3/4, y+height*3/4, y+height*5/8}, 3);
         g.fillPolygon(new int[]{x+width*2/5, x+width*11/40, x+width/2, x+width*5/8}, new int[]{y+height*29/40, y+height*3/5, y+height*3/8, y+height/2}, 4);
         g.fillPolygon(new int[]{x+width*21/40, x+width*13/20, x+width*3/4, x+width*5/8}, new int[]{y+height*7/20, y+height*19/40, y+height*3/8, y+height/4}, 4);

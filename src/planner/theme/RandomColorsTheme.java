@@ -262,11 +262,11 @@ public class RandomColorsTheme extends ColorTheme{
         return tooltipTextColor = gen(tooltipTextColor);
     }
     @Override
-    public Color getEditorToolTextColor(int index){
+    public Color getEditorToolTextColor(){
         return editorToolTextColor = gen(editorToolTextColor);
     }
     @Override
-    public Color getEditorToolBackgroundColor(int index){
+    public Color getEditorToolBackgroundColor(){
         return editorToolBackgroundColor = gen(editorToolBackgroundColor);
     }
     @Override
@@ -286,23 +286,23 @@ public class RandomColorsTheme extends ColorTheme{
         return imageExportTextColor = gen(imageExportTextColor);
     }
     @Override
-    public Color getComponentTextColor(int index){
+    public Color getComponentTextColor(){
         return componentTextColor = gen(componentTextColor);
     }
     @Override
-    public Color getMouseoverSelectedComponentColor(int index){
+    public Color getMouseoverSelectedComponentColor(){
         return mouseoverSelectedComponentColor = gen(mouseoverSelectedComponentColor);
     }
     @Override
-    public Color getSelectedComponentColor(int index){
+    public Color getSelectedComponentColor(){
         return selectedComponentColor = gen(selectedComponentColor);
     }
     @Override
-    public Color getMouseoverComponentColor(int index){
+    public Color getMouseoverComponentColor(){
         return mouseoverComponentColor = gen(mouseoverComponentColor);
     }
     @Override
-    public Color getComponentColor(int index){
+    public Color getComponentColor(){
         return componentColor = gen(componentColor);
     }
     @Override
@@ -330,27 +330,27 @@ public class RandomColorsTheme extends ColorTheme{
         return editorMouseoverLineColor = gen(editorMouseoverLineColor);
     }
     @Override
-    public Color getEditorListBackgroundMouseoverColor(int index){
+    public Color getEditorListBackgroundMouseoverColor(){
         return editorListBackgroundMouseoverColor = gen(editorListBackgroundMouseoverColor);
     }
     @Override
-    public Color getEditorListBackgroundColor(int index){
+    public Color getEditorListBackgroundColor(){
         return editorListBackgroundColor = gen(editorListBackgroundColor);
     }
     @Override
-    public Color getEditorListLightSelectedColor(int index){
+    public Color getEditorListLightSelectedColor(){
         return editorListLightSelectedColor = gen(editorListLightSelectedColor);
     }
     @Override
-    public Color getEditorListDarkSelectedColor(int index){
+    public Color getEditorListDarkSelectedColor(){
         return editorListDarkSelectedColor = gen(editorListDarkSelectedColor);
     }
     @Override
-    public Color getEditorListLightMouseoverColor(int index){
+    public Color getEditorListLightMouseoverColor(){
         return editorListLightMouseoverColor = gen(editorListLightMouseoverColor);
     }
     @Override
-    public Color getEditorListDarkMouseoverColor(int index){
+    public Color getEditorListDarkMouseoverColor(){
         return editorListDarkMouseoverColor = gen(editorListDarkMouseoverColor);
     }
     @Override
@@ -362,7 +362,7 @@ public class RandomColorsTheme extends ColorTheme{
         return multiblockInvalidInputColor = gen(multiblockInvalidInputColor);
     }
     @Override
-    public Color getSecondaryComponentColor(int index){
+    public Color getSecondaryComponentColor(){
         return secondaryComponentColor = gen(secondaryComponentColor);
     }
     @Override
@@ -382,7 +382,7 @@ public class RandomColorsTheme extends ColorTheme{
         return multiblockDisplayBackgroundColor = gen(multiblockDisplayBackgroundColor);
     }
     @Override
-    public Color getToggleBlockFadeout(int index){
+    public Color getToggleBlockFadeout(){
         return toggleBlockFadeout = gen(toggleBlockFadeout);
     }
     @Override
@@ -406,27 +406,27 @@ public class RandomColorsTheme extends ColorTheme{
         return scrollbarBackgroundColor = gen(scrollbarBackgroundColor);
     }
     @Override
-    public Color getComponentPressedColor(int index){
+    public Color getComponentPressedColor(){
         return componentPressedColor = gen(componentPressedColor);
     }
     @Override
-    public Color getComponentMouseoverColor(int index){
+    public Color getComponentMouseoverColor(){
         return componentMouseoverColor = gen(componentMouseoverColor);
     }
     @Override
-    public Color getComponentDisabledColor(int index){
+    public Color getComponentDisabledColor(){
         return componentDisabledColor = gen(componentDisabledColor);
     }
     @Override
-    public Color getSecondaryComponentPressedColor(int index){
+    public Color getSecondaryComponentPressedColor(){
         return secondaryComponentPressedColor = gen(secondaryComponentPressedColor);
     }
     @Override
-    public Color getSecondaryComponentMouseoverColor(int index){
+    public Color getSecondaryComponentMouseoverColor(){
         return secondaryComponentMouseoverColor = gen(secondaryComponentMouseoverColor);
     }
     @Override
-    public Color getSecondaryComponentDisabledColor(int index){
+    public Color getSecondaryComponentDisabledColor(){
         return secondaryComponentDisabledColor = gen(secondaryComponentDisabledColor);
     }
     @Override
@@ -474,27 +474,27 @@ public class RandomColorsTheme extends ColorTheme{
         return textViewBackgroundColor = gen(textViewBackgroundColor);
     }
     @Override
-    public Color getToggleBoxBorderColor(int index){
+    public Color getToggleBoxBorderColor(){
         return toggleBoxBorderColor = gen(toggleBoxBorderColor);
     }
     @Override
-    public Color getSecondaryToggleBoxBorderColor(int index){
+    public Color getSecondaryToggleBoxBorderColor(){
         return secondaryToggleBoxBorderColor = gen(secondaryToggleBoxBorderColor);
     }
     @Override
-    public Color getToggleBoxBackgroundColor(int index){
+    public Color getToggleBoxBackgroundColor(){
         return toggleBoxBackgroundColor = gen(toggleBoxBackgroundColor);
     }
     @Override
-    public Color getToggleBoxSelectedColor(int index){
+    public Color getToggleBoxSelectedColor(){
         return toggleBoxSelectedColor = gen(toggleBoxSelectedColor);
     }
     @Override
-    public Color getToggleBoxMouseoverColor(int index){
+    public Color getToggleBoxMouseoverColor(){
         return toggleBoxMouseoverColor = gen(toggleBoxMouseoverColor);
     }
     @Override
-    public Color getMouseoverUnselectableComponentColor(int index){
+    public Color getMouseoverUnselectableComponentColor(){
         return mouseoverUnselectableComponentColor = gen(mouseoverUnselectableComponentColor);
     }
     @Override
@@ -603,26 +603,6 @@ public class RandomColorsTheme extends ColorTheme{
     @Override
     public Color getTutorialTextColor(){
         return tutorialTextColor = gen(tutorialTextColor);
-    }
-    @Override
-    public Color getVRComponentColor(int index){
-        return vrComponentColor = gen(vrComponentColor);
-    }
-    @Override
-    public Color getVRDeviceoverComponentColor(int index){
-        return vrDeviceoverComponentColor = gen(vrDeviceoverComponentColor);
-    }
-    @Override
-    public Color getVRSelectedOutlineColor(int index){
-        return vrSelectedOutlineColor = gen(vrSelectedOutlineColor);
-    }
-    @Override
-    public Color getVRPanelOutlineColor(){
-        return vrPanelOutlineColor = gen(vrPanelOutlineColor);
-    }
-    @Override
-    public Color getVRMultitoolTextColor(){
-        return vrMultitoolTextColor = gen(vrMultitoolTextColor);
     }
     private Color gen(Color color){
         if(color!=null)return color;

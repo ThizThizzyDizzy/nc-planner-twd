@@ -13,9 +13,9 @@ public class BlockRecipe implements Pinnable{
         BlockRecipe recipe = new BlockRecipe(inputName, outputName);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.getImage(inputTexture));
+        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
+        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
         recipe.irradiatorEfficiency = efficiency;
         recipe.irradiatorHeat = heat;
         return recipe;
@@ -24,9 +24,9 @@ public class BlockRecipe implements Pinnable{
         BlockRecipe recipe = new BlockRecipe(inputName, outputName);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.getImage(inputTexture));
+        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
+        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
         recipe.fuelCellEfficiency = efficiency;
         recipe.fuelCellHeat = heat;
         recipe.fuelCellTime = time;

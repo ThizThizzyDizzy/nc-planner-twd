@@ -1,21 +1,21 @@
 package planner;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.plaf.UIManager;
 import com.codename1.util.MathUtil;
 import com.codename1.util.StringUtil;
-import com.codename1.util.regex.RE;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.StringTokenizer;
 import multiblock.Multiblock;
 import multiblock.configuration.Configuration;
-import multiblock.overhaul.fissionmsr.OverhaulMSR;
-import multiblock.overhaul.fissionsfr.OverhaulSFR;
-import multiblock.overhaul.fusion.OverhaulFusionReactor;
-import multiblock.overhaul.turbine.OverhaulTurbine;
-import multiblock.underhaul.fissionsfr.UnderhaulSFR;
+import planner.module.FusionTestModule;
 import planner.module.Module;
+import planner.module.OverhaulModule;
+import planner.module.PrimeFuelModule;
+import planner.module.RainbowFactorModule;
+import planner.module.UnderhaulModule;
 import planner.theme.Theme;
 import simplelibrary.image.Color;
 import simplelibrary.image.Image;
@@ -27,16 +27,17 @@ public class Core{
     public static boolean recoveryMode = false;
     public static final ArrayList<String> pinnedStrs = new ArrayList<>();
     public static final ArrayList<Module> modules = new ArrayList<>();
-    public static Theme theme;
+    public static Theme theme = Theme.themes.get(0).get(0);
     private static final HashMap<Image, Boolean> alphas = new HashMap<>();
+    public static boolean tutorialShown = false;
+    public static boolean autoBuildCasing = true;
     static{
-        Configuration.configurations.get(0).impose(configuration);
-        multiblockTypes.add(new UnderhaulSFR());
-        multiblockTypes.add(new OverhaulSFR());
-        multiblockTypes.add(new OverhaulMSR());
-        multiblockTypes.add(new OverhaulTurbine());
-        multiblockTypes.add(new OverhaulFusionReactor());
         resetMetadata();
+        modules.add(new UnderhaulModule());
+        modules.add(new OverhaulModule());
+        modules.add(new FusionTestModule());
+        modules.add(new RainbowFactorModule());
+        modules.add(new PrimeFuelModule());
     }
     public static void resetMetadata(){
         metadata.clear();
@@ -79,7 +80,7 @@ public class Core{
     }
     private static final String[] extraPossibilities = new String[]{"Got it", "Thanks", "Great", "Cool", "Alright", "Yep", "Awknowledged", "Aye", "Ignore", "Skip"};
     private static final Random rand = new Random();
-    public static void showWarningDialog(String title, String text){
+    public static void showOKDialog(String title, String text){
         Dialog.show(title, text, rand.nextDouble()<.01?extraPossibilities[rand.nextInt(extraPossibilities.length)]:"OK", null);
     }
     public static boolean areImagesEqual(Image img1, Image img2) {
@@ -136,5 +137,10 @@ public class Core{
     public static String substring(StringBuilder sb, int min){
         for(int i = 0; i<min; i++)sb.deleteCharAt(0);
         return sb.toString();
+    }
+    public static void setTheme(Theme t){
+        t.onSet();
+        theme = t;
+        UIManager.initNamedTheme("/theme", t.name);
     }
 }

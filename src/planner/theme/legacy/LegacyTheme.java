@@ -123,11 +123,11 @@ public abstract class LegacyTheme extends ColorTheme{
         return getTextColor();
     }
     @Override
-    public Color getEditorToolTextColor(int index){
+    public Color getEditorToolTextColor(){
         return getTextColor();
     }
     @Override
-    public Color getEditorToolBackgroundColor(int index){
+    public Color getEditorToolBackgroundColor(){
         return getEditorListBorderColor();
     }
     @Override
@@ -145,23 +145,23 @@ public abstract class LegacyTheme extends ColorTheme{
         return getTextColor();
     }
     @Override
-    public Color getComponentTextColor(int index){
+    public Color getComponentTextColor(){
         return getTextColor();
     }
     @Override
-    public Color getMouseoverSelectedComponentColor(int index){
+    public Color getMouseoverSelectedComponentColor(){
         return getSelectedMultiblockColor();
     }
     @Override
-    public Color getSelectedComponentColor(int index){
+    public Color getSelectedComponentColor(){
         return getSelectedMultiblockColor();
     }
     @Override
-    public Color getMouseoverComponentColor(int index){
+    public Color getMouseoverComponentColor(){
         return average(getSelectedMultiblockColor(), getButtonColor());
     }
     @Override
-    public Color getComponentColor(int index){
+    public Color getComponentColor(){
         return getButtonColor();
     }
     @Override
@@ -189,27 +189,27 @@ public abstract class LegacyTheme extends ColorTheme{
         return average(getEditorListBorderColor(), getTextColor());
     }
     @Override
-    public Color getEditorListBackgroundMouseoverColor(int index){
+    public Color getEditorListBackgroundMouseoverColor(){
         return getBrighterEditorListBorderColor();
     }
     @Override
-    public Color getEditorListBackgroundColor(int index){
+    public Color getEditorListBackgroundColor(){
         return getEditorListBorderColor();
     }
     @Override
-    public Color getEditorListLightSelectedColor(int index){
+    public Color getEditorListLightSelectedColor(){
         return getDarkerEditorListBorderColor();
     }
     @Override
-    public Color getEditorListDarkSelectedColor(int index){
+    public Color getEditorListDarkSelectedColor(){
         return getDarkerTextColor();
     }
     @Override
-    public Color getEditorListLightMouseoverColor(int index){
+    public Color getEditorListLightMouseoverColor(){
         return getEditorListBorderColor();
     }
     @Override
-    public Color getEditorListDarkMouseoverColor(int index){
+    public Color getEditorListDarkMouseoverColor(){
         return getTextColor();
     }
     @Override
@@ -221,7 +221,7 @@ public abstract class LegacyTheme extends ColorTheme{
         return getRGBA(0, 0, 0, 1);
     }
     @Override
-    public Color getSecondaryComponentColor(int index){
+    public Color getSecondaryComponentColor(){
         return getDarkButtonColor();
     }
     @Override
@@ -241,7 +241,7 @@ public abstract class LegacyTheme extends ColorTheme{
         return getButtonColor();
     }
     @Override
-    public Color getToggleBlockFadeout(int index){
+    public Color getToggleBlockFadeout(){
         return getFadeout();
     }
     @Override
@@ -265,27 +265,27 @@ public abstract class LegacyTheme extends ColorTheme{
         return getListBackgroundColor();
     }
     @Override
-    public Color getComponentPressedColor(int index){
+    public Color getComponentPressedColor(){
         return getDarkerButtonColor();
     }
     @Override
-    public Color getComponentMouseoverColor(int index){
+    public Color getComponentMouseoverColor(){
         return getBrighterButtonColor();
     }
     @Override
-    public Color getComponentDisabledColor(int index){
+    public Color getComponentDisabledColor(){
         return getDarkerButtonColor();
     }
     @Override
-    public Color getSecondaryComponentPressedColor(int index){
+    public Color getSecondaryComponentPressedColor(){
         return getDarkerDarkButtonColor();
     }
     @Override
-    public Color getSecondaryComponentMouseoverColor(int index){
+    public Color getSecondaryComponentMouseoverColor(){
         return getBrighterDarkButtonColor();
     }
     @Override
-    public Color getSecondaryComponentDisabledColor(int index){
+    public Color getSecondaryComponentDisabledColor(){
         return getDarkerDarkButtonColor();
     }
     @Override
@@ -333,27 +333,27 @@ public abstract class LegacyTheme extends ColorTheme{
         return getEditorListBorderColor();
     }
     @Override
-    public Color getToggleBoxBorderColor(int index){
+    public Color getToggleBoxBorderColor(){
         return average(getButtonColor(), getBackgroundColor());
     }
     @Override
-    public Color getSecondaryToggleBoxBorderColor(int index){
+    public Color getSecondaryToggleBoxBorderColor(){
         return average(getDarkButtonColor(), getBackgroundColor());
     }
     @Override
-    public Color getToggleBoxBackgroundColor(int index){
+    public Color getToggleBoxBackgroundColor(){
         return getBackgroundColor();
     }
     @Override
-    public Color getToggleBoxSelectedColor(int index){
+    public Color getToggleBoxSelectedColor(){
         return getGreen();
     }
     @Override
-    public Color getToggleBoxMouseoverColor(int index){
+    public Color getToggleBoxMouseoverColor(){
         return getRGBA(.2f, .6f, .2f, 1);
     }
     @Override
-    public Color getMouseoverUnselectableComponentColor(int index){
+    public Color getMouseoverUnselectableComponentColor(){
         return getSelectedMultiblockColor();
     }
     @Override
@@ -454,26 +454,6 @@ public abstract class LegacyTheme extends ColorTheme{
     }
     @Override
     public Color getTutorialTextColor(){
-        return getTextColor();
-    }
-    @Override
-    public Color getVRComponentColor(int index){
-        return getEditorListBorderColor();
-    }
-    @Override
-    public Color getVRDeviceoverComponentColor(int index){
-        return getBrighterEditorListBorderColor();
-    }
-    @Override
-    public Color getVRSelectedOutlineColor(int index){
-        return getTextColor();
-    }
-    @Override
-    public Color getVRPanelOutlineColor(){
-        return getEditorListBorderColor();
-    }
-    @Override
-    public Color getVRMultitoolTextColor(){
         return getTextColor();
     }
     @Override

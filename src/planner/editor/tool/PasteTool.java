@@ -18,14 +18,14 @@ public class PasteTool extends EditorTool{
         super(editor, id);
     }
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         g.fillRect(x+width*7/20, y+height*3/20, x+width*4/5, y+height*3/4);
-        g.setColor(Core.theme.getEditorToolBackgroundColor(themeIndex).getRGB());
+        g.setColor(Core.theme.getEditorToolBackgroundColor().getRGB());
         g.fillRect(x+width*2/5, y+height*1/5, x+width*3/4, y+height*7/10);
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         g.fillRect(x+width/5, y+height/4, x+width*13/20, y+height*17/20);
-        g.setColor(Core.theme.getEditorToolBackgroundColor(themeIndex).getRGB());
+        g.setColor(Core.theme.getEditorToolBackgroundColor().getRGB());
         g.fillRect(x+width/4, y+height*3/10, x+width*3/5, y+height*4/5);
     }
     @Override

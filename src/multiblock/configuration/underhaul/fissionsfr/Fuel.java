@@ -13,7 +13,7 @@ public class Fuel implements Pinnable{
         Fuel fuel = new Fuel(name, power, heat, time);
         fuel.displayName = displayName;
         fuel.legacyNames.add(displayName);
-        fuel.setTexture(TextureManager.getImage(texture));
+        fuel.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return fuel;
     }
     public String name;

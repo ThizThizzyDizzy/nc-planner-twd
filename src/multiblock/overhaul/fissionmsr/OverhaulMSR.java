@@ -2377,6 +2377,6 @@ public class OverhaulMSR extends CuboidalMultiblock<Block>{
     }
     @Override
     public String getPreviewTexture(){
-        return "tutorials/planner/introduction/overhaul_msr";
+        return "multiblocks/overhaul_msr";
     }
 }

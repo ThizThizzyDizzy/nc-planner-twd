@@ -17,7 +17,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         block.controller = true;
         block.casing = true;
         return block;
@@ -26,7 +26,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         block.casing = true;
         block.casingEdge = edge;
         return block;
@@ -35,7 +35,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         block.inlet = true;
         return block;
     }
@@ -43,7 +43,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         block.outlet = true;
         return block;
     }
@@ -53,7 +53,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         coil.legacyNames.add(displayName);
         coil.coil = true;
         coil.coilEfficiency = efficiency;
-        coil.setTexture(TextureManager.getImage(texture));
+        coil.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return coil;
     }
     public static Block bearing(String name, String displayName, String texture){
@@ -61,7 +61,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         bearing.displayName = displayName;
         bearing.legacyNames.add(displayName);
         bearing.bearing = true;
-        bearing.setTexture(TextureManager.getImage(texture));
+        bearing.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return bearing;
     }
     public static Block connector(String name, String displayName, String texture){
@@ -69,7 +69,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         connector.displayName = displayName;
         connector.legacyNames.add(displayName);
         connector.connector = true;
-        connector.setTexture(TextureManager.getImage(texture));
+        connector.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return connector;
     }
     public static Block blade(String name, String displayName, String texture, float efficiency, float expansion){
@@ -79,7 +79,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         blade.blade = true;
         blade.bladeEfficiency = efficiency;
         blade.bladeExpansion = expansion;
-        blade.setTexture(TextureManager.getImage(texture));
+        blade.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return blade;
     }
     public static Block stator(String name, String displayName, String texture, float expansion){
@@ -90,7 +90,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         blade.bladeEfficiency = 0;
         blade.bladeExpansion = expansion;
         blade.bladeStator = true;
-        blade.setTexture(TextureManager.getImage(texture));
+        blade.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return blade;
     }
     public static Block shaft(String name, String displayName, String texture){
@@ -98,7 +98,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         shaft.displayName = displayName;
         shaft.legacyNames.add(displayName);
         shaft.shaft = true;
-        shaft.setTexture(TextureManager.getImage(texture));
+        shaft.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return shaft;
     }
     public String name;

@@ -22,7 +22,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         for(PlacementRule r : rules){
             block.rules.add(r);
         }
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public static Block activeCooler(String name, String displayName, int cooling, String liquid, String texture, PlacementRule... rules){
@@ -34,7 +34,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         for(PlacementRule r : rules){
             block.rules.add(r);
         }
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public static Block fuelCell(String name, String displayName, String texture){
@@ -42,7 +42,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.displayName = displayName;
         block.legacyNames.add(displayName);
         block.fuelCell = true;
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public static Block moderator(String name, String displayName, String texture){
@@ -50,7 +50,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.displayName = displayName;
         block.legacyNames.add(displayName);
         block.moderator = true;
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public static Block casing(String name, String displayName, String texture){
@@ -58,7 +58,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.displayName = displayName;
         block.legacyNames.add(displayName);
         block.casing = true;
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public static Block controller(String name, String displayName, String texture){
@@ -66,7 +66,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.displayName = displayName;
         block.legacyNames.add(displayName);
         block.controller = true;
-        block.setTexture(TextureManager.getImage(texture));
+        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
         return block;
     }
     public String name;

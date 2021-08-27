@@ -6,20 +6,20 @@ import java.io.IOException;
 import simplelibrary.image.Color;
 import simplelibrary.image.Image;
 public class TextureManager{
-    public static Image getImage(String texture){
+    public static com.codename1.ui.Image getImage(String texture){
         String path = "";
         while(texture.contains("/")){
             String[] split = new RE("\\/").split(texture);
             path+="/"+split[0];
+            texture = "";
             for(int i = 2; i<split.length-2; i++)texture+=split[i]+"/";
             texture += split[split.length-1];
         }
         try{
-            com.codename1.ui.Image img = Resources.open(path+".res").getImage(texture);
-            return fromCN1(img);
+            return Resources.open(path+".res").getImage(texture+".png");
         }catch(IOException ex){
             System.err.println("Couldn't read image "+texture+" in "+path+".res");
-            return new Image(1, 1);
+            return com.codename1.ui.Image.createImage(1, 1);
         }
     }
     public static boolean SEPARATE_BRIGHT_TEXTURES = true;

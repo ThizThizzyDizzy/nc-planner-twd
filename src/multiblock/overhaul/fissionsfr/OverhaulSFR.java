@@ -2113,6 +2113,6 @@ public class OverhaulSFR extends CuboidalMultiblock<Block>{
     }
     @Override
     public String getPreviewTexture(){
-        return "tutorials/planner/introduction/overhaul_example";
+        return "multiblocks/overhaul_sfr";
     }
 }

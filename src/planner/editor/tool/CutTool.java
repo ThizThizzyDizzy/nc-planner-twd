@@ -12,10 +12,10 @@ public class CutTool extends EditorTool{
     private int[] dragStart;
     private int[] dragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height, int themeIndex){
-        g.setColor(Core.theme.getEditorToolTextColor(themeIndex).getRGB());
-        Core.drawCircle(g, x+width*.3, y+height*.3, width*.075, width*.125, Core.theme.getEditorToolTextColor(themeIndex));
-        Core.drawCircle(g, x+width*.3, y+height*.7, width*.075, width*.125, Core.theme.getEditorToolTextColor(themeIndex));
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
+        Core.drawCircle(g, x+width*.3, y+height*.3, width*.075, width*.125, Core.theme.getEditorToolTextColor());
+        Core.drawCircle(g, x+width*.3, y+height*.7, width*.075, width*.125, Core.theme.getEditorToolTextColor());
         g.fillPolygon(new int[]{x+width*2/5, x+width*7/20, x+width*3/4, x+width*17/20}, new int[]{y+height*7/20, y+height*2/5, y+height*4/5, y+height*4/5}, 4);
         g.fillPolygon(new int[]{x+width*2/5, x+width*7/20, x+width*3/4, x+width*17/20}, new int[]{y+height*11/20, y+height*3/5, y+height*1/5, y+height*1/5}, 4);
     }
