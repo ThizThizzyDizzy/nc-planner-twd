@@ -22,6 +22,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4871505" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4871505" />
         <val key="SliderFull.bgColor" value="6a7a74" />
+        <val key="TextArea.bgColor" value="bfdcd1" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="4871505" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="6a7a74" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4871505" />
         <val key="Tooltip.bgColor" value="bfdcd1" />
@@ -59,6 +62,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22616" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22616" />
         <val key="SliderFull.bgColor" value="007f7f" />
+        <val key="TextArea.bgColor" value="00e5e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="22616" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="007f7f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22616" />
         <val key="Tooltip.bgColor" value="00e5e5" />
@@ -96,6 +102,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3355439" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3355439" />
         <val key="SliderFull.bgColor" value="494a44" />
+        <val key="TextArea.bgColor" value="84867b" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3355439" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="494a44" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3355439" />
         <val key="Tooltip.bgColor" value="84867b" />
@@ -133,6 +142,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526866" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526866" />
         <val key="SliderFull.bgColor" value="787a76" />
+        <val key="TextArea.bgColor" value="d8dbd4" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5526866" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="787a76" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526866" />
         <val key="Tooltip.bgColor" value="d8dbd4" />
@@ -170,6 +182,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="88" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="88" />
         <val key="SliderFull.bgColor" value="00007f" />
+        <val key="TextArea.bgColor" value="0000e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="88" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="00007f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="88" />
         <val key="Tooltip.bgColor" value="0000e5" />
@@ -207,6 +222,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22572" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22572" />
         <val key="SliderFull.bgColor" value="007f3f" />
+        <val key="TextArea.bgColor" value="00e572" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="22572" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="007f3f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22572" />
         <val key="Tooltip.bgColor" value="00e572" />
@@ -244,6 +262,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3684408" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3684408" />
         <val key="SliderFull.bgColor" value="505050" />
+        <val key="TextArea.bgColor" value="909090" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3684408" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="505050" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3684408" />
         <val key="Tooltip.bgColor" value="909090" />
@@ -281,6 +302,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3684892" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3684892" />
         <val key="SliderFull.bgColor" value="505329" />
+        <val key="TextArea.bgColor" value="909649" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3684892" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="505329" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3684892" />
         <val key="Tooltip.bgColor" value="909649" />
@@ -318,6 +342,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2164480" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2164480" />
         <val key="SliderFull.bgColor" value="300a00" />
+        <val key="TextArea.bgColor" value="571200" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2164480" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="300a00" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2164480" />
         <val key="Tooltip.bgColor" value="571200" />
@@ -355,6 +382,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <val key="SliderFull.bgColor" value="404040" />
+        <val key="TextArea.bgColor" value="747474" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="404040" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <val key="Tooltip.bgColor" value="747474" />
@@ -392,6 +422,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5059621" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5059621" />
         <val key="SliderFull.bgColor" value="6f4b36" />
+        <val key="TextArea.bgColor" value="c78762" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5059621" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="6f4b36" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5059621" />
         <val key="Tooltip.bgColor" value="c78762" />
@@ -429,6 +462,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4601878" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4601878" />
         <val key="SliderFull.bgColor" value="645120" />
+        <val key="TextArea.bgColor" value="b49239" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="4601878" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="645120" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4601878" />
         <val key="Tooltip.bgColor" value="b49239" />
@@ -466,6 +502,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="13379" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="13379" />
         <val key="SliderFull.bgColor" value="004b61" />
+        <val key="TextArea.bgColor" value="0087ae" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="13379" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="004b61" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="13379" />
         <val key="Tooltip.bgColor" value="0087ae" />
@@ -503,6 +542,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3100751" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3100751" />
         <val key="SliderFull.bgColor" value="447371" />
+        <val key="TextArea.bgColor" value="7acfcb" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3100751" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="447371" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3100751" />
         <val key="Tooltip.bgColor" value="7acfcb" />
@@ -540,6 +582,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1854761" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1854761" />
         <val key="SliderFull.bgColor" value="296e3b" />
+        <val key="TextArea.bgColor" value="49c66b" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="1854761" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="296e3b" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1854761" />
         <val key="Tooltip.bgColor" value="49c66b" />
@@ -577,6 +622,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5132091" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5132091" />
         <val key="SliderFull.bgColor" value="707255" />
+        <val key="TextArea.bgColor" value="cacd99" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5132091" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="707255" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5132091" />
         <val key="Tooltip.bgColor" value="cacd99" />
@@ -614,6 +662,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="6169" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="6169" />
         <val key="SliderFull.bgColor" value="002325" />
+        <val key="TextArea.bgColor" value="003f43" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="6169" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="002325" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="6169" />
         <val key="Tooltip.bgColor" value="003f43" />
@@ -651,6 +702,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3029041" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3029041" />
         <val key="SliderFull.bgColor" value="425047" />
+        <val key="TextArea.bgColor" value="76907f" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3029041" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="425047" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3029041" />
         <val key="Tooltip.bgColor" value="76907f" />
@@ -688,6 +742,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3221527" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3221527" />
         <val key="SliderFull.bgColor" value="473a22" />
+        <val key="TextArea.bgColor" value="80693d" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3221527" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="473a22" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3221527" />
         <val key="Tooltip.bgColor" value="80693d" />
@@ -725,6 +782,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789213" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789213" />
         <val key="SliderFull.bgColor" value="7f7c2a" />
+        <val key="TextArea.bgColor" value="e4e04c" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5789213" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f7c2a" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789213" />
         <val key="Tooltip.bgColor" value="e4e04c" />
@@ -762,6 +822,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="394758" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="394758" />
         <val key="SliderFull.bgColor" value="090909" />
+        <val key="TextArea.bgColor" value="101010" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="394758" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="090909" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="394758" />
         <val key="Tooltip.bgColor" value="101010" />
@@ -799,6 +862,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="22528" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="22528" />
         <val key="SliderFull.bgColor" value="007f00" />
+        <val key="TextArea.bgColor" value="00e500" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="22528" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="007f00" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="22528" />
         <val key="Tooltip.bgColor" value="00e500" />
@@ -836,6 +902,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="11352" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="11352" />
         <val key="SliderFull.bgColor" value="003f7f" />
+        <val key="TextArea.bgColor" value="0072e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="11352" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="003f7f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="11352" />
         <val key="Tooltip.bgColor" value="0072e5" />
@@ -873,6 +942,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2299977" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2299977" />
         <val key="SliderFull.bgColor" value="332369" />
+        <val key="TextArea.bgColor" value="5c3fbd" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2299977" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="332369" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2299977" />
         <val key="Tooltip.bgColor" value="5c3fbd" />
@@ -910,6 +982,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4594201" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4594201" />
         <val key="SliderFull.bgColor" value="642624" />
+        <val key="TextArea.bgColor" value="b44441" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="4594201" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="642624" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4594201" />
         <val key="Tooltip.bgColor" value="b44441" />
@@ -947,6 +1022,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5197647" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5197647" />
         <val key="SliderFull.bgColor" value="727272" />
+        <val key="TextArea.bgColor" value="cecece" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5197647" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="727272" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5197647" />
         <val key="Tooltip.bgColor" value="cecece" />
@@ -984,6 +1062,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="792112" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="792112" />
         <val key="SliderFull.bgColor" value="122045" />
+        <val key="TextArea.bgColor" value="213a7d" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="792112" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="122045" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="792112" />
         <val key="Tooltip.bgColor" value="213a7d" />
@@ -1021,6 +1102,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1448474" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1448474" />
         <val key="SliderFull.bgColor" value="202626" />
+        <val key="TextArea.bgColor" value="3a4545" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="1448474" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="202626" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1448474" />
         <val key="Tooltip.bgColor" value="3a4545" />
@@ -1058,6 +1142,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789784" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789784" />
         <val key="SliderFull.bgColor" value="7f7f7f" />
+        <val key="TextArea.bgColor" value="e5e5e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5789784" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f7f7f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789784" />
         <val key="Tooltip.bgColor" value="e5e5e5" />
@@ -1095,6 +1182,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5776965" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5776965" />
         <val key="SliderFull.bgColor" value="7f3763" />
+        <val key="TextArea.bgColor" value="e563b3" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5776965" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f3763" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5776965" />
         <val key="Tooltip.bgColor" value="e563b3" />
@@ -1132,6 +1222,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <val key="SliderFull.bgColor" value="3f3f3f" />
+        <val key="TextArea.bgColor" value="727272" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="3f3f3f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894892" />
         <val key="Tooltip.bgColor" value="727272" />
@@ -1169,6 +1262,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2906112" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2906112" />
         <val key="SliderFull.bgColor" value="3f7f00" />
+        <val key="TextArea.bgColor" value="72e500" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2906112" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="3f7f00" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2906112" />
         <val key="Tooltip.bgColor" value="72e500" />
@@ -1206,6 +1302,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526612" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526612" />
         <val key="SliderFull.bgColor" value="787878" />
+        <val key="TextArea.bgColor" value="d8d8d8" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5526612" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="787878" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526612" />
         <val key="Tooltip.bgColor" value="d8d8d8" />
@@ -1243,6 +1342,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767256" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767256" />
         <val key="SliderFull.bgColor" value="7f007f" />
+        <val key="TextArea.bgColor" value="e500e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5767256" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f007f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767256" />
         <val key="Tooltip.bgColor" value="e500e5" />
@@ -1280,6 +1382,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5524815" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5524815" />
         <val key="SliderFull.bgColor" value="796e72" />
+        <val key="TextArea.bgColor" value="d9c6ce" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5524815" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="796e72" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5524815" />
         <val key="Tooltip.bgColor" value="d9c6ce" />
@@ -1317,6 +1422,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3947846" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3947846" />
         <val key="SliderFull.bgColor" value="565864" />
+        <val key="TextArea.bgColor" value="9b9eb4" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3947846" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="565864" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3947846" />
         <val key="Tooltip.bgColor" value="9b9eb4" />
@@ -1354,6 +1462,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5658198" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5658198" />
         <val key="SliderFull.bgColor" value="7c7c7c" />
+        <val key="TextArea.bgColor" value="dfdfdf" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5658198" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7c7c7c" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5658198" />
         <val key="Tooltip.bgColor" value="dfdfdf" />
@@ -1391,6 +1502,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1507586" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1507586" />
         <val key="SliderFull.bgColor" value="220203" />
+        <val key="TextArea.bgColor" value="3d0306" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="1507586" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="220203" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1507586" />
         <val key="Tooltip.bgColor" value="3d0306" />
@@ -1428,6 +1542,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1456664" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1456664" />
         <val key="SliderFull.bgColor" value="205323" />
+        <val key="TextArea.bgColor" value="39953f" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="1456664" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="205323" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1456664" />
         <val key="Tooltip.bgColor" value="39953f" />
@@ -1465,6 +1582,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="460298" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="460298" />
         <val key="SliderFull.bgColor" value="0a090f" />
+        <val key="TextArea.bgColor" value="12101b" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="460298" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="0a090f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="460298" />
         <val key="Tooltip.bgColor" value="12101b" />
@@ -1502,6 +1622,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2894936" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2894936" />
         <val key="SliderFull.bgColor" value="3f3f7f" />
+        <val key="TextArea.bgColor" value="7272e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2894936" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="3f3f7f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2894936" />
         <val key="Tooltip.bgColor" value="7272e5" />
@@ -1539,6 +1662,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5778432" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5778432" />
         <val key="SliderFull.bgColor" value="7f3f00" />
+        <val key="TextArea.bgColor" value="e57200" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5778432" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f3f00" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5778432" />
         <val key="Tooltip.bgColor" value="e57200" />
@@ -1576,6 +1702,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767212" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767212" />
         <val key="SliderFull.bgColor" value="7f003f" />
+        <val key="TextArea.bgColor" value="e50072" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5767212" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f003f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767212" />
         <val key="Tooltip.bgColor" value="e50072" />
@@ -1613,6 +1742,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2308146" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2308146" />
         <val key="SliderFull.bgColor" value="325148" />
+        <val key="TextArea.bgColor" value="5a9181" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2308146" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="325148" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2308146" />
         <val key="Tooltip.bgColor" value="5a9181" />
@@ -1650,6 +1782,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2883672" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2883672" />
         <val key="SliderFull.bgColor" value="3f007f" />
+        <val key="TextArea.bgColor" value="7200e5" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2883672" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="3f007f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2883672" />
         <val key="Tooltip.bgColor" value="7200e5" />
@@ -1687,6 +1822,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3746361" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3746361" />
         <val key="SliderFull.bgColor" value="523c52" />
+        <val key="TextArea.bgColor" value="946c94" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3746361" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="523c52" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3746361" />
         <val key="Tooltip.bgColor" value="946c94" />
@@ -1724,6 +1862,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3815736" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3815736" />
         <val key="SliderFull.bgColor" value="535250" />
+        <val key="TextArea.bgColor" value="959390" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3815736" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="535250" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3815736" />
         <val key="Tooltip.bgColor" value="959390" />
@@ -1761,6 +1902,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5767168" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5767168" />
         <val key="SliderFull.bgColor" value="7f0000" />
+        <val key="TextArea.bgColor" value="e50000" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5767168" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f0000" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5767168" />
         <val key="Tooltip.bgColor" value="e50000" />
@@ -1798,6 +1942,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3278082" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3278082" />
         <val key="SliderFull.bgColor" value="480804" />
+        <val key="TextArea.bgColor" value="810e07" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3278082" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="480804" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3278082" />
         <val key="Tooltip.bgColor" value="810e07" />
@@ -1835,6 +1982,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="4272672" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="4272672" />
         <val key="SliderFull.bgColor" value="5d482f" />
+        <val key="TextArea.bgColor" value="a78154" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="4272672" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="5d482f" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="4272672" />
         <val key="Tooltip.bgColor" value="a78154" />
@@ -1872,6 +2022,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5526358" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5526358" />
         <val key="SliderFull.bgColor" value="78777b" />
+        <val key="TextArea.bgColor" value="d8d6dd" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5526358" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="78777b" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5526358" />
         <val key="Tooltip.bgColor" value="d8d6dd" />
@@ -1909,6 +2062,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="2703651" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="2703651" />
         <val key="SliderFull.bgColor" value="3b5d32" />
+        <val key="TextArea.bgColor" value="6ba85a" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="2703651" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="3b5d32" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="2703651" />
         <val key="Tooltip.bgColor" value="6ba85a" />
@@ -1946,6 +2102,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5066324" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5066324" />
         <val key="SliderFull.bgColor" value="6f7079" />
+        <val key="TextArea.bgColor" value="c7cad9" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5066324" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="6f7079" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5066324" />
         <val key="Tooltip.bgColor" value="c7cad9" />
@@ -1983,6 +2142,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="3482913" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="3482913" />
         <val key="SliderFull.bgColor" value="4d3630" />
+        <val key="TextArea.bgColor" value="8a6257" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="3482913" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="4d3630" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="3482913" />
         <val key="Tooltip.bgColor" value="8a6257" />
@@ -2020,6 +2182,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="1448774" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="1448774" />
         <val key="SliderFull.bgColor" value="202765" />
+        <val key="TextArea.bgColor" value="3946b6" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="1448774" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="202765" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="1448774" />
         <val key="Tooltip.bgColor" value="3946b6" />
@@ -2057,6 +2222,9 @@
         <border key="Slider.border" type="line" millimeters="false" thickness="2.0" color="5789696" />
         <border key="Slider.sel#border" type="line" millimeters="false" thickness="2.0" color="5789696" />
         <val key="SliderFull.bgColor" value="7f7f00" />
+        <val key="TextArea.bgColor" value="e5e500" />
+        <border key="TextArea.border" type="line" millimeters="false" thickness="2.0" color="5789696" />
+        <font key="TextArea.font" type="system" face="0" style="0" size="0" />
         <val key="TextField.bgColor" value="7f7f00" />
         <border key="TextField.border" type="line" millimeters="false" thickness="2.0" color="5789696" />
         <val key="Tooltip.bgColor" value="e5e500" />
