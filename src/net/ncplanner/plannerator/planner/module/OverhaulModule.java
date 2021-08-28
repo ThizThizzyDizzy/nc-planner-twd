@@ -28,6 +28,13 @@ public class OverhaulModule extends Module{
     }
     @Override
     public void addConfigurations(){
+        Configuration.configurations.add(FileReader.read(() -> {
+            try{
+                return Resources.open("/configurations.res").getData("aapn.ncpf");
+            }catch(IOException ex){
+                return null;
+            }
+        }).configuration.addAlternative("AAPN"));
         Configuration.internalAddons.add(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
