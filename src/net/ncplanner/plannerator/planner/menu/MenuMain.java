@@ -32,6 +32,7 @@ import net.ncplanner.plannerator.planner.file.FileReader;
 import net.ncplanner.plannerator.planner.file.FileWriter;
 import net.ncplanner.plannerator.planner.file.FormatWriter;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
+import net.ncplanner.plannerator.planner.menu.component.SquareButton;
 public class MenuMain extends Form{
     private final Button editMetadata;
     private final Container multiblocksList;
@@ -218,7 +219,7 @@ public class MenuMain extends Form{
         editMetadata = new Button("Edit Metadata");
         header.add(CENTER, editMetadata);
         editMetadata.addActionListener((evt) -> {
-            new MenuEditMetadata(Core.metadata, Core::resetMetadata).show();
+            new MenuEditMetadata(Core.metadata, Core::resetMetadata, MenuMain::new).show();
         });
         //<editor-fold defaultstate="collapsed" desc="Settings">
         Button settings = new Button();
@@ -243,14 +244,7 @@ public class MenuMain extends Form{
         multiblocksPane.add(CENTER, multiblocksList);
         Label multiblocksTitle = new Label("Multiblocks");
         multiblocksListHeader.add(CENTER, multiblocksTitle);
-        Button addMultiblock = new Button("+"){
-            @Override
-            protected Dimension calcPreferredSize(){
-                Dimension size = super.calcPreferredSize();
-                size.setWidth(Math.max(size.getWidth(), size.getHeight()));
-                return size;
-            }
-        };
+        Button addMultiblock = new SquareButton("+");
         multiblocksListHeader.add(RIGHT, addMultiblock);
         addMultiblock.addActionListener((evt) -> {
             new MenuAddMultiblock().show();
@@ -324,7 +318,7 @@ public class MenuMain extends Form{
             getStyle().setBgTransparency(255);
             getSelectedStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
             getSelectedStyle().setBgTransparency(255);
-            Button edit = new Button(" "){
+            Button edit = new SquareButton(" "){
                 @Override
                 public void paint(Graphics g){
                     super.paint(g);
@@ -337,13 +331,10 @@ public class MenuMain extends Form{
                     g.fillPolygon(new int[]{x+w*2/5, x+w*11/40, x+w/2, x+w*5/8}, new int[]{y+h*29/40, y+h*3/5, y+h*3/8, y+h/2}, 4);
                     g.fillPolygon(new int[]{x+w*21/40, x+w*13/20, x+w*3/4, x+w*5/8}, new int[]{y+h*7/20, y+h*19/40, y+h*3/8, y+h/4}, 4);
                 }
-                @Override
-                protected Dimension calcPreferredSize(){
-                    Dimension size = super.calcPreferredSize();
-                    size.setWidth(Math.max(size.getWidth(), size.getHeight()));
-                    return size;
-                }
             };
+            edit.addActionListener((evt) -> {
+                new MenuEdit(multi).show();
+            });
             edit.getStyle().setBgColor(Core.theme.getSecondaryComponentColor().getRGB());
             edit.getSelectedStyle().setBgColor(Core.theme.getSecondaryComponentColor().getRGB());
             edit.getPressedStyle().setBgColor(Core.theme.getSecondaryComponentPressedColor().getRGB());

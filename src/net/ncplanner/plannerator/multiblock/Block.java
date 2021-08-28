@@ -3,6 +3,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.util.StringUtil;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
+import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Pinnable;
@@ -148,4 +149,6 @@ public abstract class Block extends MultiblockBit implements Pinnable{
     public boolean shouldRenderFace(Block against){
         return against==null;
     }
+    public abstract boolean hasRecipes();
+    public abstract ArrayList<? extends IBlockRecipe> getRecipes();
 }

@@ -14,8 +14,7 @@ public interface Searchable{
             while(true){
                 RE re = new RE(excludePattern);
                 if(re.match(searchText)){
-                    
-                    String exclude = re.getParen(4);;
+                    String exclude = re.getParen(4);
                     if(exclude==null)exclude = re.getParen(3);
                     String excludeRegex = ".*";
                     for(char c : exclude.toCharArray()){
@@ -24,11 +23,12 @@ public interface Searchable{
                         }else excludeRegex+="\\"+c;
                     }
                     excludeRegex+=".*";
+                    RE re2 = new RE(excludeRegex);
                     for(String nam : searchable.getSearchableNames()){
-                        if(new RE(excludeRegex).match(nam))return false;//excluded
+                        if(re2.match(nam))return false;//excluded
                     }
                     
-                    searchText = StringUtil.replaceFirst(searchText, excludePattern, " ");;
+                    searchText = StringUtil.replaceFirst(searchText, re.getParen(0), " ");;
                 }else break;
             }
             searchText = searchText.trim();

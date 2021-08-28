@@ -254,6 +254,9 @@ public abstract class Theme{
         System.out.println("        <border key=\"Slider.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
         System.out.println("        <border key=\"Slider.sel#border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
         System.out.println("        <val key=\"SliderFull.bgColor\" value=\""+hex(getTextBoxColor().getRGB())+"\" />");
+        System.out.println("        <val key=\"TextArea.bgColor\" value=\""+hex(getTextViewBackgroundColor().getRGB())+"\" />");
+        System.out.println("        <border key=\"TextArea.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
+        System.out.println("        <font key=\"TextArea.font\" type=\"system\" face=\"0\" style=\"0\" size=\"0\" />");
         System.out.println("        <val key=\"TextField.bgColor\" value=\""+hex(getTextBoxColor().getRGB())+"\" />");
         System.out.println("        <border key=\"TextField.border\" type=\"line\" millimeters=\"false\" thickness=\"2.0\" color=\""+num(getTextBoxBorderColor().getRGB())+"\" />");
         System.out.println("        <val key=\"Tooltip.bgColor\" value=\""+hex(getDialogBackgroundColor().getRGB())+"\" />");
@@ -272,7 +275,8 @@ public abstract class Theme{
         System.out.println("    </theme>");
     }
     private static String hex(int rgb){
-        return Integer.toHexString(rgb).substring(2);
+        String hex = Integer.toHexString(rgb).substring(2);
+        return hex;
     }
     private static int num(int rgb){
         return Integer.parseInt(hex(rgb), 16);

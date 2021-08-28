@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
+import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.PlacementRule;
 import net.ncplanner.plannerator.planner.Core;
@@ -199,5 +200,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     @Override
     public String getPinnedName(){
         return template.getPinnedName();
+    }
+    @Override
+    public boolean hasRecipes(){
+        return false;
+    }
+    @Override
+    public ArrayList<? extends IBlockRecipe> getRecipes(){
+        return new ArrayList<>();
     }
 }

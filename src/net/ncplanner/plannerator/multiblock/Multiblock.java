@@ -1,4 +1,5 @@
 package net.ncplanner.plannerator.multiblock;
+import com.codename1.ui.Form;
 import net.ncplanner.plannerator.generator.Priority;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -601,4 +602,5 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
      *initialize a new multiblock, filling it with default features
      */
     public void init(){}
+    public abstract Form getResizeMenu();
 }

@@ -143,4 +143,57 @@ public class Core{
         theme = t;
         UIManager.initNamedTheme("/theme", t.name);
     }
+    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double xThickness, double yThickness, int quality, int texture){
+        drawOval(g, x, y, xRadius, yRadius, xThickness, yThickness, quality, texture, 0, quality-1);
+    }
+    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double thickness, int quality, int texture){
+        drawOval(g, x, y, xRadius, yRadius, thickness, thickness, quality, texture, 0, quality-1);
+    }
+    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double thickness, int quality, int texture, int left, int right){
+        drawOval(g, x, y, xRadius, yRadius, thickness, thickness, quality, texture, left, right);
+    }
+    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double xThickness, double yThickness, int quality, int texture, int left, int right){
+        if(quality<3){
+            throw new IllegalArgumentException("Quality must be >=3!");
+        }
+        while(left<0)left+=quality;
+        while(right<0)right+=quality;
+        while(left>quality)left-=quality;
+        while(right>quality)right-=quality;
+        double angle = 0;
+        for(int i = 0; i<quality; i++){
+            boolean inRange = false;
+            if(left>right)inRange = i>=left||i<=right;
+            else inRange = i>=left&&i<=right;
+            int[] xp = new int[4];
+            int[] yp = new int[4];
+            if(inRange){
+                xp[0] = x+(int)(Math.cos(Math.toRadians(angle-90))*xRadius);
+                yp[0] = y+(int)(Math.sin(Math.toRadians(angle-90))*yRadius);
+                xp[1] = x+(int)(Math.cos(Math.toRadians(angle-90))*(xRadius-xThickness));
+                yp[1] = y+(int)(Math.sin(Math.toRadians(angle-90))*(yRadius-yThickness));
+            }
+            angle+=(360D/quality);
+            if(inRange){
+                xp[2] = x+(int)(Math.cos(Math.toRadians(angle-90))*(xRadius-xThickness));
+                yp[2] = y+(int)(Math.sin(Math.toRadians(angle-90))*(yRadius-yThickness));
+                xp[3] = x+(int)(Math.cos(Math.toRadians(angle-90))*xRadius);
+                yp[3] = y+(int)(Math.sin(Math.toRadians(angle-90))*yRadius);
+                g.fillPolygon(xp, yp, 4);
+            }
+        }
+    }
+    public static void drawRegularPolygon(Graphics g, int x, int y, int radius, int quality, int angle, int texture){
+        if(quality<3){
+            throw new IllegalArgumentException("A polygon must have at least 3 sides!");
+        }
+        int[] xs = new int[quality];
+        int[] ys = new int[quality];
+        for(int i = 0; i<quality; i++){
+            xs[i] = x+(int)(Math.cos(Math.toRadians(angle-90))*radius);
+            ys[i] = y+(int)(Math.sin(Math.toRadians(angle-90))*radius);
+            angle+=(360D/quality);
+        }
+        g.fillPolygon(xs, ys, quality);
+    }
 }

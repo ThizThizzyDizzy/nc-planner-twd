@@ -1,4 +1,5 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fusion;
+import com.codename1.ui.Form;
 import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
+import net.ncplanner.plannerator.planner.menu.MenuResizeFusion;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -903,5 +905,9 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
     @Override
     public String getPreviewTexture(){
         return null;
+    }
+    @Override
+    public Form getResizeMenu(){
+        return new MenuResizeFusion(this);
     }
 }

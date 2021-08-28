@@ -1,9 +1,11 @@
 package net.ncplanner.plannerator.multiblock;
+import com.codename1.ui.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
+import net.ncplanner.plannerator.planner.menu.MenuResize;
 public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     protected int x;
     protected int y;
@@ -394,5 +396,9 @@ public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     public void init(){
         super.init();
         buildDefaultCasing();
+    }
+    @Override
+    public Form getResizeMenu(){
+        return new MenuResize(this);
     }
 }

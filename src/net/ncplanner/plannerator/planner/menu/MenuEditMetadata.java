@@ -9,8 +9,9 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.HashMap;
+import net.ncplanner.plannerator.planner.Supplier;
 public class MenuEditMetadata extends Form{
-    public MenuEditMetadata(HashMap<String, String> metadata, Runnable resetFunc){
+    public MenuEditMetadata(HashMap<String, String> metadata, Runnable resetFunc, Supplier<Form> parent){
         super(new BorderLayout());
         add(TOP, new Label("Metadata"));
         Button done = new Button("Done");
@@ -29,7 +30,7 @@ public class MenuEditMetadata extends Form{
                 if(key.getText().trim().isEmpty()&&value.getText().trim().isEmpty())continue;
                 metadata.put(key.getText(), value.getText());
             }
-            new MenuMain().showBack();
+            parent.get().showBack();
         });
         Button add = new Button("Add");
         add.addActionListener((evt) -> {

@@ -6,7 +6,9 @@ import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
+import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
+import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.PlacementRule;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
@@ -439,5 +441,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     @Override
     public String getPinnedName(){
         return template.getPinnedName();
+    }
+    @Override
+    public boolean hasRecipes(){
+        return !template.allRecipes.isEmpty();
+    }
+    @Override
+    public ArrayList<BlockRecipe> getRecipes(){
+        return template.allRecipes;
     }
 }
