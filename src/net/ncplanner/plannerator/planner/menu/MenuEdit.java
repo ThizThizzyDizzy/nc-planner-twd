@@ -481,8 +481,11 @@ public class MenuEdit extends Form implements Editor{
         ArrayList<Runnable> resets = new ArrayList<>();
         Container c = null;
         int i = 0;
+        searchedAvailable.add(0, null);
         for(Block availableBlock : searchedAvailable){
-            if(selectedBlock.isEqual(availableBlock))hasSelected = true;
+            if(selectedBlock==null){
+                if(availableBlock==null)hasSelected = true;
+            }else if(selectedBlock.isEqual(availableBlock))hasSelected = true;
             if(i==partsWide)i = 0;
             if(i==0){
                 if(c!=null)partsList.add(c);
@@ -508,7 +511,7 @@ public class MenuEdit extends Form implements Editor{
                 @Override
                 public void paint(Graphics g){
                     super.paint(g);
-                    availableBlock.render(g, getX(), getY(), getWidth(), getHeight(), false, null);
+                    if(availableBlock!=null)availableBlock.render(g, getX(), getY(), getWidth(), getHeight(), false, null);
                     if(isSelected){
                         int x = getX();
                         int y = getY();
@@ -892,7 +895,7 @@ public class MenuEdit extends Form implements Editor{
         setSelection(id, new ArrayList<>());
     }
     private void refreshEditorTooltip(){
-        String tooltip = selectedBlock==null?"":selectedBlock.getListTooltip();
+        String tooltip = selectedBlock==null?"Air":selectedBlock.getListTooltip();
         tooltip+="\n\n"+multiblock.getFullTooltip().toString();
         editorTooltip.setGrowByContent(true);
         editorTooltip.setText(tooltip);
