@@ -1,4 +1,7 @@
 package net.ncplanner.plannerator.multiblock;
+import com.codename1.ui.Component;
+import java.util.ArrayList;
+import net.ncplanner.plannerator.planner.menu.MenuEdit;
 public abstract class EditorSpace<T extends Block>{
     public final int x1;
     public final int y1;
@@ -18,5 +21,5 @@ public abstract class EditorSpace<T extends Block>{
         return !(x<x1||y<y1||z<z1||x>x2||y>y2||z>z2);
     }
     public abstract boolean isSpaceValid(T block, int x, int y, int z);
-//    public abstract void createComponents(...);
+    public abstract void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize);
 }

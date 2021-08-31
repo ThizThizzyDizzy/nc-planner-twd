@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="aluminum.png"  />
+    <image name="bearing.png"  />
+    <image name="beryllium.png"  />
+    <image name="casing.png"  />
+    <image name="connector.png"  />
+    <image name="controller.png"  />
+    <image name="copper.png"  />
+    <image name="extreme.png"  />
+    <image name="glass.png"  />
+    <image name="gold.png"  />
+    <image name="inlet.png"  />
+    <image name="magnesium.png"  />
+    <image name="outlet.png"  />
+    <image name="shaft.png"  />
+    <image name="sic.png"  />
+    <image name="silver.png"  />
+    <image name="stator.png"  />
+    <image name="steel.png"  />
+</resource>

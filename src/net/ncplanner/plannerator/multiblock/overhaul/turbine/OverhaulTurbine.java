@@ -1,10 +1,12 @@
 package net.ncplanner.plannerator.multiblock.overhaul.turbine;
+import com.codename1.ui.Component;
 import com.codename1.util.MathUtil;
 import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
@@ -31,6 +33,8 @@ import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
+import net.ncplanner.plannerator.planner.menu.MenuEdit;
+import net.ncplanner.plannerator.planner.menu.component.EditorGrid;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -772,6 +776,17 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                 if(canBeXBlade&&canBeYBlade)return block.template.shaft||block.template.blade;
                 if(!canBeXBlade&&!canBeYBlade)return false;
                 return block.template.blade;
+            }
+            @Override
+            public void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize){
+//                comps.add(new MenuComponentEditorGrid(0, 0, cellSize, editor, OverhaulTurbine.this, this, 1, 1, OverhaulTurbine.this.x, OverhaulTurbine.this.y, Axis.Z, 0));
+//                comps.add(new MenuComponentEditorGrid(0, 0, cellSize, editor, OverhaulTurbine.this, this, 1, 1, OverhaulTurbine.this.x, OverhaulTurbine.this.y, Axis.Z, OverhaulTurbine.this.z+1));
+                //include the casing on the coils ones for now, because I'm to lazy to make sure it actually works without it
+                components.add(new EditorGrid(cellSize, editor, OverhaulTurbine.this, this, 0, 0, OverhaulTurbine.this.x+1, OverhaulTurbine.this.y+1, Axis.Z, 0));
+                components.add(new EditorGrid(cellSize, editor, OverhaulTurbine.this, this, 0, 0, OverhaulTurbine.this.x+1, OverhaulTurbine.this.y+1, Axis.Z, OverhaulTurbine.this.z+1));
+                for(int y = 0; y<=OverhaulTurbine.this.y+1; y++){
+                    components.add(new EditorGrid(cellSize, editor, OverhaulTurbine.this, this, 0, 0, OverhaulTurbine.this.z+1, OverhaulTurbine.this.x+1, Axis.Y_INVERTED, y));
+                }
             }
         });
     }

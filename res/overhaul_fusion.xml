@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="breeding_blanket.png"  />
+    <image name="heating_blanket.png"  />
+    <image name="plasma.png"  />
+</resource>

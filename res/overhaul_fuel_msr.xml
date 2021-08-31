@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="hea_242.png"  />
+    <image name="heb_248.png"  />
+    <image name="hecf_249.png"  />
+    <image name="hecf_251.png"  />
+    <image name="hecm_243.png"  />
+    <image name="hecm_245.png"  />
+    <image name="hecm_247.png"  />
+    <image name="hen_236.png"  />
+    <image name="hep_239.png"  />
+    <image name="hep_241.png"  />
+    <image name="heu_233.png"  />
+    <image name="heu_235.png"  />
+    <image name="lea_242.png"  />
+    <image name="leb_248.png"  />
+    <image name="lecf_249.png"  />
+    <image name="lecf_251.png"  />
+    <image name="lecm_243.png"  />
+    <image name="lecm_245.png"  />
+    <image name="lecm_247.png"  />
+    <image name="len_236.png"  />
+    <image name="lep_239.png"  />
+    <image name="lep_241.png"  />
+    <image name="leu_233.png"  />
+    <image name="leu_235.png"  />
+    <image name="mix_239.png"  />
+    <image name="mix_241.png"  />
+    <image name="tbu.png"  />
+</resource>

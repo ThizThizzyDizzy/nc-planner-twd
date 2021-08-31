@@ -1,5 +1,6 @@
 package net.ncplanner.plannerator.planner.menu;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
@@ -16,6 +17,7 @@ import java.util.List;
 import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
+import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.action.ClearSelectionAction;
 import net.ncplanner.plannerator.multiblock.action.SetCoolantRecipeAction;
@@ -62,6 +64,8 @@ public class MenuEdit extends Form implements Editor{
     private Consumer<net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.Recipe> setFusionRecipeFunc;
     private Consumer<net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.Recipe> setTurbineRecipeFunc;
     private final TextArea editorTooltip;
+    private final Container editorPanel;
+    private int blockSize;
     {
         editorTools.add(new PencilTool(this, 0));
     }
@@ -106,6 +110,7 @@ public class MenuEdit extends Form implements Editor{
                 if(autoRecalc)multiblock.recalculate();
             }
         });
+        blockSize = undo.getPreferredH();
         undoRedoButtons.add(undo);
         Button redo = new SquareButton(" "){
             @Override
@@ -237,6 +242,12 @@ public class MenuEdit extends Form implements Editor{
         zoomPanel.add(zoomIn);
         Button zoomOut = new Button("Zoom out");
         zoomPanel.add(zoomOut);
+        zoomOut.addActionListener((e) -> {
+            zoomOut();
+        });
+        zoomIn.addActionListener((e) -> {
+            zoomIn();
+        });
         rightSidebarHeader.add(zoomPanel);
         rightSidebar.add(TOP, rightSidebarHeader);
         multiblockSettingsPanel = new Container(new GridLayout(1));
@@ -245,6 +256,10 @@ public class MenuEdit extends Form implements Editor{
         add(CENTER, centerPanel);
         Button metadata = new Button(multiblock.getName().isEmpty()?"Edit Metadata":(multiblock.getName()+" | Edit Metadata"));
         centerPanel.add(TOP, metadata);
+        editorPanel = new Container(BoxLayout.y());
+        editorPanel.setScrollableX(true);
+        editorPanel.setScrollableY(true);
+        centerPanel.add(CENTER, editorPanel);
         metadata.addActionListener((evt) -> {
             new MenuEditMetadata(multiblock.metadata, multiblock::resetMetadata, ()->{
                 return new MenuEdit(multiblock);
@@ -441,6 +456,16 @@ public class MenuEdit extends Form implements Editor{
     }
     private boolean recalculateOnOpen = true;
     public void rebuildEditorSpaces(){
+        editorPanel.removeAll();
+        ArrayList<EditorSpace> editorSpaces = multiblock.getEditorSpaces();
+        for(EditorSpace space : editorSpaces){
+            ArrayList<Component> comps = new ArrayList<>();
+            space.createComponents(this, comps, blockSize);
+            for(int i = 0; i<comps.size(); i++){
+                Component comp = comps.get(i);
+                editorPanel.add(comp);//stack them all vertically cuz I'm lazy
+            }
+        }
         //TODO editor spaces
         revalidate();
     }
@@ -871,5 +896,14 @@ public class MenuEdit extends Form implements Editor{
         tooltip+="\n\n"+multiblock.getFullTooltip().toString();
         editorTooltip.setGrowByContent(true);
         editorTooltip.setText(tooltip);
+    }
+    private void zoomOut(){
+        if(blockSize%2==0)blockSize/=2;
+        rebuildEditorSpaces();
+    }
+    private void zoomIn(){
+        if(blockSize>getHeight()/2)return;
+        blockSize*=2;
+        rebuildEditorSpaces();
     }
 }

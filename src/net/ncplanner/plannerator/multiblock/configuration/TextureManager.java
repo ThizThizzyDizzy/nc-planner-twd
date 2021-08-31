@@ -3,6 +3,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.util.MathUtil;
 import com.codename1.util.regex.RE;
 import java.io.IOException;
+import java.util.HashMap;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
 public class TextureManager{
@@ -10,9 +11,10 @@ public class TextureManager{
         String path = "";
         while(texture.contains("/")){
             String[] split = new RE("\\/").split(texture);
-            path+="/"+split[0];
+            if(path.isEmpty())path+="/"+split[0];
+            else path+="_"+split[0];
             texture = "";
-            for(int i = 2; i<split.length-2; i++)texture+=split[i]+"/";
+            for(int i = 1; i<split.length-1; i++)texture+=split[i]+"/";
             texture += split[split.length-1];
         }
         try{
@@ -57,13 +59,17 @@ public class TextureManager{
         }
         return image;
     }
+    private static HashMap<Image, com.codename1.ui.Image> cn1map = new HashMap<>();
     public static com.codename1.ui.Image toCN1(Image img){
+        if(cn1map.containsKey(img))return cn1map.get(img);
         int[] rgb = new int[img.getWidth()*img.getHeight()];
         for(int y = 0; y<img.getHeight(); y++){
             for(int x = 0; x<img.getWidth(); x++){
                 rgb[y*img.getWidth()+x] = img.getRGB(x, y);
             }
         }
-        return com.codename1.ui.Image.createImage(rgb, img.getWidth(), img.getHeight());
+        com.codename1.ui.Image image = com.codename1.ui.Image.createImage(rgb, img.getWidth(), img.getHeight());
+        cn1map.put(img, image);
+        return image;
     }
 }

@@ -1,6 +1,5 @@
 package net.ncplanner.plannerator.multiblock;
 import com.codename1.ui.Form;
-import net.ncplanner.plannerator.generator.Priority;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.action.SetblockAction;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.ppe.PostProcessingEffect;

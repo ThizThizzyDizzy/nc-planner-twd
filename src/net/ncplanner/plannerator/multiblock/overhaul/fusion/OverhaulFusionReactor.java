@@ -1,10 +1,12 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fusion;
+import com.codename1.ui.Component;
 import com.codename1.ui.Form;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.ncplanner.plannerator.generator.Priority;
+import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.BlockGrid;
 import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
@@ -28,7 +30,9 @@ import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
+import net.ncplanner.plannerator.planner.menu.MenuEdit;
 import net.ncplanner.plannerator.planner.menu.MenuResizeFusion;
+import net.ncplanner.plannerator.planner.menu.component.EditorGrid;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -96,6 +100,12 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
             @Override
             public boolean isSpaceValid(Block block, int x, int y, int z){
                 return isLocationValid(block, x, y, z);
+            }
+            @Override            
+            public void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize){
+                for(int y = 0; y<height; y++){
+                    components.add(new EditorGrid(cellSize, editor, OverhaulFusionReactor.this, this, 0, 0, width-1, width-1, Axis.Y, y));
+                }
             }
         });
     }

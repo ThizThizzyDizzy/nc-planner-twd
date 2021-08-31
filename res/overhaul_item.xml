@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="bismuth_dust.png"  />
+    <image name="foursmore.png"  />
+    <image name="glowshroom.png"  />
+    <image name="moresmore.png"  />
+    <image name="polonium_dust.png"  />
+    <image name="protactinium_dust.png"  />
+    <image name="protactinium_enriched_thorium_dust.png"  />
+    <image name="smore.png"  />
+    <image name="thorium_dust.png"  />
+</resource>

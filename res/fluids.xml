@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="exhaust_steam.png"  />
+    <image name="hps.png"  />
+    <image name="ic2coolant.png"  />
+    <image name="ic2hot_coolant.png"  />
+    <image name="lps.png"  />
+    <image name="lqs.png"  />
+    <image name="preheated_water.png"  />
+    <image name="steam.png"  />
+    <image name="water.png"  />
+</resource>
