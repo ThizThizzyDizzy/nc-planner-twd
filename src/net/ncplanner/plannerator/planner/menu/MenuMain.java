@@ -212,6 +212,14 @@ public class MenuMain extends Form{
         add(CENTER, centerPane);
         Container header = new Container(new BorderLayout());
         centerPane.add(TOP, header);
+        Container footer = new Container(new BorderLayout());
+        centerPane.add(BOTTOM, footer);
+        footer.add(RIGHT, new Button(new Command("Credits"){
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                new MenuCredits().show();
+            }
+        }));
         editMetadata = new Button("Edit Metadata");
         header.add(CENTER, editMetadata);
         editMetadata.addActionListener((evt) -> {

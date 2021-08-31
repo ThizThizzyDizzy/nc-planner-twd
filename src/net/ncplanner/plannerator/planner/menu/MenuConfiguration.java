@@ -1,11 +1,16 @@
 package net.ncplanner.plannerator.planner.menu;
 import com.codename1.ext.filechooser.FileChooser;
+import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.LEFT;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
@@ -126,7 +131,7 @@ public class MenuConfiguration extends Form{
                         return;
                     }
                     synchronized(addonsList){
-                        addonsList.add(new InternalAddonComponent(c, got, i%2==0));
+                        addonsList.add(new InternalAddonComponent(c, got, i%2==0, Configuration.addonLinks.get(c)));
                         i++;
                         revalidateLater();
                     }
@@ -166,7 +171,7 @@ public class MenuConfiguration extends Form{
         }
     }
     private class InternalAddonComponent extends Container{
-        public InternalAddonComponent(Supplier<AddonConfiguration> addon, AddonConfiguration actualAddon, boolean dark){
+        public InternalAddonComponent(Supplier<AddonConfiguration> addon, AddonConfiguration actualAddon, boolean dark, String url){
             super(new BorderLayout());
             getStyle().setBgTransparency(255);
             getStyle().setBgColor((dark?Core.theme.getSecondaryComponentColor():Core.theme.getComponentColor()).getRGB());
@@ -178,9 +183,18 @@ public class MenuConfiguration extends Form{
             }else{
                 str = actualAddon.name+" "+(actualAddon.overhaulVersion==null?actualAddon.underhaulVersion:actualAddon.overhaulVersion);
             }
-            Label label = new Label(str);
+            Button label = new Button(str);
             label.getStyle().setBgTransparency(0);
             label.getSelectedStyle().setBgTransparency(0);
+            label.getPressedStyle().setBgTransparency(0);
+            label.addActionListener((evt) -> {
+                Dialog.show("Open URL", "Navigate to CurseForge page for "+actualAddon.name+"?", new Command("No"), new Command("Yes"){
+                    @Override
+                    public void actionPerformed(ActionEvent evt){
+                        Display.getInstance().execute(url);
+                    }
+                });
+            });
             add(LEFT, label);
             Button add = new Button("Add");
             add.getStyle().setBgColor(Core.theme.getSecondaryComponentColor().getRGB());

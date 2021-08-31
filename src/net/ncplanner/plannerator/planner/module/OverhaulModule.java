@@ -35,7 +35,7 @@ public class OverhaulModule extends Module{
                 return null;
             }
         }).configuration.addAlternative("AAPN"));
-        Configuration.internalAddons.add(() -> {
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("extreme_reactors.ncpf");
@@ -43,8 +43,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/mc-mods/extreme-reactors");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("ic2.ncpf");
@@ -52,8 +52,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/mc-mods/ic2-classic");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("qmd.ncpf");
@@ -61,8 +61,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/mc-mods/qmd");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("trinity.ncpf");
@@ -70,8 +70,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/mc-mods/trinity");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("ncouto.ncpf");
@@ -79,8 +79,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/nuclearcraft-overhauled-unrealistic-turbine");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("moar_heat_sinks.ncpf");
@@ -88,8 +88,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/moar-heat-sinks");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("moar_fuels.ncpf");
@@ -97,8 +97,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/moarfuels");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("moar_fuels_lite.ncpf");
@@ -106,8 +106,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/moarfuels");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("moar_fuels_ultra_lite.ncpf");
@@ -115,8 +115,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/moarfuels");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("moar_reactor_functionality.ncpf");
@@ -124,8 +124,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/moar-reactor-functionality");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("nuclear_oil_refining.ncpf");
@@ -133,8 +133,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/nuclear-oil-refining");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("nuclear_tree_factory.ncpf");
@@ -142,8 +142,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/nuclear-tree-factory");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("bes.ncpf");
@@ -151,8 +151,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/binarys-extra-stuff-bes");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("aop.ncpf");
@@ -160,8 +160,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/aop");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("nco_confectionery.ncpf");
@@ -169,8 +169,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/nco-confectionery");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("thorium_mixed_fuels.ncpf");
@@ -178,8 +178,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/thorium-mixed-fuels");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("inert_matrix_fuels.ncpf");
@@ -187,8 +187,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/inert-matrix-fuels");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("alloy_heat_sinks.ncpf");
@@ -196,8 +196,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/alloy-heat-sinks");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("spicy_heat_sinks_stable.ncpf");
@@ -205,8 +205,8 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
-        Configuration.internalAddons.add(() -> {
+        }, "https://www.curseforge.com/minecraft/customization/spicy-heat-sinks");
+        Configuration.addInternalAddon(() -> {
             return AddonConfiguration.convert(FileReader.read(() -> {
                 try{
                     return Resources.open("/addons.res").getData("spicy_heat_sinks_unstable.ncpf");
@@ -214,6 +214,6 @@ public class OverhaulModule extends Module{
                     return null;
                 }
             }).configuration);
-        });
+        }, "https://www.curseforge.com/minecraft/customization/spicy-heat-sinks");
     }
 }

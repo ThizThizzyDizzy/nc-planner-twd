@@ -24,8 +24,13 @@ public class Configuration{
     public ArrayList<Configuration> addons = new ArrayList<>();
     public static final ArrayList<Configuration> configurations = new ArrayList<>();
     public static final ArrayList<Supplier<AddonConfiguration>> internalAddons = new ArrayList<>();
+    public static final HashMap<Supplier<AddonConfiguration>, String> addonLinks = new HashMap<>();
     public static final HashMap<Supplier<AddonConfiguration>, AddonConfiguration> internalAddonCache = new HashMap<>();
     private static Configuration NUCLEARCRAFT;
+    public static void addInternalAddon(Supplier<AddonConfiguration> internalAddon, String link){
+        internalAddons.add(internalAddon);
+        addonLinks.put(internalAddon, link);
+    }
     public static void initNuclearcraftConfiguration(){
         if(NUCLEARCRAFT!=null)return;//already done m8
         NUCLEARCRAFT = FileReader.read(() -> {
@@ -41,6 +46,7 @@ public class Configuration{
         configurations.clear();
         configurations.add(NUCLEARCRAFT);
         internalAddons.clear();
+        addonLinks.clear();
         internalAddonCache.clear();
     }
     public ArrayList<String> alternatives = new ArrayList<>();
