@@ -9,7 +9,6 @@ import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.io.OutputStream;
 import net.ncplanner.plannerator.planner.Core;
-import net.ncplanner.plannerator.planner.menu.MenuMain;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
@@ -39,9 +38,7 @@ public class Main {
         });        
     }
     public void start(){
-        new MenuInit(() -> {
-            return current==null?new MenuMain():current;
-        }).show();
+        new MenuInit(current).show();
     }
     public void stop(){
         current = getCurrentForm();
@@ -74,5 +71,6 @@ public class Main {
         }catch(IOException ex){
             Log.e(ex);
         }
+        Core.autosave();//save multiblocks and configurations too for next session
     }
 }

@@ -11,13 +11,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Supplier;
 import net.ncplanner.plannerator.planner.Task;
+import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.FileReader;
 import net.ncplanner.plannerator.planner.file.FormatReader;
+import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.file.reader.NCPF10Reader;
 import net.ncplanner.plannerator.planner.file.reader.NCPF11Reader;
 import net.ncplanner.plannerator.planner.file.reader.NCPF1Reader;
@@ -45,6 +48,7 @@ import net.ncplanner.plannerator.planner.file.reader.OverhaulNCConfigReader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulHellrage1Reader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulHellrage2Reader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulNCConfigReader;
+import net.ncplanner.plannerator.planner.menu.MenuMain;
 import net.ncplanner.plannerator.planner.menu.component.ProgressBar;
 import net.ncplanner.plannerator.planner.module.FusionTestModule;
 import net.ncplanner.plannerator.planner.module.Module;
@@ -93,7 +97,7 @@ public class MenuInit extends Form{
         readerNames.add(s);
         readers.put(s, reader);
     }
-    public MenuInit(Supplier<Form> formToShow){
+    public MenuInit(Form current){
         super(new BorderLayout());
         init = new Task("Initializing...");
         Task t1 = init.addSubtask("Creating form...");
@@ -115,6 +119,9 @@ public class MenuInit extends Form{
         Task tmr = init.addSubtask("Refreshing modules...");
         Task tct = init.addSubtask("Adjusting MSR block textures...");
         Task tci = init.addSubtask("Imposing Configuration...");
+        Task tl = init.addSubtask("Loading previous session...");
+        Task tlc = init.addSubtask("Loading configuration...");
+        Task tlm = init.addSubtask("Loading multiblocks...");
         Container loading = new Container(BoxLayout.y());
         add(CENTER, loading);
         Label lbl;
@@ -133,32 +140,47 @@ public class MenuInit extends Form{
             Core.resetMetadata();
             t2.finish();
             repaint();
-            for(String s : readerNames){
-                FileReader.formats.add(readers.get(s).get());
-                readerTasks.get(s).finish();
+            if(current==null){//loading from scratch
+                for(String s : readerNames){
+                    FileReader.formats.add(readers.get(s).get());
+                    readerTasks.get(s).finish();
+                    repaint();
+                }
+            }else{
+                for(Task t : readerTasks.values())t.finish();//formats are already loaded, no reason to do it again
                 repaint();
             }
             Configuration.initNuclearcraftConfiguration();
             tc1.finish();
             repaint();
-            Core.configuration = new Configuration(null, null, null);
-            tcc.finish();
-            repaint();
-            Core.modules.add(new UnderhaulModule());
-            tm1.finish();
-            repaint();
-            Core.modules.add(new OverhaulModule());
-            tm2.finish();
-            repaint();
-            Core.modules.add(new FusionTestModule());
-            tm3.finish();
-            repaint();
-            Core.modules.add(new RainbowFactorModule());
-            tm4.finish();
-            repaint();
-            Core.modules.add(new PrimeFuelModule());
-            tm5.finish();
-            repaint();
+            if(current==null){//loading from scratch
+                Core.configuration = new Configuration(null, null, null);
+                tcc.finish();
+                repaint();
+                Core.modules.add(new UnderhaulModule());
+                tm1.finish();
+                repaint();
+                Core.modules.add(new OverhaulModule());
+                tm2.finish();
+                repaint();
+                Core.modules.add(new FusionTestModule());
+                tm3.finish();
+                repaint();
+                Core.modules.add(new RainbowFactorModule());
+                tm4.finish();
+                repaint();
+                Core.modules.add(new PrimeFuelModule());
+                tm5.finish();
+                repaint();
+            }else{//don't need to reload all the modules and configurations either
+                tcc.finish();
+                tm1.finish();
+                tm2.finish();
+                tm3.finish();
+                tm4.finish();
+                tm5.finish();
+                repaint();
+            }
             FileSystemStorage fs = FileSystemStorage.getInstance();
             String f = fs.getAppHomePath()+"/settings.dat";
             if(fs.exists(f)){
@@ -199,18 +221,20 @@ public class MenuInit extends Form{
             }
             ts.finish();
             repaint();
-            Core.refreshModules();
+            if(current==null)Core.refreshModules();
             tmr.finish();
             repaint();
-            for(Configuration configuration : Configuration.configurations){
-                if(configuration.overhaul!=null&&configuration.overhaul.fissionMSR!=null){
-                    for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
-                        if(b.heater&&!b.getDisplayName().contains("Standard")){
-                            try{
-                                b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
-                            }catch(Exception ex){
-                                Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
-                                Log.e(ex);
+            if(current==null){
+                for(Configuration configuration : Configuration.configurations){
+                    if(configuration.overhaul!=null&&configuration.overhaul.fissionMSR!=null){
+                        for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
+                            if(b.heater&&!b.getDisplayName().contains("Standard")){
+                                try{
+                                    b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
+                                }catch(Exception ex){
+                                    Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
+                                    Log.e(ex);
+                                }
                             }
                         }
                     }
@@ -218,8 +242,53 @@ public class MenuInit extends Form{
             }
             tct.finish();
             repaint();
-            Configuration.configurations.get(0).impose(Core.configuration);
+            if(current==null)Configuration.configurations.get(0).impose(Core.configuration);
             tci.finish();
+            repaint();
+            if(current==null){//only do this if it's not still in memory
+                String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
+                if(fs.exists(cfgFile)){
+                    NCPFFile ncpf = FileReader.read(cfgFile);
+                    if(ncpf!=null){
+                        Configuration.impose(ncpf.configuration, Core.configuration);
+                        //gonna skip the multiblock conversion part. there shouldn't ever be any multiblocks at this point anyway.
+                    }
+                }
+            }
+            tlc.finish();
+            repaint();
+            if(current!=null){
+                String file = fs.getAppHomePath()+"/autosave.ncpf";
+                if(fs.exists(file)){
+                    NCPFFile ncpf = FileReader.read(file);
+                    if(ncpf!=null){
+                        boolean abort = false;
+                        if((ncpf.configuration==null||ncpf.configuration.isPartial())){
+                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
+                                //nope, configuration somehow doesn't match. ABORT!
+                                abort = true;
+                            }
+                        }else{
+                            Core.configuration = ncpf.configuration;//it's a full configuration for some reason, we can load that
+                        }
+                        if(!abort){
+                            Core.multiblocks.clear();//just in case
+                            Core.metadata.clear();//just in case
+                            Core.metadata.putAll(ncpf.metadata);
+                            Core.configuration = ncpf.configuration;
+                            for(Multiblock mb : ncpf.multiblocks){
+                                try{
+                                    mb.convertTo(Core.configuration);
+                                    Core.multiblocks.add(mb);
+                                }catch(MissingConfigurationEntryException ex){
+                                    Log.e(ex);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            tlm.finish();
             repaint();
 //        System.out.println("Beginning theme dump");
 //        for(ThemeCategory category : Theme.themes){
@@ -227,7 +296,8 @@ public class MenuInit extends Form{
 //                theme.printXML();
 //            }
 //        }
-            formToShow.get().show();
+            if(current==null)new MenuMain().show();
+            else current.show();
         }).start();
     }
 }

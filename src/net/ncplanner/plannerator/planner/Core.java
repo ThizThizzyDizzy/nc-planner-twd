@@ -1,17 +1,25 @@
 package net.ncplanner.plannerator.planner;
+import com.codename1.io.FileSystemStorage;
+import com.codename1.io.Log;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.util.MathUtil;
 import com.codename1.util.StringUtil;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.StringTokenizer;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
+import net.ncplanner.plannerator.multiblock.configuration.PartialConfiguration;
+import net.ncplanner.plannerator.planner.file.FileWriter;
+import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.planner.theme.Theme;
+import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
 public class Core{
@@ -182,5 +190,31 @@ public class Core{
             angle+=(360D/quality);
         }
         g.fillPolygon(xs, ys, quality);
+    }
+    public static void autosave(){
+        FileSystemStorage fs = FileSystemStorage.getInstance();
+        String file = fs.getAppHomePath()+"/autosave.ncpf";
+        String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
+        if(fs.exists(file))fs.delete(file);
+        if(fs.exists(cfgFile))fs.delete(cfgFile);
+        NCPFFile ncpf = new NCPFFile();//saving multiblocks first I guess
+        ncpf.configuration = PartialConfiguration.generate(Core.configuration, Core.multiblocks);
+        ncpf.multiblocks.addAll(Core.multiblocks);
+        ncpf.metadata.putAll(Core.metadata);
+        try(OutputStream stream = fs.openOutputStream(file)){
+            FileWriter.write(ncpf, stream, FileWriter.NCPF);
+        }catch(IOException ex){
+            Log.e(ex);
+        }
+        //now the configuration
+        try(OutputStream stream = fs.openOutputStream(cfgFile)){
+            Config header = Config.newConfig();
+            header.set("version", NCPFFile.SAVE_VERSION);
+            header.set("count", 0);
+            header.save(stream);
+            Core.configuration.save(null, Config.newConfig()).save(stream);
+        }catch(IOException ex){
+            Log.e(ex);
+        }
     }
 }
