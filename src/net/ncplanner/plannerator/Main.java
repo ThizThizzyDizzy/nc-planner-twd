@@ -16,7 +16,6 @@ import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.menu.MenuMain;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.planner.theme.Theme;
-import net.ncplanner.plannerator.planner.theme.ThemeCategory;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
 public class Main {
