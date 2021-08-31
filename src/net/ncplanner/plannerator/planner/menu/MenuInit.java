@@ -1,4 +1,4 @@
-package net.ncplanner.plannerator;
+package net.ncplanner.plannerator.planner.menu;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Container;
@@ -140,7 +140,7 @@ public class MenuInit extends Form{
             Core.resetMetadata();
             t2.finish();
             repaint();
-            if(current==null){//loading from scratch
+            if(readerNames.isEmpty()){
                 for(String s : readerNames){
                     FileReader.formats.add(readers.get(s).get());
                     readerTasks.get(s).finish();
@@ -153,7 +153,7 @@ public class MenuInit extends Form{
             Configuration.initNuclearcraftConfiguration();
             tc1.finish();
             repaint();
-            if(current==null){//loading from scratch
+            if(Core.configuration==null){//loading from scratch
                 Core.configuration = new Configuration(null, null, null);
                 tcc.finish();
                 repaint();
@@ -221,20 +221,18 @@ public class MenuInit extends Form{
             }
             ts.finish();
             repaint();
-            if(current==null)Core.refreshModules();
+            Core.refreshModules();
             tmr.finish();
             repaint();
-            if(current==null){
-                for(Configuration configuration : Configuration.configurations){
-                    if(configuration.overhaul!=null&&configuration.overhaul.fissionMSR!=null){
-                        for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
-                            if(b.heater&&!b.getDisplayName().contains("Standard")){
-                                try{
-                                    b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
-                                }catch(Exception ex){
-                                    Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
-                                    Log.e(ex);
-                                }
+            for(Configuration configuration : Configuration.configurations){
+                if(configuration.overhaul!=null&&configuration.overhaul.fissionMSR!=null){
+                    for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
+                        if(b.heater&&!b.getDisplayName().contains("Standard")){
+                            try{
+                                b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
+                            }catch(Exception ex){
+                                Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
+                                Log.e(ex);
                             }
                         }
                     }
@@ -242,47 +240,43 @@ public class MenuInit extends Form{
             }
             tct.finish();
             repaint();
-            if(current==null)Configuration.configurations.get(0).impose(Core.configuration);
+            Configuration.configurations.get(0).impose(Core.configuration);
             tci.finish();
             repaint();
-            if(current==null){//only do this if it's not still in memory
-                String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
-                if(fs.exists(cfgFile)){
-                    NCPFFile ncpf = FileReader.read(cfgFile);
-                    if(ncpf!=null){
-                        Configuration.impose(ncpf.configuration, Core.configuration);
-                        //gonna skip the multiblock conversion part. there shouldn't ever be any multiblocks at this point anyway.
-                    }
+            String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
+            if(fs.exists(cfgFile)){
+                NCPFFile ncpf = FileReader.read(cfgFile);
+                if(ncpf!=null){
+                    Configuration.impose(ncpf.configuration, Core.configuration);
+                    //gonna skip the multiblock conversion part. there shouldn't ever be any multiblocks at this point anyway.
                 }
             }
             tlc.finish();
             repaint();
-            if(current!=null){
-                String file = fs.getAppHomePath()+"/autosave.ncpf";
-                if(fs.exists(file)){
-                    NCPFFile ncpf = FileReader.read(file);
-                    if(ncpf!=null){
-                        boolean abort = false;
-                        if((ncpf.configuration==null||ncpf.configuration.isPartial())){
-                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
-                                //nope, configuration somehow doesn't match. ABORT!
-                                abort = true;
-                            }
-                        }else{
-                            Core.configuration = ncpf.configuration;//it's a full configuration for some reason, we can load that
+            String file = fs.getAppHomePath()+"/autosave.ncpf";
+            if(fs.exists(file)){
+                NCPFFile ncpf = FileReader.read(file);
+                if(ncpf!=null){
+                    boolean abort = false;
+                    if((ncpf.configuration==null||ncpf.configuration.isPartial())){
+                        if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
+                            //nope, configuration somehow doesn't match. ABORT!
+                            abort = true;
                         }
-                        if(!abort){
-                            Core.multiblocks.clear();//just in case
-                            Core.metadata.clear();//just in case
-                            Core.metadata.putAll(ncpf.metadata);
-                            Core.configuration = ncpf.configuration;
-                            for(Multiblock mb : ncpf.multiblocks){
-                                try{
-                                    mb.convertTo(Core.configuration);
-                                    Core.multiblocks.add(mb);
-                                }catch(MissingConfigurationEntryException ex){
-                                    Log.e(ex);
-                                }
+                    }else{
+                        Core.configuration = ncpf.configuration;//it's a full configuration for some reason, we can load that
+                    }
+                    if(!abort){
+                        Core.multiblocks.clear();//just in case
+                        Core.metadata.clear();//just in case
+                        Core.metadata.putAll(ncpf.metadata);
+                        Core.configuration = ncpf.configuration;
+                        for(Multiblock mb : ncpf.multiblocks){
+                            try{
+                                mb.convertTo(Core.configuration);
+                                Core.multiblocks.add(mb);
+                            }catch(MissingConfigurationEntryException ex){
+                                Log.e(ex);
                             }
                         }
                     }

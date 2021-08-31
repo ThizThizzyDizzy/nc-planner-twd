@@ -1,4 +1,5 @@
 package net.ncplanner.plannerator;
+import net.ncplanner.plannerator.planner.menu.MenuInit;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import static com.codename1.ui.CN.*;
