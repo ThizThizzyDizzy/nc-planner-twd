@@ -1,9 +1,9 @@
 package net.ncplanner.plannerator.planner.module;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.action.SetblockAction;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.OverhaulMSR;

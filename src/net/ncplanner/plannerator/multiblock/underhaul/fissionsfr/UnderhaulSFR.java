@@ -1,8 +1,8 @@
 package net.ncplanner.plannerator.multiblock.underhaul.fissionsfr;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;

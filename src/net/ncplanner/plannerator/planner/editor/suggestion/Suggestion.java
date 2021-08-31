@@ -1,6 +1,6 @@
 package net.ncplanner.plannerator.planner.editor.suggestion;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.Multiblock;

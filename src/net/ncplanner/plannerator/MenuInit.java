@@ -97,7 +97,6 @@ public class MenuInit extends Form{
         super(new BorderLayout());
         init = new Task("Initializing...");
         Task t1 = init.addSubtask("Creating form...");
-        Task ts = init.addSubtask("Loading settings...");
         Task t2 = init.addSubtask("Resetting Metadata");
         Task tf = init.addSubtask("Adding File Readers...");
         for(String s : readerNames){
@@ -112,6 +111,7 @@ public class MenuInit extends Form{
         Task tm3 = tm.addSubtask("Adding Fusion Test Module");
         Task tm4 = tm.addSubtask("Adding Rainbow Factor Module");
         Task tm5 = tm.addSubtask("Adding Prime Fuel Module");
+        Task ts = init.addSubtask("Loading settings...");
         Task tmr = init.addSubtask("Refreshing modules...");
         Task tct = init.addSubtask("Adjusting MSR block textures...");
         Task tci = init.addSubtask("Imposing Configuration...");
@@ -129,6 +129,35 @@ public class MenuInit extends Form{
         });
         new Thread(() -> {
             t1.finish();
+            repaint();
+            Core.resetMetadata();
+            t2.finish();
+            repaint();
+            for(String s : readerNames){
+                FileReader.formats.add(readers.get(s).get());
+                readerTasks.get(s).finish();
+                repaint();
+            }
+            Configuration.initNuclearcraftConfiguration();
+            tc1.finish();
+            repaint();
+            Core.configuration = new Configuration(null, null, null);
+            tcc.finish();
+            repaint();
+            Core.modules.add(new UnderhaulModule());
+            tm1.finish();
+            repaint();
+            Core.modules.add(new OverhaulModule());
+            tm2.finish();
+            repaint();
+            Core.modules.add(new FusionTestModule());
+            tm3.finish();
+            repaint();
+            Core.modules.add(new RainbowFactorModule());
+            tm4.finish();
+            repaint();
+            Core.modules.add(new PrimeFuelModule());
+            tm5.finish();
             repaint();
             FileSystemStorage fs = FileSystemStorage.getInstance();
             String f = fs.getAppHomePath()+"/settings.dat";
@@ -169,35 +198,6 @@ public class MenuInit extends Form{
                 }
             }
             ts.finish();
-            repaint();
-            Core.resetMetadata();
-            t2.finish();
-            repaint();
-            for(String s : readerNames){
-                FileReader.formats.add(readers.get(s).get());
-                readerTasks.get(s).finish();
-                repaint();
-            }
-            Configuration.initNuclearcraftConfiguration();
-            tc1.finish();
-            repaint();
-            Core.configuration = new Configuration(null, null, null);
-            tcc.finish();
-            repaint();
-            Core.modules.add(new UnderhaulModule());
-            tm1.finish();
-            repaint();
-            Core.modules.add(new OverhaulModule());
-            tm2.finish();
-            repaint();
-            Core.modules.add(new FusionTestModule());
-            tm3.finish();
-            repaint();
-            Core.modules.add(new RainbowFactorModule());
-            tm4.finish();
-            repaint();
-            Core.modules.add(new PrimeFuelModule());
-            tm5.finish();
             repaint();
             Core.refreshModules();
             tmr.finish();

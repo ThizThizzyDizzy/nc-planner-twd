@@ -6,7 +6,6 @@ import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
-import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.PlacementRule;

@@ -1,11 +1,11 @@
 package net.ncplanner.plannerator.multiblock.overhaul.turbine;
 import com.codename1.ui.Component;
 import com.codename1.util.MathUtil;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.Direction;

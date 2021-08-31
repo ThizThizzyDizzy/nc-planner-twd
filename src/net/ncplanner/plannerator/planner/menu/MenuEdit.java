@@ -542,6 +542,11 @@ public class MenuEdit extends Form implements Editor{
             button.getStyle().setBgColor(Core.theme.getEditorListBackgroundColor().getRGB());
             button.getSelectedStyle().setBgColor(Core.theme.getEditorListBackgroundColor().getRGB());
             button.getPressedStyle().setBgColor(Core.theme.getEditorListBackgroundColor().getRGB());
+            if(i==partsWide){
+                button.getStyle().setMarginRight(button.getPreferredH()/6);
+                button.getSelectedStyle().setMarginRight(button.getPreferredH()/6);
+                button.getPressedStyle().setMarginRight(button.getPreferredH()/6);
+            }
             c.add(button);
         }
         if(c!=null)partsList.add(c);

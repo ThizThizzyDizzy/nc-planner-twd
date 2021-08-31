@@ -1,10 +1,10 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fissionsfr;
 import com.codename1.util.MathUtil;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.Direction;

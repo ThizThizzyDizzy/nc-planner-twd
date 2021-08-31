@@ -1,5 +1,4 @@
 package net.ncplanner.plannerator.planner.file.reader;
-import com.codename1.util.StringUtil;
 import com.codename1.util.regex.RE;
 import java.io.InputStream;
 import java.util.HashMap;
