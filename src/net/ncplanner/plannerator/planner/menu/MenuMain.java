@@ -12,13 +12,10 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.FocusListener;
-import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.layouts.Layout;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -331,6 +328,7 @@ public class MenuMain extends Form{
                     g.fillPolygon(new int[]{x+w*21/40, x+w*13/20, x+w*3/4, x+w*5/8}, new int[]{y+h*7/20, y+h*19/40, y+h*3/8, y+h/4}, 4);
                 }
             };
+            edit.setEnabled(multi.exists());
             edit.addActionListener((evt) -> {
                 new MenuEdit(multi).show();
             });

@@ -11,7 +11,6 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import net.ncplanner.plannerator.multiblock.Action;
@@ -300,6 +299,7 @@ public class MenuEdit extends Form implements Editor{
                     button.getStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                     button.getSelectedStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                 };
+                setFuncs.put(recipe, setFunc);
                 if(((OverhaulSFR)multiblock).coolantRecipe==recipe)setFunc.run();
                 resetFuncs.add(() -> {
                     button.getStyle().setBgColor(Core.theme.getComponentColor().getRGB());
@@ -332,6 +332,7 @@ public class MenuEdit extends Form implements Editor{
                     button.getStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                     button.getSelectedStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                 };
+                setFuncs.put(recipe, setFunc);
                 if(((OverhaulTurbine)multiblock).recipe==recipe)setFunc.run();
                 resetFuncs.add(() -> {
                     button.getStyle().setBgColor(Core.theme.getComponentColor().getRGB());
@@ -364,6 +365,7 @@ public class MenuEdit extends Form implements Editor{
                     button.getStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                     button.getSelectedStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                 };
+                recipeSetFuncs.put(recipe, setFunc);
                 if(((OverhaulFusionReactor)multiblock).recipe==recipe)setFunc.run();
                 recipeResetFuncs.add(() -> {
                     button.getStyle().setBgColor(Core.theme.getComponentColor().getRGB());
@@ -394,6 +396,7 @@ public class MenuEdit extends Form implements Editor{
                     button.getStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                     button.getSelectedStyle().setBgColor(Core.theme.getSelectedComponentColor().getRGB());
                 };
+                coolantRecipeSets.put(recipe, setFunc);
                 if(((OverhaulFusionReactor)multiblock).coolantRecipe==recipe)setFunc.run();
                 coolantRecipeResets.add(() -> {
                     button.getStyle().setBgColor(Core.theme.getComponentColor().getRGB());

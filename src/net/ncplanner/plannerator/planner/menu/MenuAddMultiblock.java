@@ -32,6 +32,7 @@ public class MenuAddMultiblock extends Form{
                     }
                 }
             };
+            b.setEnabled(m.exists());
             b.addActionListener((evt) -> {
                 Multiblock mb = m.newInstance();
                 mb.init();
