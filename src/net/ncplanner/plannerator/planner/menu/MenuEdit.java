@@ -64,7 +64,7 @@ public class MenuEdit extends Form implements Editor{
     private Consumer<net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.Recipe> setFusionRecipeFunc;
     private Consumer<net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.Recipe> setTurbineRecipeFunc;
     private final TextArea editorTooltip;
-    private final Container editorPanel;
+    public final Container editorPanel;
     private int blockSize;
     {
         editorTools.add(new PencilTool(this, 0));
@@ -505,6 +505,7 @@ public class MenuEdit extends Form implements Editor{
                         isSelected = true;
                         selectedBlock = availableBlock;
                         repaint();
+                        refreshBlockRecipes();
                         refreshEditorTooltip();
                     });
                 }
@@ -549,8 +550,11 @@ public class MenuEdit extends Form implements Editor{
         refreshEditorTooltip();
     }
     private void refreshBlockRecipes(){
-        if(blockRecipesList!=null)blockRecipesList.remove();
-        if(selectedBlock.hasRecipes()){
+        if(blockRecipesList!=null){
+            blockRecipesList.remove();
+            revalidate();
+        }
+        if(selectedBlock!=null&&selectedBlock.hasRecipes()){
             List<? extends IBlockRecipe> recipes = selectedBlock.getRecipes();
             ArrayList<? extends IBlockRecipe> sorted = Pinnable.sort(recipes);
             blockRecipesList = new Container(BoxLayout.y());
@@ -576,6 +580,7 @@ public class MenuEdit extends Form implements Editor{
                 });
                 blockRecipesList.add(button);
             }
+            revalidate();
         }
         refreshEditorTooltip();
     }
@@ -883,6 +888,7 @@ public class MenuEdit extends Form implements Editor{
             if(autoRecalc)multiblock.recalculate();
         }
         refreshEditorTooltip();
+        repaint();
     }
     private void selectAll(int id){
         ArrayList<int[]> sel = new ArrayList<>();

@@ -1,5 +1,6 @@
 package net.ncplanner.plannerator.multiblock.decal;
 import com.codename1.ui.Graphics;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Decal;
 import net.ncplanner.plannerator.planner.Core;
 public class NeutronSourceNoTargetDecal extends Decal{
@@ -8,8 +9,9 @@ public class NeutronSourceNoTargetDecal extends Decal{
     }
     @Override
     public void render(Graphics g, int x, int y, int blockSize){
+        Renderer renderer = new Renderer(g);
         g.setColor(Core.theme.getDecalColorNeutronSourceNoTarget().getRGB());
-        g.fillRect(x+blockSize*3/8, y+blockSize*3/8, x+blockSize*5/8, y+blockSize*5/8);
+        renderer.fillRect(x+blockSize*3/8, y+blockSize*3/8, x+blockSize*5/8, y+blockSize*5/8);
     }
     @Override
     public String getTooltip(){

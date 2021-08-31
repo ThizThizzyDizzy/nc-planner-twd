@@ -1,6 +1,5 @@
 package net.ncplanner.plannerator.multiblock.underhaul.fissionsfr;
 import com.codename1.ui.Graphics;
-import com.codename1.util.StringUtil;
 import com.codename1.util.regex.RE;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.multiblock.Multiblock;

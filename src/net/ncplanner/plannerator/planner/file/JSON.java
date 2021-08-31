@@ -1,6 +1,5 @@
 package net.ncplanner.plannerator.planner.file;
 import com.codename1.util.StringUtil;
-import com.codename1.util.regex.RECharacter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,20 +7,21 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.ncplanner.plannerator.simplelibrary.Queue;
 public class JSON{
     public static boolean debug = false;
     public static JSONObject parse(String str) throws IOException{
-        ArrayList<Character> json = new ArrayList<>();
-        for(char c : str.toCharArray())json.add(c);
+        Queue<Character> json = new Queue<>();
+        for(char c : str.toCharArray())json.enqueue(c);
         return new JSONObject(json);
     }
     public static JSONObject parse(InputStream stream){
         try(InputStreamReader reader = new InputStreamReader(stream)){
-            ArrayList<Character> json = new ArrayList<>();
+            Queue<Character> json = new Queue<>();
             int c;
             if(debug)System.out.print("Reading JSON file...");
             while((c = reader.read())!=-1){
-                json.add((char)c);
+                json.enqueue((char)c);
             }
             if(debug)System.out.println("Done");
             if(debug)System.out.println("Parsing file...");
@@ -34,92 +34,92 @@ public class JSON{
     }
     public static class JSONObject extends HashMap<String, Object>{
         public JSONObject(){}
-        private JSONObject(ArrayList<Character> json) throws IOException{
+        private JSONObject(Queue<Character> json) throws IOException{
             parse(json);
         }
-        private void parse(ArrayList<Character> json) throws IOException{
+        private void parse(Queue<Character> json) throws IOException{
             trim(json);
-            if(json.remove(0)!='{')throw new IOException("'{' expected!");
+            if(json.dequeue()!='{')throw new IOException("'{' expected!");
             while(!json.isEmpty()){
                 trim(json, ',');
-                if(json.get(0)=='}'){
+                if(json.peek()=='}'){
                     if(debug)System.out.println("--Reached End of object");
-                    json.remove(0);
+                    json.dequeue();
                     break;
                 }
-                if(json.get(0)=='\"'){
-                    json.remove(0);
+                if(json.peek()=='\"'){
+                    json.dequeue();
                     String key = "";
                     while(true){
-                        while(json.get(0)=='\\'){
-                            key+=json.remove(0);
-                            key+=json.remove(0);
+                        while(json.peek()=='\\'){
+                            key+=json.dequeue();
+                            key+=json.dequeue();
                         }
-                        if(json.get(0)=='\"'){
-                            json.remove(0);
+                        if(json.peek()=='\"'){
+                            json.dequeue();
                             break;
                         }
-                        key+=json.remove(0);
+                        key+=json.dequeue();
                     }
                     trim(json);
-                    if(json.get(0)!=':')throw new IOException("':' expected");
-                    json.remove(0);//remove the :
+                    if(json.peek()!=':')throw new IOException("':' expected");
+                    json.dequeue();//remove the :
                     trim(json);
                     //what's this new entry?
-                    if(json.get(0)=='\"'){//it's a string!
-                        json.remove(0);
+                    if(json.peek()=='\"'){//it's a string!
+                        json.dequeue();
                         String value = "";
                         while(true){
-                            while(json.get(0)=='\\'){
-                                value+=json.remove(0);
-                                value+=json.remove(0);
+                            while(json.peek()=='\\'){
+                                value+=json.dequeue();
+                                value+=json.dequeue();
                             }
-                            if(json.get(0)=='\"'){
-                                json.remove(0);
+                            if(json.peek()=='\"'){
+                                json.dequeue();
                                 break;
                             }
-                            value+=json.remove(0);
+                            value+=json.dequeue();
                         }
                         put(StringUtil.replaceAll(key, "\\\"", "\""), StringUtil.replaceAll(value, "\\\"", "\""));
                         if(debug)System.out.println("Found new entry: \""+key+"\": \""+value+"\"");
-                    }else if(json.get(0)=='{'){
+                    }else if(json.peek()=='{'){
                         //it's an object!
                         if(debug)System.out.println("Found new object: \""+key+"\"");
                         JSONObject newObject = new JSONObject(json);
                         put(StringUtil.replaceAll(key, "\\\"", "\""), newObject);
-                    }else if(RECharacter.isDigit(json.get(0))||json.get(0)=='-'||json.get(0)=='.'){
+                    }else if(Character.isDigit(json.peek())||json.peek()=='-'||json.peek()=='.'){
                         //it's a number!
                         String num = "";
-                        while(RECharacter.isDigit(json.get(0))||json.get(0)=='.'||json.get(0)=='-'){
-                            num+=json.remove(0);
+                        while(Character.isDigit(json.peek())||json.peek()=='.'||json.peek()=='-'){
+                            num+=json.dequeue();
                         }
                         if(num.startsWith("-."))throw new IOException("Numbers must contain at least one digit before the decimal point!");
-                        if(json.get(0)=='e'||json.get(0)=='E'){
+                        if(json.peek()=='e'||json.peek()=='E'){
                             //exponent, gosh darnit!
-                            num+=Character.toUpperCase(json.remove(0));
-                            while(RECharacter.isDigit(json.get(0))||json.get(0)=='.'||json.get(0)=='-'||json.get(0)=='+'){
-                                num+=json.remove(0);
+                            num+=Character.toUpperCase(json.dequeue());
+                            while(Character.isDigit(json.peek())||json.peek()=='.'||json.peek()=='-'||json.peek()=='+'){
+                                num+=json.dequeue();
                             }
                         }
                         Object value;
-                        if(json.get(0)=='f'||json.get(0)=='F'){
+                        if(json.peek()=='f'||json.peek()=='F'){
                             value = Float.parseFloat(num);
-                            json.remove(0);
-                        }else if(json.get(0)=='d'||json.get(0)=='D'){
+                            json.dequeue();
+                        }else if(json.peek()=='d'||json.peek()=='D'){
                             value = Double.parseDouble(num);
-                            json.remove(0);
-                        }else if(json.get(0)=='b'||json.get(0)=='B'){
+                            json.dequeue();
+                        }else if(json.peek()=='b'||json.peek()=='B'){
                             value = Byte.parseByte(num);
-                            json.remove(0);
-                        }else if(json.get(0)=='s'||json.get(0)=='S'){
+                            json.dequeue();
+                        }else if(json.peek()=='s'||json.peek()=='S'){
                             value = Short.parseShort(num);
-                            json.remove(0);
-                        }else if(json.get(0)=='l'||json.get(0)=='L'){
+                            json.dequeue();
+                        }else if(json.peek()=='l'||json.peek()=='L'){
                             value = Long.parseLong(num);
-                            json.remove(0);
-                        }else if(json.get(0)=='i'||json.get(0)=='I'){
+                            json.dequeue();
+                        }else if(json.peek()=='i'||json.peek()=='I'){
                             value = Integer.parseInt(num);
-                            json.remove(0);
+                            json.dequeue();
                         }else if(num.contains(".")){
                             value = Double.parseDouble(num);
                         }else{
@@ -127,37 +127,37 @@ public class JSON{
                         }
                         put(StringUtil.replaceAll(key, "\\\"", "\""), value);
                         if(debug)System.out.println("Found new entry: \""+key+"\": "+value);
-                    }else if(json.get(0)=='['){
+                    }else if(json.peek()=='['){
                         //it's an array!
                         if(debug)System.out.println("Found new array: \""+key+"\"");
                         JSONArray newArray = new JSONArray(json);
                         put(StringUtil.replaceAll(key, "\\\"", "\""), newArray);
-                    }else if(json.get(0)=='t'||json.get(0)=='T'){
+                    }else if(json.peek()=='t'||json.peek()=='T'){
                         boolean yay = false;
-                        json.remove(0);
-                        if(json.get(0)=='r'||json.get(0)=='R'){
-                            json.remove(0);
-                            if(json.get(0)=='u'||json.get(0)=='U'){
-                                json.remove(0);
-                                if(json.get(0)=='e'||json.get(0)=='E'){
-                                    json.remove(0);
+                        json.dequeue();
+                        if(json.peek()=='r'||json.peek()=='R'){
+                            json.dequeue();
+                            if(json.peek()=='u'||json.peek()=='U'){
+                                json.dequeue();
+                                if(json.peek()=='e'||json.peek()=='E'){
+                                    json.dequeue();
                                     yay = true;
                                 }
                             }
                         }
                         if(!yay)throw new IOException("Failed to parse JSON file: Unknown entry - "+sub(json, 25)+"...");
                         put(StringUtil.replaceAll(key, "\\\"", "\""), true);
-                    }else if(json.get(0)=='f'||json.get(0)=='F'){
+                    }else if(json.peek()=='f'||json.peek()=='F'){
                         boolean yay = false;
-                        json.remove(0);
-                        if(json.get(0)=='a'||json.get(0)=='A'){
-                            json.remove(0);
-                            if(json.get(0)=='l'||json.get(0)=='L'){
-                                json.remove(0);
-                                if(json.get(0)=='s'||json.get(0)=='S'){
-                                    json.remove(0);
-                                    if(json.get(0)=='e'||json.get(0)=='E'){
-                                        json.remove(0);
+                        json.dequeue();
+                        if(json.peek()=='a'||json.peek()=='A'){
+                            json.dequeue();
+                            if(json.peek()=='l'||json.peek()=='L'){
+                                json.dequeue();
+                                if(json.peek()=='s'||json.peek()=='S'){
+                                    json.dequeue();
+                                    if(json.peek()=='e'||json.peek()=='E'){
+                                        json.dequeue();
                                         yay = true;
                                     }
                                 }
@@ -267,78 +267,78 @@ public class JSON{
     }
     public static class JSONArray extends ArrayList<Object>{
         public JSONArray(){}
-        private JSONArray(ArrayList<Character> json) throws IOException{
+        private JSONArray(Queue<Character> json) throws IOException{
             parse(json);
         }
-        private void parse(ArrayList<Character> json) throws IOException{
-            if(json.remove(0)!='[')throw new IOException("'[' expected!");
+        private void parse(Queue<Character> json) throws IOException{
+            if(json.dequeue()!='[')throw new IOException("'[' expected!");
             while(!json.isEmpty()){
                 trim(json, ',');
-                if(json.get(0)=='['){
+                if(json.peek()=='['){
                     //it's an array!
                     if(debug)System.out.println("Found new array!");
-                    json.remove(0);
+                    json.dequeue();
                     JSONArray newArray = new JSONArray(json);
                     add(newArray);
-                }else if(json.get(0)==']'){
+                }else if(json.peek()==']'){
                     if(debug)System.out.println("-Reached End of array");
-                    json.remove(0);
+                    json.dequeue();
                     break;
-                }else if(json.get(0)=='\"'){
+                }else if(json.peek()=='\"'){
                     //it's a string!
-                    json.remove(0);
+                    json.dequeue();
                     String value = "";
                     while(true){
-                        while(json.get(0)=='\\'){
-                            value+=json.remove(0);
-                            value+=json.remove(0);
+                        while(json.peek()=='\\'){
+                            value+=json.dequeue();
+                            value+=json.dequeue();
                         }
-                        if(json.get(0)=='\"'){
-                            json.remove(0);
+                        if(json.peek()=='\"'){
+                            json.dequeue();
                             break;
                         }
-                        value+=json.remove(0);
+                        value+=json.dequeue();
                     }
                     add(StringUtil.replaceAll(value, "\\\"", "\""));
                     if(debug)System.out.println("Found new item: \""+value+"\"");
-                }else if(json.get(0)=='{'){
+                }else if(json.peek()=='{'){
                     //it's an object!
                     if(debug)System.out.println("Found new object!");
                     JSONObject newObject = new JSONObject(json);
                     add(newObject);
-                }else if(RECharacter.isDigit(json.get(0))||json.get(0)=='-'||json.get(0)=='.'){
+                }else if(Character.isDigit(json.peek())||json.peek()=='-'||json.peek()=='.'){
                     //it's a number!
                     String num = "";
-                    while(RECharacter.isDigit(json.get(0))||json.get(0)=='.'||json.get(0)=='-'){
-                        num+=json.remove(0);
+                    while(Character.isDigit(json.peek())||json.peek()=='.'||json.peek()=='-'){
+                        num+=json.dequeue();
                     }
                     if(num.startsWith("-."))throw new IOException("Numbers must contain at least one digit before the decimal point!");
-                    if(json.get(0)=='e'||json.get(0)=='E'){
+                    if(json.peek()=='e'||json.peek()=='E'){
                         //exponent, gosh darnit!
-                        num+=Character.toUpperCase(json.remove(0));
-                        while(RECharacter.isDigit(json.get(0))||json.get(0)=='.'||json.get(0)=='-'||json.get(0)=='+'){
-                            num+=json.remove(0);
+                        num+=Character.toUpperCase(json.dequeue());
+                        while(Character.isDigit(json.peek())||json.peek()=='.'||json.peek()=='-'||json.peek()=='+'){
+                            num+=json.dequeue();
                         }
                     }
                     Object value;
-                    if(json.get(0)=='f'||json.get(0)=='F'){
+                    if(json.peek()=='f'||json.peek()=='F'){
                         value = Float.parseFloat(num);
-                        json.remove(0);
-                    }else if(json.get(0)=='d'||json.get(0)=='D'){
+                        json.dequeue();
+                    }else if(json.peek()=='d'||json.peek()=='D'){
                         value = Double.parseDouble(num);
-                        json.remove(0);
-                    }else if(json.get(0)=='b'||json.get(0)=='B'){
+                        json.dequeue();
+                    }else if(json.peek()=='b'||json.peek()=='B'){
                         value = Byte.parseByte(num);
-                        json.remove(0);
-                    }else if(json.get(0)=='s'||json.get(0)=='S'){
+                        json.dequeue();
+                    }else if(json.peek()=='s'||json.peek()=='S'){
                         value = Short.parseShort(num);
-                        json.remove(0);
-                    }else if(json.get(0)=='l'||json.get(0)=='L'){
+                        json.dequeue();
+                    }else if(json.peek()=='l'||json.peek()=='L'){
                         value = Long.parseLong(num);
-                        json.remove(0);
-                    }else if(json.get(0)=='i'||json.get(0)=='I'){
+                        json.dequeue();
+                    }else if(json.peek()=='i'||json.peek()=='I'){
                         value = Integer.parseInt(num);
-                        json.remove(0);
+                        json.dequeue();
                     }else if(num.contains(".")){
                         value = Double.parseDouble(num);
                     }else{
@@ -346,15 +346,15 @@ public class JSON{
                     }
                     add(value);
                     if(debug)System.out.println("Found new item: "+value);
-                }else if(json.get(0)=='t'||json.get(0)=='T'){
+                }else if(json.peek()=='t'||json.peek()=='T'){
                     boolean yay = false;
-                    json.remove(0);
-                    if(json.get(0)=='r'||json.get(0)=='R'){
-                        json.remove(0);
-                        if(json.get(0)=='u'||json.get(0)=='U'){
-                            json.remove(0);
-                            if(json.get(0)=='e'||json.get(0)=='E'){
-                                json.remove(0);
+                    json.dequeue();
+                    if(json.peek()=='r'||json.peek()=='R'){
+                        json.dequeue();
+                        if(json.peek()=='u'||json.peek()=='U'){
+                            json.dequeue();
+                            if(json.peek()=='e'||json.peek()=='E'){
+                                json.dequeue();
                                 yay = true;
                             }
                         }
@@ -362,17 +362,17 @@ public class JSON{
                     if(!yay)throw new IOException("Failed to parse JSON file: Unknown entry - "+sub(json, 25)+"...");
                     add(true);
                     if(debug)System.out.println("Found new item: true");
-                }else if(json.get(0)=='f'||json.get(0)=='F'){
+                }else if(json.peek()=='f'||json.peek()=='F'){
                     boolean yay = false;
-                    json.remove(0);
-                    if(json.get(0)=='a'||json.get(0)=='A'){
-                        json.remove(0);
-                        if(json.get(0)=='l'||json.get(0)=='L'){
-                            json.remove(0);
-                            if(json.get(0)=='s'||json.get(0)=='S'){
-                                json.remove(0);
-                                if(json.get(0)=='e'||json.get(0)=='E'){
-                                    json.remove(0);
+                    json.dequeue();
+                    if(json.peek()=='a'||json.peek()=='A'){
+                        json.dequeue();
+                        if(json.peek()=='l'||json.peek()=='L'){
+                            json.dequeue();
+                            if(json.peek()=='s'||json.peek()=='S'){
+                                json.dequeue();
+                                if(json.peek()=='e'||json.peek()=='E'){
+                                    json.dequeue();
                                     yay = true;
                                 }
                             }
@@ -417,32 +417,32 @@ public class JSON{
             return write();
         }
     }
-    private static String sub(ArrayList<Character> json, int limit){
+    private static String sub(Queue<Character> json, int limit){
         if(json.isEmpty())return "";
         String s = "";
         limit = Math.min(limit, json.size());
         for(int i = 0; i<limit; i++){
-            s+=json.remove(0);
+            s+=json.dequeue();
         }
         return s;
     }
-    private static void trim(ArrayList<Character> json){
-        char c = json.get(0);
+    private static void trim(Queue<Character> json){
+        char c = json.peek();
         while(c==' '||c=='\n'||c=='\r'||c=='\t'){
-            json.remove(0);
-            c = json.get(0);
+            json.dequeue();
+            c = json.peek();
         }
     }
-    private static void trim(ArrayList<Character> str, char... chars){
+    private static void trim(Queue<Character> str, char... chars){
         WHILE:while(true){
-            char c = str.get(0); 
-            if(RECharacter.isWhitespace(c)){
-                str.remove(0);
+            char c = str.peek(); 
+            if(Character.isWhitespace(c)){
+                str.dequeue();
                 continue;
             }
             for(char ch : chars){
                 if(c==ch){
-                    str.remove(0);
+                    str.dequeue();
                     continue WHILE;
                 }
             }

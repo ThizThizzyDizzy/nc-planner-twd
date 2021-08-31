@@ -1,5 +1,6 @@
 package net.ncplanner.plannerator.multiblock.decal;
 import com.codename1.ui.Graphics;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Decal;
 import net.ncplanner.plannerator.planner.Core;
 public class BlockValidDecal extends Decal{
@@ -10,7 +11,9 @@ public class BlockValidDecal extends Decal{
     public void render(Graphics g, int x, int y, int blockSize){
         g.setColor(Core.theme.getDecalColorBlockValid().getRGB());
         g.setAlpha(32);
-        g.fillRect(x, y, x+blockSize, y+blockSize);
+        Renderer renderer = new Renderer(g);
+        renderer.fillRect(x, y, x+blockSize, y+blockSize);
+        g.setAlpha(255);
     }
     @Override
     public String getTooltip(){

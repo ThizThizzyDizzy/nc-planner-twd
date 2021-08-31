@@ -66,7 +66,6 @@ public class EditorGrid extends Container{
                             editor.getSelectedTool(0).mousePressed(this, editorSpace, bx, by, bz, 0);
                             editor.getSelectedTool(0).mouseReleased(this, editorSpace, bx, by, bz, 0);
                         });
-                        editor.repaint();
                     }
                     @Override
                     protected Dimension calcPreferredSize(){

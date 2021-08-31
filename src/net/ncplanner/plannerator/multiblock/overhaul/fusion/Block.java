@@ -168,7 +168,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
             if(primaryColor!=null){
                 g.setColor(primaryColor.getRGB());
                 g.setAlpha(31);
-                g.fillRect(x, y, x+width, y+height);
+                g.fillRect(x, y, width, height);
                 g.setAlpha(191);
                 int border = width/8;
                 boolean top = cluster.contains(this.x, this.y, z-1);
@@ -176,28 +176,28 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top||!left||!cluster.contains(this.x-1, this.y, z-1)){//top left
-                    g.fillRect(x, y, x+border, y+border);
+                    g.fillRect(x, y, border, border);
                 }
                 if(!top){//top
-                    g.fillRect(x+width/2-border, y, x+width/2+border, y+border);
+                    g.fillRect(x+width/2-border, y, border*2, border);
                 }
                 if(!top||!right||!cluster.contains(this.x+1, this.y, z-1)){//top right
-                    g.fillRect(x+width-border, y, x+width, y+border);
+                    g.fillRect(x+width-border, y, border, border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+height/2-border, x+width, y+height/2+border);
+                    g.fillRect(x+width-border, y+height/2-border, border, border*2);
                 }
                 if(!bottom||!right||!cluster.contains(this.x+1, this.y, z+1)){//bottom right
-                    g.fillRect(x+width-border, y+height-border, x+width, y+height);
+                    g.fillRect(x+width-border, y+height-border, border, border);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+width/2-border, y+height-border, x+width/2+border, y+height);
+                    g.fillRect(x+width/2-border, y+height-border, border*2, border);
                 }
                 if(!bottom||!left||!cluster.contains(this.x-1, this.y, z+1)){//bottom left
-                    g.fillRect(x, y+height-border, x+border, y+height);
+                    g.fillRect(x, y+height-border, border, border);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+height/2-border, x+border, y+height/2+border);
+                    g.fillRect(x, y+height/2-border, border, border*2);
                 }
             }
             Color secondaryColor = null;
@@ -216,23 +216,24 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top){//top
-                    g.fillRect(x+border, y, x+width/2-border, y+border);
-                    g.fillRect(x+width/2+border, y, x+width-border, y+border);
+                    g.fillRect(x+border, y, width/2-border*2, border);
+                    g.fillRect(x+width/2+border, y, width/2-border*2, border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+border, x+width, y+height/2-border);
-                    g.fillRect(x+width-border, y+height/2+border, x+width, y+height-border);
+                    g.fillRect(x+width-border, y+border, border, height/2-border*2);
+                    g.fillRect(x+width-border, y+height/2+border, border, height/2-border*2);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+border, y+height-border, x+width/2-border, y+height);
-                    g.fillRect(x+width/2+border, y+height-border, x+width-border, y+height);
+                    g.fillRect(x+border, y+height-border, width/2-border*2, border);
+                    g.fillRect(x+width/2+border, y+height-border, width/2-border*2, border);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+border, x+border, y+height/2-border);
-                    g.fillRect(x, y+height/2+border, x+border, y+height-border);
+                    g.fillRect(x, y+border, border, height/2-border*2);
+                    g.fillRect(x, y+height/2+border, border, height/2-border*2);
                 }
             }
         }
+        g.setAlpha(255);
     }
     public boolean isInert(){
         return template.cluster&&!template.functional;

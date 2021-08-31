@@ -30,6 +30,7 @@ public interface Pinnable extends Searchable{
             if(c instanceof Pinnable){
                 if(Pinnable.isPinned((Pinnable)c)){
                     outputList.add(c);
+                    it.remove();
                 }
             }
         }
