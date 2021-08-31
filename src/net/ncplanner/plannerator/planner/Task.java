@@ -47,4 +47,11 @@ public class Task{
         if(subtasks.isEmpty())return finished?1:progress;
         return getProgress()/subtasks.size();
     }
+    public int getDepth(){
+        int depth = 1;
+        for(Task s : subtasks){
+            depth = Math.max(depth, s.getDepth()+1);
+        }
+        return depth;
+    }
 }

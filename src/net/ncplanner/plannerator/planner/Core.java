@@ -23,7 +23,7 @@ public class Core{
     public static final ArrayList<Multiblock> multiblocks = new ArrayList<>();
     public static final ArrayList<Multiblock> multiblockTypes = new ArrayList<>();
     public static HashMap<String, String> metadata = new HashMap<>();
-    public static Configuration configuration = new Configuration(null, null, null);
+    public static Configuration configuration;
     public static boolean recoveryMode = false;
     public static final ArrayList<String> pinnedStrs = new ArrayList<>();
     public static final ArrayList<Module> modules = new ArrayList<>();
@@ -31,14 +31,6 @@ public class Core{
     private static final HashMap<Image, Boolean> alphas = new HashMap<>();
     public static boolean tutorialShown = false;
     public static boolean autoBuildCasing = true;
-    static{
-        resetMetadata();
-        modules.add(new UnderhaulModule());
-        modules.add(new OverhaulModule());
-        modules.add(new FusionTestModule());
-        modules.add(new RainbowFactorModule());
-        modules.add(new PrimeFuelModule());
-    }
     public static void resetMetadata(){
         metadata.clear();
         metadata.put("Name", "");

@@ -44,72 +44,9 @@ public class Main {
         });        
     }
     public void start(){
-        System.out.println("Loading fonts");
-        FileSystemStorage fs = FileSystemStorage.getInstance();
-        String f = fs.getAppHomePath()+"/settings.dat";
-        if(fs.exists(f)){
-            try(InputStream stream = fs.openInputStream(f)){
-                Config settings = Config.newConfig(stream);
-                settings.load();
-                System.out.println("Loading theme");
-                Object o = settings.get("theme");
-                if(o instanceof String){
-                    Core.setTheme(Theme.getByName((String)o));
-                }else Core.setTheme(Theme.getByLegacyID((int)o));
-                try{
-                    Config modules = settings.get("modules", Config.newConfig());
-                    HashMap<Module, Boolean> moduleStates = new HashMap<>();
-                    for(String key : modules.properties()){
-                        for(Module m : Core.modules){
-                            if(m.name.equals(key))moduleStates.put(m, modules.getBoolean(key));
-                        }
-                    }
-                    for(Module m : Core.modules){
-                        if(!moduleStates.containsKey(m))continue;
-                        if(m.isActive()){
-                            if(!moduleStates.get(m))m.deactivate();
-                        }else{
-                            if(moduleStates.get(m))m.activate();
-                        }
-                    }
-                }catch(Exception ex){}
-                Core.tutorialShown = settings.get("tutorialShown", false);
-                Core.autoBuildCasing = settings.get("autoBuildCasing", true);
-                ConfigList lst = settings.getConfigList("pins", new ConfigList());
-                for(int i = 0; i<lst.size(); i++){
-                    Core.pinnedStrs.add(lst.getString(i));
-                }
-            }catch(IOException ex){
-                Log.e(ex);
-            }
-        }
-        Core.refreshModules();
-        for(Configuration configuration : Configuration.configurations){
-            if(configuration.overhaul!=null&&configuration.overhaul.fissionMSR!=null){
-                for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
-                    if(b.heater&&!b.getDisplayName().contains("Standard")){
-                        try{
-                            b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
-                        }catch(Exception ex){
-                            Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
-                            Log.e(ex);
-                        }
-                    }
-                }
-            }
-        }
-        Configuration.configurations.get(0).impose(Core.configuration);
-        if(current != null){
-            current.show();
-            return;
-        }
-//        System.out.println("Beginning theme dump");
-//        for(ThemeCategory category : Theme.themes){
-//            for(Theme theme : category){
-//                theme.printXML();
-//            }
-//        }
-        new MenuMain().show();
+        new MenuInit(() -> {
+            return current==null?new MenuMain():current;
+        }).show();
     }
     public void stop(){
         current = getCurrentForm();

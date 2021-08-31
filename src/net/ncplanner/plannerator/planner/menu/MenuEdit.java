@@ -466,7 +466,6 @@ public class MenuEdit extends Form implements Editor{
                 editorPanel.add(comp);//stack them all vertically cuz I'm lazy
             }
         }
-        //TODO editor spaces
         revalidate();
     }
     private void refreshPartsList(){

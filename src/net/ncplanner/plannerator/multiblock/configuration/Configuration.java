@@ -25,14 +25,16 @@ public class Configuration{
     public static final ArrayList<Configuration> configurations = new ArrayList<>();
     public static final ArrayList<Supplier<AddonConfiguration>> internalAddons = new ArrayList<>();
     public static final HashMap<Supplier<AddonConfiguration>, AddonConfiguration> internalAddonCache = new HashMap<>();
-    private static final Configuration NUCLEARCRAFT = FileReader.read(() -> {
-        try{
-            return Resources.open("/configurations.res").getData("nuclearcraft.ncpf");
-        }catch(IOException ex){
-            throw new RuntimeException(ex);
-        }
-    }).configuration.addAlternative("").addAlternative("SF4");
-    static{
+    private static Configuration NUCLEARCRAFT;
+    public static void initNuclearcraftConfiguration(){
+        if(NUCLEARCRAFT!=null)return;//already done m8
+        NUCLEARCRAFT = FileReader.read(() -> {
+            try{
+                return Resources.open("/configurations.res").getData("nuclearcraft.ncpf");
+            }catch(IOException ex){
+                throw new RuntimeException(ex);
+            }
+        }).configuration.addAlternative("").addAlternative("SF4");
         configurations.add(NUCLEARCRAFT);
     }
     public static void clearConfigurations(){
