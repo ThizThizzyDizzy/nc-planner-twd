@@ -112,7 +112,6 @@ public class MenuMain extends Form{
                 Dialog.show("Confirm Delete", "Delete "+(selectedMultiblock.getName().isEmpty()?selectedMultiblock.getDefinitionName():selectedMultiblock.getName())+"?", new Command("Delete"){
                     @Override
                     public void actionPerformed(ActionEvent evt){
-                        System.out.println(Core.multiblocks.contains(selectedMultiblock)+" "+selectedMultiblock);
                         for(Multiblock m : Core.multiblocks){
                             if(m instanceof OverhaulTurbine){
                                 ((OverhaulTurbine)m).inputs.remove(selectedMultiblock);

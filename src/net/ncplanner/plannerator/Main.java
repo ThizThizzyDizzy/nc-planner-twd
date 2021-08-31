@@ -104,12 +104,12 @@ public class Main {
             current.show();
             return;
         }
-        System.out.println("Beginning theme dump");
-        for(ThemeCategory category : Theme.themes){
-            for(Theme theme : category){
-                theme.printXML();
-            }
-        }
+//        System.out.println("Beginning theme dump");
+//        for(ThemeCategory category : Theme.themes){
+//            for(Theme theme : category){
+//                theme.printXML();
+//            }
+//        }
         new MenuMain().show();
     }
     public void stop(){
