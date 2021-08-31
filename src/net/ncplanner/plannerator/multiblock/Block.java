@@ -105,9 +105,9 @@ public abstract class Block extends MultiblockBit implements Pinnable{
         int inset = (int)(width*dInset);
         int outline = (int)(width*dInset*2);
         g.fillRect(x+inset, y+inset, width-inset*2, outline);
-        g.fillRect(inset, y+height-inset-outline, width-inset*2, outline);
-        g.fillRect(inset, inset+outline, outline, height-inset*2-outline*2);
-        g.fillRect(width-inset-outline, inset+outline, outline, height-inset*2-outline*2);
+        g.fillRect(x+inset, y+height-inset-outline, width-inset*2, outline);
+        g.fillRect(x+inset, y+inset+outline, outline, height-inset*2-outline*2);
+        g.fillRect(x+width-inset-outline, y+inset+outline, outline, height-inset*2-outline*2);
     }
     public Block copy(int x, int y, int z){
         Block b = newInstance(x, y, z);
