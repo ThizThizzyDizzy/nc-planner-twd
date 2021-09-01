@@ -4,6 +4,7 @@ import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
+import static com.codename1.ui.Component.BOTTOM;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
@@ -18,6 +19,7 @@ import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.FileReader;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
+import net.ncplanner.plannerator.planner.file.NCPFHeader;
 public class MenuLoad extends Form{
     public MenuLoad(){
         super(new BorderLayout());
@@ -53,9 +55,26 @@ public class MenuLoad extends Form{
                     Container fileContainer = new Container(new BorderLayout());
                     fileList.add(fileContainer);
                     Label name = new Label(filename);
+                    fileContainer.getStyle().setMarginTop(name.getPreferredH()/4);
                     fileContainer.add(CENTER, name);
                     Container buttonHolder = new Container(new GridLayout(2));
                     fileContainer.add(RIGHT, buttonHolder);
+                    try{
+                        NCPFHeader header = FileReader.readHeader(file);
+                        if(header!=null){
+                            Container headerDataContainer = new Container(new GridLayout(3));
+                            fileContainer.add(BOTTOM, headerDataContainer);
+                            if(header.metadata!=null){
+                                String actualName = header.metadata.get("Name");
+                                if(actualName!=null&&!actualName.isEmpty()){
+                                    name.setText(actualName);
+                                }
+                            }
+                            headerDataContainer.add(new Label(filename));
+                            headerDataContainer.add(new Label(header.multiblocks+" Multiblock"+(header.multiblocks==1?"":"s")));
+                            headerDataContainer.add(new Label("NCPF "+header.version));
+                        }
+                    }catch(Exception ex){}
                     Button open = new Button("Load");
                     open.addActionListener((evt) -> {
                         open(file);
