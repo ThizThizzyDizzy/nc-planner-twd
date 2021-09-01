@@ -40,33 +40,21 @@ public class Core{
         metadata.put("Name", "");
         metadata.put("Author", "");
     }
-    public static void drawCircle(Graphics g, double x, double y, double innerRadius, double outerRadius, Color color){
+    public static void drawCircle(Graphics g, int x, int y, int innerRadius, int outerRadius, Color color){
         g.setColor(color.getRGB());
-        int resolution = (int)(2*Math.PI*outerRadius);//an extra *2 to account for wavy surface?
+        int resolution = (int)(Math.PI*outerRadius);
         double angle = 0;
+        int[] xp = new int[resolution*2];
+        int[] yp = new int[resolution*2];
         for(int i = 0; i<resolution; i++){
-            int[] xp = new int[4];
-            int[] yp = new int[4];
-            double inX = x+Math.cos(Math.toRadians(angle-90))*innerRadius;
-            double inY = y+Math.sin(Math.toRadians(angle-90))*innerRadius;
-            xp[0] = (int)inX;
-            yp[0] = (int)inY;
-            double outX = x+Math.cos(Math.toRadians(angle-90))*outerRadius;
-            double outY = y+Math.sin(Math.toRadians(angle-90))*outerRadius;
-            xp[1] = (int)outX;
-            yp[1] = (int)outY;
-            angle+=(360d/resolution);
+            xp[i] = x+(int)(Math.cos(Math.toRadians(angle-90))*innerRadius);
+            yp[i] = y+(int)(Math.sin(Math.toRadians(angle-90))*innerRadius);
+            xp[resolution*2-i-1] = x+(int)(Math.cos(Math.toRadians(angle-90))*outerRadius);
+            yp[resolution*2-i-1] = y+(int)(Math.sin(Math.toRadians(angle-90))*outerRadius);
+            angle+=(360d/(resolution-1));
             if(angle>=360)angle-=360;
-            outX = x+Math.cos(Math.toRadians(angle-90))*outerRadius;
-            outY = y+Math.sin(Math.toRadians(angle-90))*outerRadius;
-            xp[2] = (int)outX;
-            yp[2] = (int)outY;
-            inX = x+Math.cos(Math.toRadians(angle-90))*innerRadius;
-            inY = y+Math.sin(Math.toRadians(angle-90))*innerRadius;
-            xp[3] = (int)inX;
-            yp[3] = (int)inY;
-            g.drawPolygon(xp, yp, 4);
         }
+        g.fillPolygon(xp, yp, resolution*2);
     }
     public static String[] split(String str, String splitBy){
         ArrayList<String> splitArray = new ArrayList<>();

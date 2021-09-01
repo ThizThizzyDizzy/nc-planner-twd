@@ -94,8 +94,8 @@ public abstract class Block extends MultiblockBit implements Pinnable{
         if(renderOverlay)renderOverlay(g, x,y,width,height, multiblock);
     }
     public abstract void renderOverlay(Graphics g, int x, int y, int width, int height, Multiblock multiblock);
-    public void drawCircle(Graphics g, double x, double y, double width, double height, Color color){
-        Core.drawCircle(g, x+width/2, y+height/2, width*(4/16d), width*(6/16d), color);
+    public void drawCircle(Graphics g, int x, int y, int width, int height, Color color){
+        Core.drawCircle(g, x+width/2, y+height/2, width/4, width*3/8, color);
     }
     public void drawOutline(Graphics g, int x, int y, int width, int height, Color color){
         drawOutline(g, x, y, width, height, 1/32d, color);
