@@ -140,47 +140,32 @@ public class MenuInit extends Form{
             Core.resetMetadata();
             t2.finish();
             repaint();
-            if(FileReader.formats.isEmpty()){
-                for(String s : readerNames){
-                    FileReader.formats.add(readers.get(s).get());
-                    readerTasks.get(s).finish();
-                    repaint();
-                }
-            }else{
-                for(Task t : readerTasks.values())t.finish();//formats are already loaded, no reason to do it again
+            for(String s : readerNames){
+                FileReader.formats.add(readers.get(s).get());
+                readerTasks.get(s).finish();
                 repaint();
             }
             Configuration.initNuclearcraftConfiguration();
             tc1.finish();
             repaint();
-            if(Core.configuration==null){//loading from scratch
-                Core.configuration = new Configuration(null, null, null);
-                tcc.finish();
-                repaint();
-                Core.modules.add(new UnderhaulModule());
-                tm1.finish();
-                repaint();
-                Core.modules.add(new OverhaulModule());
-                tm2.finish();
-                repaint();
-                Core.modules.add(new FusionTestModule());
-                tm3.finish();
-                repaint();
-                Core.modules.add(new RainbowFactorModule());
-                tm4.finish();
-                repaint();
-                Core.modules.add(new PrimeFuelModule());
-                tm5.finish();
-                repaint();
-            }else{//don't need to reload all the modules and configurations either
-                tcc.finish();
-                tm1.finish();
-                tm2.finish();
-                tm3.finish();
-                tm4.finish();
-                tm5.finish();
-                repaint();
-            }
+            Core.configuration = new Configuration(null, null, null);
+            tcc.finish();
+            repaint();
+            Core.modules.add(new UnderhaulModule());
+            tm1.finish();
+            repaint();
+            Core.modules.add(new OverhaulModule());
+            tm2.finish();
+            repaint();
+            Core.modules.add(new FusionTestModule());
+            tm3.finish();
+            repaint();
+            Core.modules.add(new RainbowFactorModule());
+            tm4.finish();
+            repaint();
+            Core.modules.add(new PrimeFuelModule());
+            tm5.finish();
+            repaint();
             FileSystemStorage fs = FileSystemStorage.getInstance();
             String f = fs.getAppHomePath()+"/settings.dat";
             if(fs.exists(f)){
@@ -258,7 +243,7 @@ public class MenuInit extends Form{
                 NCPFFile ncpf = FileReader.read(file);
                 if(ncpf!=null){
                     boolean abort = false;
-                    if((ncpf.configuration==null||ncpf.configuration.isPartial())){
+                    if(ncpf.configuration==null||ncpf.configuration.isPartial()){
                         if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
                             //nope, configuration somehow doesn't match. ABORT!
                             abort = true;
