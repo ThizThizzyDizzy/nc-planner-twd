@@ -1,5 +1,4 @@
 package net.ncplanner.plannerator.planner.menu;
-import com.codename1.ext.filechooser.FileChooser;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
@@ -11,6 +10,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.FocusListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -23,9 +23,7 @@ import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.PartialConfiguration;
 import net.ncplanner.plannerator.multiblock.overhaul.turbine.OverhaulTurbine;
 import net.ncplanner.plannerator.planner.Core;
-import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.FileFormat;
-import net.ncplanner.plannerator.planner.file.FileReader;
 import net.ncplanner.plannerator.planner.file.FileWriter;
 import net.ncplanner.plannerator.planner.file.FormatWriter;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
@@ -71,18 +69,57 @@ public class MenuMain extends Form{
                 FileSystemStorage fs = FileSystemStorage.getInstance();
                 String file = fs.getAppHomePath()+"/"+name+"."+format.extensions[0];
                 int i = 0;
+                String nam = null;
                 while(fs.exists(file)){
-                    file = fs.getAppHomePath()+"/"+name+"_"+i+"."+format.extensions[0];
+                    nam = name+"_"+i;
+                    file = fs.getAppHomePath()+"/"+nam+"."+format.extensions[0];
                     i++;
                 }
-                try(OutputStream stream = fs.openOutputStream(file)){
-                    FileWriter.write(ncpf, stream, writer);
-                }catch(IOException ex){
-                    Log.e(ex);
-                }
-                Core.showOKDialog("Export complete", "Exported as "+file);
+                name = nam;
+                Container exportTextContainer = new Container(BoxLayout.y());
+                TextField exportText = new TextField(name, "filename");
+                exportTextContainer.add(exportText);
+                Dialog.show("Export "+format.name, exportTextContainer, new Command("Cancel"), new Command("Export"){
+                    @Override
+                    public void actionPerformed(ActionEvent evt){
+                        String filename = exportText.getText();
+                        if(filename==null||filename.isEmpty()){
+                            Core.showOKDialog("Export failed", "Invalid filename: "+filename+"."+format.extensions[0]);
+                        }else{
+                            String file = fs.getAppHomePath()+"/"+filename+"."+format.extensions[0];
+                            if(fs.exists(file)){
+                                Dialog.show("Confirm overwrite", "File "+filename+"."+format.extensions[0]+" already exists!\nOverwrite?", new Command("Cancel"), new Command("Export"){
+                                    @Override
+                                    public void actionPerformed(ActionEvent evt){
+                                        export(file, filename+"."+format.extensions[0]);
+                                    }
+                                });
+                            }else export(file, filename+"."+format.extensions[0]);
+                        }
+                    }
+                    private void export(String file, String filename){
+                        try(OutputStream stream = fs.openOutputStream(file)){
+                            FileWriter.write(ncpf, stream, writer);
+                        }catch(IOException ex){
+                            Log.e(ex);
+                        }
+                        Core.showOKDialog("Export complete", "Exported as "+filename);
+                    }
+                });
             });
         }
+        export.setFocusable(false);
+        export.setEnabled(false);
+        export.addActionListener((evt) -> {
+            Component focused = getFocused();
+            if(focused instanceof MultiblockContainer){
+                if(!exportContainer.contains(specificExports.get(0))){
+                    for(Button b : specificExports)exportContainer.add(b);
+                    revalidate();
+                }
+            }
+        });
+//</editor-fold>
         Button deleteButton = new Button("Delete Multiblock");
         deleteButton.getStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
         deleteButton.getSelectedStyle().setFgColor(Core.theme.getDeleteButtonTextColor().getRGB());
@@ -105,8 +142,6 @@ public class MenuMain extends Form{
             }
         });
         leftButtons.add(exportContainer);
-        export.setFocusable(false);
-        export.setEnabled(false);
         addFocusListener(new FocusListener() {
             @Override
             public void focusGained(Component cmp){
@@ -126,16 +161,6 @@ public class MenuMain extends Form{
                 export.setEnabled(false);
             }
         });
-        export.addActionListener((evt) -> {
-            Component focused = getFocused();
-            if(focused instanceof MultiblockContainer){
-                if(!exportContainer.contains(specificExports.get(0))){
-                    for(Button b : specificExports)exportContainer.add(b);
-                    revalidate();
-                }
-            }
-        });
-//</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Save">
         Container saveContainer = new Container(BoxLayout.y());
         Button save = new Button("Save");
@@ -146,21 +171,50 @@ public class MenuMain extends Form{
             ncpf.configuration = PartialConfiguration.generate(Core.configuration, Core.multiblocks);
             ncpf.multiblocks.addAll(Core.multiblocks);
             ncpf.metadata.putAll(Core.metadata);
-            String name = ncpf.metadata.get("name");
-            if(name==null||name.isEmpty())name = "unnamed";
             FileSystemStorage fs = FileSystemStorage.getInstance();
-            String file = fs.getAppHomePath()+"/"+name+".ncpf";
-            int i = 0;
-            while(fs.exists(file)){
-                file = fs.getAppHomePath()+"/"+name+"_"+i+".ncpf";
-                i++;
+            String name = Core.filename;
+            if(name==null) name = ncpf.metadata.get("name");
+            if(name==null||name.isEmpty()){
+                name = "unnamed";
+                String file = fs.getAppHomePath()+"/"+name+".ncpf";
+                int i = 0;
+                while(fs.exists(file)){
+                    name = "unnamed_"+i;
+                    file = fs.getAppHomePath()+"/"+name+".ncpf";
+                    i++;
+                }
             }
-            try(OutputStream stream = fs.openOutputStream(file)){
-                FileWriter.write(ncpf, stream, FileWriter.NCPF);
-            }catch(IOException ex){
-                Log.e(ex);
-            }
-            Core.showOKDialog("Save complete", "Saved as "+file);
+            Container saveTextContainer = new Container(BoxLayout.y());
+            TextField saveText = new TextField(name, "filename");
+            saveTextContainer.add(saveText);
+            Dialog.show("Save NCPF", saveTextContainer, new Command("Cancel"), new Command("Save"){
+                @Override
+                public void actionPerformed(ActionEvent evt){
+                    String filename = saveText.getText();
+                    if(filename==null||filename.isEmpty()){
+                        Core.showOKDialog("Save failed", "Invalid filename: "+filename+".ncpf");
+                    }else{
+                        Core.filename = filename;
+                        String file = fs.getAppHomePath()+"/"+filename+".ncpf";
+                        if(fs.exists(file)){
+                            Dialog.show("Confirm overwrite", "File "+filename+".ncpf already exists!\nOverwrite?", new Command("Cancel"), new Command("Save"){
+                                @Override
+                                public void actionPerformed(ActionEvent evt){
+                                    save(file, filename+".ncpf");
+                                }
+                            });
+                        }else save(file, filename+".ncpf");
+                    }
+                }
+                private void save(String file, String filename){
+                    try(OutputStream stream = fs.openOutputStream(file)){
+                        FileWriter.write(ncpf, stream, FileWriter.NCPF);
+                    }catch(IOException ex){
+                        Log.e(ex);
+                    }
+                    Core.showOKDialog("Save complete", "Saved as "+filename);
+                }
+            });
         });
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Load">

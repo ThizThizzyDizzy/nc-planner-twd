@@ -34,6 +34,7 @@ public class Core{
     private static final HashMap<Image, Boolean> alphas = new HashMap<>();
     public static boolean tutorialShown = false;
     public static boolean autoBuildCasing = true;
+    public static String filename; //saved filename to default to when saving
     public static void resetMetadata(){
         metadata.clear();
         metadata.put("Name", "");
