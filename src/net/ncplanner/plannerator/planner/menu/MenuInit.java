@@ -119,9 +119,9 @@ public class MenuInit extends Form{
         Task tmr = init.addSubtask("Refreshing modules...");
         Task tct = init.addSubtask("Adjusting MSR block textures...");
         Task tci = init.addSubtask("Imposing Configuration...");
-        Task tl = init.addSubtask("Loading previous session...");
-        Task tlc = init.addSubtask("Loading configuration...");
-        Task tlm = init.addSubtask("Loading multiblocks...");
+//        Task tl = init.addSubtask("Loading previous session...");
+//        Task tlc = init.addSubtask("Loading configuration...");
+//        Task tlm = init.addSubtask("Loading multiblocks...");
         Container loading = new Container(BoxLayout.y());
         add(CENTER, loading);
         Label lbl;
@@ -148,7 +148,7 @@ public class MenuInit extends Form{
             Configuration.initNuclearcraftConfiguration();
             tc1.finish();
             repaint();
-            Core.configuration = new Configuration(null, null, null);
+            if(Core.configuration==null)Core.configuration = new Configuration(null, null, null);
             tcc.finish();
             repaint();
             Core.modules.add(new UnderhaulModule());
@@ -225,50 +225,50 @@ public class MenuInit extends Form{
             }
             tct.finish();
             repaint();
-            Configuration.configurations.get(0).impose(Core.configuration);
+            if(Core.configuration.name==null)Configuration.configurations.get(0).impose(Core.configuration);
             tci.finish();
             repaint();
-            String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
-            if(fs.exists(cfgFile)){
-                NCPFFile ncpf = FileReader.read(cfgFile);
-                if(ncpf!=null){
-                    Configuration.impose(ncpf.configuration, Core.configuration);
-                    //gonna skip the multiblock conversion part. there shouldn't ever be any multiblocks at this point anyway.
-                }
-            }
-            tlc.finish();
-            repaint();
-            String file = fs.getAppHomePath()+"/autosave.ncpf";
-            if(fs.exists(file)){
-                NCPFFile ncpf = FileReader.read(file);
-                if(ncpf!=null){
-                    boolean abort = false;
-                    if(ncpf.configuration==null||ncpf.configuration.isPartial()){
-                        if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
-                            //nope, configuration somehow doesn't match. ABORT!
-                            abort = true;
-                        }
-                    }else{
-                        Core.configuration = ncpf.configuration;//it's a full configuration for some reason, we can load that
-                    }
-                    if(!abort){
-                        Core.multiblocks.clear();//just in case
-                        Core.metadata.clear();//just in case
-                        Core.metadata.putAll(ncpf.metadata);
-                        Core.configuration = ncpf.configuration;
-                        for(Multiblock mb : ncpf.multiblocks){
-                            try{
-                                mb.convertTo(Core.configuration);
-                                Core.multiblocks.add(mb);
-                            }catch(MissingConfigurationEntryException ex){
-                                Log.e(ex);
-                            }
-                        }
-                    }
-                }
-            }
-            tlm.finish();
-            repaint();
+//            String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";
+//            if(fs.exists(cfgFile)){
+//                NCPFFile ncpf = FileReader.read(cfgFile);
+//                if(ncpf!=null){
+//                    Configuration.impose(ncpf.configuration, Core.configuration);
+//                    //gonna skip the multiblock conversion part. there shouldn't ever be any multiblocks at this point anyway.
+//                }
+//            }
+//            tlc.finish();
+//            repaint();
+//            String file = fs.getAppHomePath()+"/autosave.ncpf";
+//            if(fs.exists(file)){
+//                NCPFFile ncpf = FileReader.read(file);
+//                if(ncpf!=null){
+//                    boolean abort = false;
+//                    if(ncpf.configuration==null||ncpf.configuration.isPartial()){
+//                        if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
+//                            //nope, configuration somehow doesn't match. ABORT!
+//                            abort = true;
+//                        }
+//                    }else{
+//                        Core.configuration = ncpf.configuration;//it's a full configuration for some reason, we can load that
+//                    }
+//                    if(!abort){
+//                        Core.multiblocks.clear();//just in case
+//                        Core.metadata.clear();//just in case
+//                        Core.metadata.putAll(ncpf.metadata);
+//                        Core.configuration = ncpf.configuration;
+//                        for(Multiblock mb : ncpf.multiblocks){
+//                            try{
+//                                mb.convertTo(Core.configuration);
+//                                Core.multiblocks.add(mb);
+//                            }catch(MissingConfigurationEntryException ex){
+//                                Log.e(ex);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            tlm.finish();
+//            repaint();
 //        System.out.println("Beginning theme dump");
 //        for(ThemeCategory category : Theme.themes){
 //            for(Theme theme : category){
