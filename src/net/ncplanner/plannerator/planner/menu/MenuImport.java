@@ -56,6 +56,7 @@ public class MenuImport extends Form{
                     Container fileContainer = new Container(new BorderLayout());
                     fileList.add(fileContainer);
                     Label name = new Label(filename);
+                    fileContainer.getStyle().setMarginTop(name.getPreferredH()/4);
                     fileContainer.add(CENTER, name);
                     Container buttonHolder = new Container(new GridLayout(2));
                     fileContainer.add(RIGHT, buttonHolder);
