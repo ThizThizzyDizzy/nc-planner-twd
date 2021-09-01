@@ -1,15 +1,16 @@
 package net.ncplanner.plannerator;
-import net.ncplanner.plannerator.planner.menu.MenuInit;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.io.OutputStream;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.menu.MenuInit;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
@@ -27,7 +28,7 @@ public class Main {
 
         // Pro only feature
         Log.bindCrashProtection(true);
-
+        
         addNetworkErrorListener(err -> {
             // prevent the event from propagating
             err.consume();
@@ -39,6 +40,7 @@ public class Main {
         });        
     }
     public void start(){
+        Display.getInstance().lockOrientation(false);//lock to landscape
         new MenuInit(current).show();
     }
     public void stop(){
