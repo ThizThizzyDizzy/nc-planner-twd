@@ -154,8 +154,9 @@ public class ForgeConfig{
     }
     private static String readLine(InputStreamReader reader) throws IOException{
         String line = "";
-        char character;
-        while((character = (char)reader.read())!=-1){
+        int i;
+        while((i = reader.read())!=-1){
+            char character = (char)i;
             line+=character;
             if(line.endsWith("\n"))return line;
         }

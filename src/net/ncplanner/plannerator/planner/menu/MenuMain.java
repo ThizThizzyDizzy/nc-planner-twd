@@ -40,30 +40,14 @@ public class MenuMain extends Form{
         add(LEFT, leftPane);
         Container leftButtons = new Container(new GridLayout(1, 4));
         leftPane.add(TOP, leftButtons);
-        boolean hasFileChooser = FileChooser.isAvailable();
         //<editor-fold defaultstate="collapsed" desc="Import">
-        if(hasFileChooser){
-            Container importContainer = new Container(BoxLayout.y());
-            Button imprt = new Button("Import");
-            leftButtons.add(importContainer);
-            importContainer.add(imprt);
-            imprt.addActionListener((evt) -> {
-                FileChooser.showOpenDialog(true, ".ncpf,.json", (e) -> {
-                    if(e!=null&&e.getSource()!=null){
-                        String[] files = (String[])e.getSource();
-                        for(String file : files){
-                            NCPFFile ncpf = FileReader.read(file);
-                            if(ncpf==null)return;
-                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
-                                Core.showOKDialog("Configuration mismatch", "File configuration '"+ncpf.configuration.name+"' does not match currently loaded configuration '"+Core.configuration.name+"'!");
-                            }
-                            convertAndImportMultiblocks(ncpf.multiblocks);
-                            refresh();
-                        }
-                    }
-                });
-            });
-        }
+        Container importContainer = new Container(BoxLayout.y());
+        Button imprt = new Button("Import");
+        leftButtons.add(importContainer);
+        importContainer.add(imprt);
+        imprt.addActionListener((evt) -> {
+            new MenuImport().show();
+        });
 //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Export">
         Container exportContainer = new Container(BoxLayout.y());
@@ -180,33 +164,13 @@ public class MenuMain extends Form{
         });
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Load">
-        if(hasFileChooser){
-            Container loadContainer = new Container(BoxLayout.y());
-            Button load = new Button("Load");
-            loadContainer.add(load);
-            leftButtons.add(loadContainer);
-            load.addActionListener((evt) -> {
-                FileChooser.showOpenDialog(".ncpf,.json", (e) -> {
-                    if(e!=null&&e.getSource()!=null){
-                        String file = (String)e.getSource();
-                        NCPFFile ncpf = FileReader.read(file);
-                        if(ncpf==null)return;
-                        Core.multiblocks.clear();
-                        Core.metadata.clear();
-                        Core.metadata.putAll(ncpf.metadata);
-                        if(ncpf.configuration==null||ncpf.configuration.isPartial()){
-                            if(ncpf.configuration!=null&&!ncpf.configuration.name.equals(Core.configuration.name)){
-                                Core.showOKDialog("Configuration mismatch", "File configuration '"+ncpf.configuration.name+"' does not match currently loaded configuration '"+Core.configuration.name+"'!");
-                            }
-                        }else{
-                            Core.configuration = ncpf.configuration;
-                        }
-                        convertAndImportMultiblocks(ncpf.multiblocks);
-                        refresh();
-                    }
-                });
-            });
-        }
+        Container loadContainer = new Container(BoxLayout.y());
+        Button load = new Button("Load");
+        loadContainer.add(load);
+        leftButtons.add(loadContainer);
+        load.addActionListener((evt) -> {
+            new MenuLoad().show();
+        });
 //</editor-fold>
         Container centerPane = new Container(new BorderLayout());
         add(CENTER, centerPane);
@@ -300,17 +264,6 @@ public class MenuMain extends Form{
         String name = Core.metadata.containsKey("Name")?Core.metadata.get("Name"):"";
         editMetadata.setText(name.isEmpty()?"Edit Metadata":(name+" | Edit Metadata"));
         revalidate();
-    }
-    private void convertAndImportMultiblocks(ArrayList<Multiblock> multiblocks){
-        for(Multiblock mb : multiblocks){
-            try{
-                mb.convertTo(Core.configuration);
-            }catch(MissingConfigurationEntryException ex){
-                Core.showOKDialog("Failed to load multiblock", ex.getMessage()+"\nAre you missing an addon?");
-                continue;
-            }
-            Core.multiblocks.add(mb);
-        }
     }
     private static class MultiblockContainer extends Container{
         private final Multiblock multi;

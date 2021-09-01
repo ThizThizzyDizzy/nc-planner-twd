@@ -911,12 +911,12 @@ public class MenuEdit extends Form implements Editor{
         editorTooltip.setText(tooltip);
     }
     private void zoomOut(){
-        if(blockSize%2==0)blockSize/=2;
+        blockSize = Math.max(16, blockSize*3/4);
         rebuildEditorSpaces();
     }
     private void zoomIn(){
         if(blockSize>getHeight()/2)return;
-        blockSize*=2;
+        blockSize = blockSize*4/3;
         rebuildEditorSpaces();
     }
 }
