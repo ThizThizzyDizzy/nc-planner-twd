@@ -26,7 +26,7 @@ public class Core{
     public static final ArrayList<Multiblock> multiblocks = new ArrayList<>();
     public static final ArrayList<Multiblock> multiblockTypes = new ArrayList<>();
     public static HashMap<String, String> metadata = new HashMap<>();
-    public static Configuration configuration;
+    public static Configuration configuration = new Configuration(null, null, null);
     public static boolean recoveryMode = false;
     public static final ArrayList<String> pinnedStrs = new ArrayList<>();
     public static final ArrayList<Module> modules = new ArrayList<>();

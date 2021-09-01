@@ -108,7 +108,6 @@ public class MenuInit extends Form{
         }
         Task tc = init.addSubtask("Initializing Configurations...");
         Task tc1 = tc.addSubtask("Initializing Nuclearcraft Configuration");
-        Task tcc = tc.addSubtask("Initializing Core configuration");
         Task tm = init.addSubtask("Adding modules...");
         Task tm1 = tm.addSubtask("Adding Underhaul Module");
         Task tm2 = tm.addSubtask("Adding Overhaul Module");
@@ -135,36 +134,48 @@ public class MenuInit extends Form{
             }
         });
         new Thread(() -> {
+            System.out.println("Started Initialization Thread");
             t1.finish();
             repaint();
             Core.resetMetadata();
+            System.out.println("Reset Metadata");
             t2.finish();
             repaint();
-            for(String s : readerNames){
-                FileReader.formats.add(readers.get(s).get());
-                readerTasks.get(s).finish();
-                repaint();
+            if(FileReader.formats.isEmpty()){
+                for(String s : readerNames){
+                    FileReader.formats.add(readers.get(s).get());
+                    readerTasks.get(s).finish();
+                    repaint();
+                }
             }
+            System.out.println("Loaded File Formats");
             Configuration.initNuclearcraftConfiguration();
+            System.out.println("Loaded NC Config");
             tc1.finish();
             repaint();
-            if(Core.configuration==null)Core.configuration = new Configuration(null, null, null);
-            tcc.finish();
-            repaint();
-            Core.modules.add(new UnderhaulModule());
-            tm1.finish();
-            repaint();
-            Core.modules.add(new OverhaulModule());
-            tm2.finish();
-            repaint();
-            Core.modules.add(new FusionTestModule());
-            tm3.finish();
-            repaint();
-            Core.modules.add(new RainbowFactorModule());
-            tm4.finish();
-            repaint();
-            Core.modules.add(new PrimeFuelModule());
-            tm5.finish();
+            if(Core.modules.isEmpty()){
+                Core.modules.add(new UnderhaulModule());
+                tm1.finish();
+                repaint();
+                Core.modules.add(new OverhaulModule());
+                tm2.finish();
+                repaint();
+                Core.modules.add(new FusionTestModule());
+                tm3.finish();
+                repaint();
+                Core.modules.add(new RainbowFactorModule());
+                tm4.finish();
+                repaint();
+                Core.modules.add(new PrimeFuelModule());
+                tm5.finish();
+            }else{
+                tm1.finish();
+                tm2.finish();
+                tm3.finish();
+                tm4.finish();
+                tm5.finish();
+            }
+            System.out.println("Added Modules");
             repaint();
             FileSystemStorage fs = FileSystemStorage.getInstance();
             String f = fs.getAppHomePath()+"/settings.dat";
@@ -204,9 +215,11 @@ public class MenuInit extends Form{
                     Log.e(ex);
                 }
             }
+            System.out.println("Loaded Settings");
             ts.finish();
             repaint();
             Core.refreshModules();
+            System.out.println("Refreshed Modules");
             tmr.finish();
             repaint();
             for(Configuration configuration : Configuration.configurations){
@@ -223,9 +236,11 @@ public class MenuInit extends Form{
                     }
                 }
             }
+            System.out.println("Set MSR Textures");
             tct.finish();
             repaint();
-            if(Core.configuration.name==null)Configuration.configurations.get(0).impose(Core.configuration);
+            Configuration.configurations.get(0).impose(Core.configuration);
+            System.out.println("Imposed Configuration");
             tci.finish();
             repaint();
 //            String cfgFile = fs.getAppHomePath()+"/config_autosave.ncpf";

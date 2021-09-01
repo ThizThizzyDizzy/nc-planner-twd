@@ -72,6 +72,6 @@ public class Main {
         }catch(IOException ex){
             Log.e(ex);
         }
-        Core.autosave();//save multiblocks and configurations too for next session
+//        Core.autosave();//save multiblocks and configurations too for next session
     }
 }
