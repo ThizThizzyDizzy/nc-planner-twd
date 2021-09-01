@@ -140,7 +140,7 @@ public class MenuInit extends Form{
             Core.resetMetadata();
             t2.finish();
             repaint();
-            if(readerNames.isEmpty()){
+            if(FileReader.formats.isEmpty()){
                 for(String s : readerNames){
                     FileReader.formats.add(readers.get(s).get());
                     readerTasks.get(s).finish();
