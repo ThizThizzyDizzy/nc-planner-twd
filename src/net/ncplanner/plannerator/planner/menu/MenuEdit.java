@@ -563,6 +563,7 @@ public class MenuEdit extends Form implements Editor{
             ArrayList<? extends IBlockRecipe> sorted = Pinnable.sort(recipes);
             blockRecipesList = new Container(BoxLayout.y());
             blockRecipesList.setScrollableY(true);
+            blockRecipesList.add(new Label("Block Recipes"));
             multiblockSettingsPanel.add(blockRecipesList);
             ArrayList<Runnable> resets = new ArrayList<>();
             selectedBlockRecipe = sorted.get(0);
