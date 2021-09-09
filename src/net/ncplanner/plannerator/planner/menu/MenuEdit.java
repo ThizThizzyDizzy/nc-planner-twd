@@ -541,7 +541,6 @@ public class MenuEdit extends Form implements Editor{
                         hover[2] = pos.z;
                     });
                     c.addLongPressListener((evt) -> {
-                        System.out.println("pressed "+pos.x);
                         maybeClick = null;
                         editorScrollingFrom = null;
                         getSelectedTool(0).mousePressed(comp, space, pos.x, pos.y, pos.z, 0);
@@ -551,7 +550,6 @@ public class MenuEdit extends Form implements Editor{
                         repaint();
                     });
                     c.addPointerDraggedListener((evt) -> {
-                        System.out.println("dragged "+pos.x);
                         maybeClick = null;
                         if(editorScrollingFrom!=null)return;
                         getSelectedTool(0).mouseDragged(comp, space, pos.x, pos.y, pos.z, 0);
@@ -561,7 +559,6 @@ public class MenuEdit extends Form implements Editor{
                         repaint();
                     });
                     c.addPointerReleasedListener((evt) -> {
-                        System.out.println("released "+pos.x);
                         if(editorScrollingFrom!=null)return;
                         if(maybeClick!=null&&maybeClick[0]==pos.x&&maybeClick[1]==pos.y&&maybeClick[2]==pos.z)getSelectedTool(0).mousePressed(comp, space, pos.x, pos.y, pos.z, 0);
                         getSelectedTool(0).mouseReleased(comp, space, hover[0], hover[1], hover[2], 0);
