@@ -1,6 +1,7 @@
 package net.ncplanner.plannerator.planner.editor.tool;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
@@ -16,6 +17,7 @@ public class RectangleTool extends EditorTool{
     private int[] rightDragEnd;
     @Override
     public void render(Graphics g, int x, int y, int width, int height){
+        Renderer r = new Renderer(g);
         g.setColor(Core.theme.getEditorToolTextColor().getRGB());
         int n = 3;
         double border = width/24;
@@ -27,12 +29,13 @@ public class RectangleTool extends EditorTool{
         double h = height/n;
         for(int X = 0; X<n; X++){
             for(int Y = 0; Y<n; Y++){
-                g.fillRect((int)(x+X*w+border), (int)(y+Y*h+border), (int)(x+(X+1)*w-border), (int)(y+(Y+1)*h-border));
+                r.fillRect((int)(x+X*w+border), (int)(y+Y*h+border), (int)(x+(X+1)*w-border), (int)(y+(Y+1)*h-border));
             }
         }
     }
     @Override
     public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+        Renderer r = new Renderer(g);
         g.setColor(Core.theme.getWhiteColor().getRGB());
         g.setAlpha(127);
         if(leftDragEnd!=null&&leftDragStart!=null)foreach(leftDragStart[0], leftDragStart[1], leftDragStart[2], leftDragEnd[0], leftDragEnd[1], leftDragEnd[2], (bx,by,bz) -> {
@@ -45,7 +48,7 @@ public class RectangleTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<0||sx>x2-x1)return;
             if(sy<0||sy>y2-y1)return;
-            g.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            r.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
         g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
         if(rightDragEnd!=null&&rightDragStart!=null)foreach(rightDragStart[0], rightDragStart[1], rightDragStart[2], rightDragEnd[0], rightDragEnd[1], rightDragEnd[2], (bx,by,bz) -> {
@@ -57,7 +60,7 @@ public class RectangleTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<0||sx>x2-x1)return;
             if(sy<0||sy>y2-y1)return;
-            g.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            r.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
         g.setAlpha(255);
     }

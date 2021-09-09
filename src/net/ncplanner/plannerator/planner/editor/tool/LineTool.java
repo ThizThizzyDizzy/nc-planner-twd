@@ -1,6 +1,7 @@
 package net.ncplanner.plannerator.planner.editor.tool;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
@@ -21,6 +22,7 @@ public class LineTool extends EditorTool{
     }
     @Override
     public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+        Renderer r = new Renderer(g);
         g.setColor(Core.theme.getWhiteColor().getRGB());
         g.setAlpha(127);
         if(leftDragEnd!=null&&leftDragStart!=null)raytrace(leftDragStart[0], leftDragStart[1], leftDragStart[2], leftDragEnd[0], leftDragEnd[1], leftDragEnd[2], (bx,by,bz) -> {
@@ -33,7 +35,7 @@ public class LineTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<x1||sx>x2)return;
             if(sy<y1||sy>y2)return;
-            g.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            r.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
         g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
         if(rightDragEnd!=null&&rightDragStart!=null)raytrace(rightDragStart[0], rightDragStart[1], rightDragStart[2], rightDragEnd[0], rightDragEnd[1], rightDragEnd[2], (bx,by,bz) -> {
@@ -45,7 +47,7 @@ public class LineTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<x1||sx>x2)return;
             if(sy<y1||sy>y2)return;
-            g.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            r.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
         g.setAlpha(255);
     }

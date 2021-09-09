@@ -9,6 +9,7 @@ import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryExce
 import net.ncplanner.plannerator.planner.menu.MenuEdit;
 import net.ncplanner.plannerator.planner.menu.MenuResize;
 import net.ncplanner.plannerator.planner.menu.component.EditorGrid;
+import net.ncplanner.plannerator.planner.menu.component.EditorGridComponent;
 public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     protected int x;
     protected int y;
@@ -49,7 +50,7 @@ public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
                 return canBePlacedWithinCasing(block);
             }
             @Override
-            public void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize){
+            public void createComponents(MenuEdit editor, ArrayList<EditorGridComponent> components, int cellSize){
                 for(int y = 0; y<=CuboidalMultiblock.this.y+1; y++){
                     components.add(new EditorGrid(cellSize, editor, CuboidalMultiblock.this, this, 0, 0, CuboidalMultiblock.this.x+1, CuboidalMultiblock.this.z+1, Axis.Y, y));
                 }

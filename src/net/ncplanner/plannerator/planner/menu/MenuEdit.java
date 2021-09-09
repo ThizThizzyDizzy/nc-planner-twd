@@ -11,11 +11,14 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.layouts.Layout;
+import com.codename1.ui.plaf.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Block;
+import net.ncplanner.plannerator.multiblock.BlockPos;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.Multiblock;
@@ -42,7 +45,12 @@ import net.ncplanner.plannerator.planner.editor.Editor;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
 import net.ncplanner.plannerator.planner.editor.tool.EditorTool;
+import net.ncplanner.plannerator.planner.editor.tool.LineTool;
+import net.ncplanner.plannerator.planner.editor.tool.MoveTool;
 import net.ncplanner.plannerator.planner.editor.tool.PencilTool;
+import net.ncplanner.plannerator.planner.editor.tool.RectangleTool;
+import net.ncplanner.plannerator.planner.editor.tool.SelectionTool;
+import net.ncplanner.plannerator.planner.menu.component.EditorGridComponent;
 import net.ncplanner.plannerator.planner.menu.component.SquareButton;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
@@ -66,14 +74,21 @@ public class MenuEdit extends Form implements Editor{
     private final TextArea editorTooltip;
     public final Container editorPanel;
     private int blockSize;
+    private int[] editorScrollingFrom = null;
+    private int[] maybeClick;
     {
+        editorTools.add(new MoveTool(this, 0));
+        editorTools.add(new SelectionTool(this, 0));
         editorTools.add(new PencilTool(this, 0));
+        editorTools.add(new LineTool(this, 0));
+        editorTools.add(new RectangleTool(this, 0));
     }
     private final Multiblock multiblock;
     public static final int partsWide = 5;
     public final ArrayList<int[]> selection = new ArrayList<>();
     private ArrayList<Suggestion> suggestions = new ArrayList<>();
     private ArrayList<Suggestor> suggestors = new ArrayList<>();
+    private int xScroll, yScroll;
     public MenuEdit(Multiblock multiblock){
         super(new BorderLayout());
         if(Core.recoveryMode)autoRecalc = false;
@@ -136,7 +151,7 @@ public class MenuEdit extends Form implements Editor{
         tools.setScrollableY(true);
         leftSidebarHeaderPanel.add(LEFT, tools);
         ArrayList<Runnable> toolResets = new ArrayList<>();
-        selectedTool = editorTools.get(0);
+        selectedTool = editorTools.get(2);
         for(EditorTool tool : editorTools){
             Button button = new SquareButton(" "){
                 boolean isSelected = selectedTool==tool;
@@ -256,9 +271,60 @@ public class MenuEdit extends Form implements Editor{
         add(CENTER, centerPanel);
         Button metadata = new Button(multiblock.getName().isEmpty()?"Edit Metadata":(multiblock.getName()+" | Edit Metadata"));
         centerPanel.add(TOP, metadata);
-        editorPanel = new Container(BoxLayout.y());
-        editorPanel.setScrollableX(true);
-        editorPanel.setScrollableY(true);
+        editorPanel = new Container(new Layout(){
+            @Override
+            public void layoutContainer(Container parent){
+                Style style = parent.getStyle();
+                int x = style.getPaddingLeft(parent.isRTL());
+                int y = style.getPaddingTop();
+                if(parent.isRTL())x+=parent.getSideGap();
+                x-=xScroll;
+                y-=yScroll;
+                int count = parent.getComponentCount();
+                for(int i = 0; i<count; i++){
+                    Component c = parent.getComponentAt(i);
+                    Style s = c.getStyle();
+                    y+=s.getMarginTop();
+                    c.setWidth(c.getPreferredW());
+                    c.setHeight(c.getPreferredH());
+                    c.setX(x+s.getMarginLeft(parent.isRTL()));
+                    c.setY(y);
+                    y+=c.getHeight()+s.getMarginBottom();
+                }
+            }
+            @Override
+            public Dimension getPreferredSize(Container parent){
+                int width = 0;
+                int height = 0;
+                int count = parent.getComponentCount();
+                for(int i = 0; i<count; i++){
+                    Component c = parent.getComponentAt(i);
+                    Style style = c.getStyle();
+                    height+=c.getPreferredH()+style.getVerticalMargins();
+                    width = Math.max(width, c.getPreferredW()+style.getHorizontalMargins());
+                }
+                return new Dimension(width, height);
+            }
+        });
+        editorPanel.setFocusable(true);
+        editorPanel.addPointerPressedListener((evt) -> {
+            editorScrollingFrom = new int[]{evt.getX(), evt.getY()};
+        });
+        editorPanel.addPointerDraggedListener((evt) -> {
+            maybeClick = null;
+            if(editorScrollingFrom!=null){
+                int maxXScroll = editorPanel.getPreferredW()-editorPanel.getWidth();
+                int maxYScroll = editorPanel.getPreferredH()-editorPanel.getHeight();
+                xScroll = Math.max(0, Math.min(maxXScroll, xScroll-(evt.getX()-editorScrollingFrom[0])));
+                yScroll = Math.max(0, Math.min(maxYScroll, yScroll-(evt.getY()-editorScrollingFrom[1])));
+                getSelectedTool(0).mouseReset(null, 0);
+                editorScrollingFrom = new int[]{evt.getX(), evt.getY()};
+                revalidate();
+            }
+        });
+        addPointerReleasedListener((evt) -> {
+            editorScrollingFrom = null;
+        });
         centerPanel.add(CENTER, editorPanel);
         metadata.addActionListener((evt) -> {
             new MenuEditMetadata(multiblock.metadata, multiblock::resetMetadata, ()->{
@@ -459,10 +525,49 @@ public class MenuEdit extends Form implements Editor{
         editorPanel.removeAll();
         ArrayList<EditorSpace> editorSpaces = multiblock.getEditorSpaces();
         for(EditorSpace space : editorSpaces){
-            ArrayList<Component> comps = new ArrayList<>();
+            ArrayList<EditorGridComponent> comps = new ArrayList<>();
             space.createComponents(this, comps, blockSize);
+            int[] hover = new int[3];
             for(int i = 0; i<comps.size(); i++){
-                Component comp = comps.get(i);
+                EditorGridComponent comp = comps.get(i);
+                for(Component c : comp.getGridComponents()){
+                    BlockPos pos = comp.getPos(c);
+                    c.setFocusable(true);
+                    c.addPointerPressedListener((evt) -> {
+                        editorScrollingFrom = new int[]{evt.getX(), evt.getY()};
+                        maybeClick = new int[]{pos.x,pos.y,pos.z};
+                        hover[0] = pos.x;
+                        hover[1] = pos.y;
+                        hover[2] = pos.z;
+                    });
+                    c.addLongPressListener((evt) -> {
+                        System.out.println("pressed "+pos.x);
+                        maybeClick = null;
+                        editorScrollingFrom = null;
+                        getSelectedTool(0).mousePressed(comp, space, pos.x, pos.y, pos.z, 0);
+                        hover[0] = pos.x;
+                        hover[1] = pos.y;
+                        hover[2] = pos.z;
+                        repaint();
+                    });
+                    c.addPointerDraggedListener((evt) -> {
+                        System.out.println("dragged "+pos.x);
+                        maybeClick = null;
+                        if(editorScrollingFrom!=null)return;
+                        getSelectedTool(0).mouseDragged(comp, space, pos.x, pos.y, pos.z, 0);
+                        hover[0] = pos.x;
+                        hover[1] = pos.y;
+                        hover[2] = pos.z;
+                        repaint();
+                    });
+                    c.addPointerReleasedListener((evt) -> {
+                        System.out.println("released "+pos.x);
+                        if(editorScrollingFrom!=null)return;
+                        if(maybeClick!=null&&maybeClick[0]==pos.x&&maybeClick[1]==pos.y&&maybeClick[2]==pos.z)getSelectedTool(0).mousePressed(comp, space, pos.x, pos.y, pos.z, 0);
+                        getSelectedTool(0).mouseReleased(comp, space, hover[0], hover[1], hover[2], 0);
+                        repaint();
+                    });
+                }
                 editorPanel.add(comp);//stack them all vertically cuz I'm lazy
             }
         }
@@ -669,11 +774,13 @@ public class MenuEdit extends Form implements Editor{
     }
     public void select(int id, ArrayList<int[]> is){
         if(id!=0)throw new IllegalArgumentException("Standard editor only supports one cursor!");
-        action(new SetSelectionAction(this, id, is), true);
+        if(is.size()==1)clearSelection(id);
+        else action(new SetSelectionAction(this, id, is), true);
     }
     public void setSelection(int id, ArrayList<int[]> is){
         if(id!=0)throw new IllegalArgumentException("Standard editor only supports one cursor!");
-        action(new SetSelectionAction(this, id, is), true);
+        if(is.size()==1)clearSelection(id);
+        else action(new SetSelectionAction(this, id, is), true);
     }
     public void deselect(int id, ArrayList<int[]> is){
         if(id!=0)throw new IllegalArgumentException("Standard editor only supports one cursor!");

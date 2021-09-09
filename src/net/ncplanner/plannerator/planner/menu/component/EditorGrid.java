@@ -1,12 +1,17 @@
 package net.ncplanner.plannerator.planner.menu.component;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
+import java.util.ArrayList;
+import java.util.HashMap;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.Block;
+import net.ncplanner.plannerator.multiblock.BlockPos;
 import net.ncplanner.plannerator.multiblock.Decal;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.Multiblock;
@@ -17,7 +22,7 @@ import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReacto
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.menu.MenuEdit;
-public class EditorGrid extends Container{
+public class EditorGrid extends EditorGridComponent{
     private float resonatingAlpha = .375f;//not resonating
     private byte resonatingAlphaB = (byte)(resonatingAlpha*255);
     public final Axis axis;
@@ -34,6 +39,7 @@ public class EditorGrid extends Container{
     public final int layer;
     public final MenuEdit editor;
     public int blockSize;
+    public HashMap<Component, BlockPos> gridComps = new HashMap<>();
     public EditorGrid(int blockSize, MenuEdit editor, Multiblock multiblock, EditorSpace editorSpace, int x1, int y1, int x2, int y2, Axis axis, int layer){
         super(BoxLayout.y());
         this.multiblock = multiblock;
@@ -51,6 +57,7 @@ public class EditorGrid extends Container{
         xAxis = axis.get2DXAxis();
         yAxis = axis.get2DYAxis();
         getStyle().setMargin(blockSize/4, blockSize/4, blockSize/4, blockSize/4);
+        getSelectedStyle().setMargin(blockSize/4, blockSize/4, blockSize/4, blockSize/4);
         for(int yy = 0; yy<blocksHigh; yy++){
             int y = yy;
             Container row = new Container(BoxLayout.x());
@@ -60,12 +67,9 @@ public class EditorGrid extends Container{
                 int bx = (x+x1)*xAxis.x+(y+y1)*yAxis.x+layer*axis.x;
                 int by = (x+x1)*xAxis.y+(y+y1)*yAxis.y+layer*axis.y;
                 int bz = (x+x1)*xAxis.z+(y+y1)*yAxis.z+layer*axis.z;
-                row.add(new Button(){
+                Container b = new Container(){
                     {
-                        addActionListener((evt) -> {
-                            editor.getSelectedTool(0).mousePressed(this, editorSpace, bx, by, bz, 0);
-                            editor.getSelectedTool(0).mouseReleased(this, editorSpace, bx, by, bz, 0);
-                        });
+                        setFocusable(true);
                     }
                     @Override
                     protected Dimension calcPreferredSize(){
@@ -74,6 +78,7 @@ public class EditorGrid extends Container{
                     @Override
                     public void paint(Graphics g){
                         if(!multiblock.contains(bx, by, bz))return;//render nothing at all :D
+                        Renderer r = new Renderer(g);
                         int border = blockSize/32;
                         g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
                         g.fillRect(getX(), getY(), getWidth(), getHeight());
@@ -128,28 +133,28 @@ public class EditorGrid extends Container{
                             boolean bottom = isBlockSelected(x, y+1);
                             boolean left = isBlockSelected(x-1, y);
                             if(!top||!left||!isBlockSelected(x-1, y-1)){//top left
-                                g.fillRect(getX(), getY(), getX()+brdr, getY()+brdr);
+                                r.fillRect(getX(), getY(), getX()+brdr, getY()+brdr);
                             }
                             if(!top){//top
-                                g.fillRect(getX()+brdr, getY(), getX()+blockSize-brdr, getY()+brdr);
+                                r.fillRect(getX()+brdr, getY(), getX()+blockSize-brdr, getY()+brdr);
                             }
                             if(!top||!right||!isBlockSelected(x+1, y-1)){//top right
-                                g.fillRect(getX()+blockSize-brdr, getY(), getX()+blockSize, getY()+brdr);
+                                r.fillRect(getX()+blockSize-brdr, getY(), getX()+blockSize, getY()+brdr);
                             }
                             if(!right){//right
-                                g.fillRect(getX()+blockSize-brdr, getY()+brdr, getX()+blockSize, getY()+blockSize-brdr);
+                                r.fillRect(getX()+blockSize-brdr, getY()+brdr, getX()+blockSize, getY()+blockSize-brdr);
                             }
                             if(!bottom||!right||!isBlockSelected(x+1, y+1)){//bottom right
-                                g.fillRect(getX()+blockSize-brdr, getY()+blockSize-brdr, getX()+blockSize, getY()+blockSize);
+                                r.fillRect(getX()+blockSize-brdr, getY()+blockSize-brdr, getX()+blockSize, getY()+blockSize);
                             }
                             if(!bottom){//bottom
-                                g.fillRect(getX()+brdr, getY()+blockSize-brdr, getX()+blockSize-brdr, getY()+blockSize);
+                                r.fillRect(getX()+brdr, getY()+blockSize-brdr, getX()+blockSize-brdr, getY()+blockSize);
                             }
                             if(!bottom||!left||!isBlockSelected(x-1, y+1)){//bottom left
-                                g.fillRect(getX(), getY()+blockSize-brdr, getX()+brdr, getY()+blockSize);
+                                r.fillRect(getX(), getY()+blockSize-brdr, getX()+brdr, getY()+blockSize);
                             }
                             if(!left){//left
-                                g.fillRect(getX(), getY()+brdr, getX()+brdr, getY()+blockSize-brdr);
+                                r.fillRect(getX(), getY()+brdr, getX()+brdr, getY()+blockSize-brdr);
                             }
                         }
                         //TODO there's a better way do do this, but this'll do for now
@@ -160,7 +165,7 @@ public class EditorGrid extends Container{
                                     g.setColor(Core.theme.getWhiteColor().getRGB());
                                     g.setAlpha(resonatingAlphaB+127);
                                     if(b==null){
-                                        g.fillRect(getX(), getY(), getX()+blockSize, getY()+blockSize);
+                                        r.fillRect(getX(), getY(), getX()+blockSize, getY()+blockSize);
                                     }else{
                                         b.render(g, getX(), getY(), blockSize, blockSize, false, resonatingAlpha+.5f, s.result);
                                     }
@@ -174,33 +179,35 @@ public class EditorGrid extends Container{
                                 boolean bottom = affects(s, x, y+1);
                                 boolean left = affects(s, x-1, y);
                                 if(!top||!left||!affects(s, x-1, y-1)){//top left
-                                    g.fillRect(getX(), getY(), getX()+brdr, getY()+brdr);
+                                    r.fillRect(getX(), getY(), getX()+brdr, getY()+brdr);
                                 }
                                 if(!top){//top
-                                    g.fillRect(getX()+brdr, getY(), getX()+blockSize-brdr, getY()+brdr);
+                                    r.fillRect(getX()+brdr, getY(), getX()+blockSize-brdr, getY()+brdr);
                                 }
                                 if(!top||!right||!affects(s, x+1, y-1)){//top right
-                                    g.fillRect(getX()+blockSize-brdr, getY(), getX()+blockSize, getY()+brdr);
+                                    r.fillRect(getX()+blockSize-brdr, getY(), getX()+blockSize, getY()+brdr);
                                 }
                                 if(!right){//right
-                                    g.fillRect(getX()+blockSize-brdr, getY()+brdr, getX()+blockSize, getY()+blockSize-brdr);
+                                    r.fillRect(getX()+blockSize-brdr, getY()+brdr, getX()+blockSize, getY()+blockSize-brdr);
                                 }
                                 if(!bottom||!right||!affects(s, x+1, y+1)){//bottom right
-                                    g.fillRect(getX()+blockSize-brdr, getY()+blockSize-brdr, getX()+blockSize, getY()+blockSize);
+                                    r.fillRect(getX()+blockSize-brdr, getY()+blockSize-brdr, getX()+blockSize, getY()+blockSize);
                                 }
                                 if(!bottom){//bottom
-                                    g.fillRect(getX()+brdr, getY()+blockSize-brdr, getX()+blockSize-brdr, getY()+blockSize);
+                                    r.fillRect(getX()+brdr, getY()+blockSize-brdr, getX()+blockSize-brdr, getY()+blockSize);
                                 }
                                 if(!bottom||!left||!affects(s, x-1, y+1)){//bottom left
-                                    g.fillRect(getX(), getY()+blockSize-brdr, getX()+brdr, getY()+blockSize);
+                                    r.fillRect(getX(), getY()+blockSize-brdr, getX()+brdr, getY()+blockSize);
                                 }
                                 if(!left){//left
-                                    g.fillRect(getX(), getY()+brdr, getX()+brdr, getY()+blockSize-brdr);
+                                    r.fillRect(getX(), getY()+brdr, getX()+brdr, getY()+blockSize-brdr);
                                 }
                             }
                         }
                     }
-                });
+                };
+                gridComps.put(b, new BlockPos(bx, by, bz));
+                row.add(b);
             }
         }
     }
@@ -226,5 +233,13 @@ public class EditorGrid extends Container{
         int by = x*xAxis.y+y*yAxis.y+layer*axis.y;
         int bz = x*xAxis.z+y*yAxis.z+layer*axis.z;
         return s.affects(bx, by, bz);
+    }
+    @Override
+    public ArrayList<Component> getGridComponents(){
+        return new ArrayList<>(gridComps.keySet());
+    }
+    @Override
+    public BlockPos getPos(Component component){
+        return gridComps.get(component);
     }
 }

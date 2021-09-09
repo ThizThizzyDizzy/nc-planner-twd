@@ -2,6 +2,7 @@ package net.ncplanner.plannerator.planner.editor.tool;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
@@ -132,6 +133,7 @@ public class PencilTool extends EditorTool{
     }
     @Override
     public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+        Renderer r = new Renderer(g);
         g.setColor(Core.theme.getWhiteColor().getRGB());
         g.setAlpha(127);
         synchronized(leftSelectedBlocks){
@@ -147,7 +149,7 @@ public class PencilTool extends EditorTool{
                 if(sz!=layer)continue;
                 if(sx<x1||sx>x2)continue;
                 if(sy<y1||sy>y2)continue;
-                g.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+                r.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
             }
         }
         g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
@@ -164,7 +166,7 @@ public class PencilTool extends EditorTool{
                 if(sz!=layer)continue;
                 if(sx<x1||sx>x2)continue;
                 if(sy<y1||sy>y2)continue;
-                g.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+                r.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
             }
         }
         g.setAlpha(255);

@@ -1,6 +1,7 @@
 package net.ncplanner.plannerator.planner.editor.tool;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.planner.Core;
@@ -21,6 +22,7 @@ public class CutTool extends EditorTool{
     }
     @Override
     public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+        Renderer r = new Renderer(g);
         if(dragEnd!=null&&dragStart!=null){
             float border = 1/8f;
             int minBX = Math.min(dragStart[0], dragEnd[0]);
@@ -40,12 +42,12 @@ public class CutTool extends EditorTool{
             if(layer>=minSZ&&layer<=maxSZ){
                 g.setColor(Core.theme.getSelectionColor().getRGB());
                 g.setAlpha(127);
-                g.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));
+                r.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));
                 g.setAlpha(255);
-                g.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+(int)(blockSize*(border+minSY)));//top
-                g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(maxSY+1-border)), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));//bottom
-                g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(minSY+border)), x+(int)(blockSize*(border+minSX)), y+(int)(blockSize*(maxSY+1-border)));//left
-                g.fillRect(x+(int)(blockSize*(maxSX+1-border)), y+(int)(blockSize*(minSY+border)), x+blockSize*(maxSX+1), y+(int)(blockSize*(maxSY+1-border)));//right
+                r.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+(int)(blockSize*(border+minSY)));//top
+                r.fillRect(x+blockSize*minSX, y+(int)(blockSize*(maxSY+1-border)), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));//bottom
+                r.fillRect(x+blockSize*minSX, y+(int)(blockSize*(minSY+border)), x+(int)(blockSize*(border+minSX)), y+(int)(blockSize*(maxSY+1-border)));//left
+                r.fillRect(x+(int)(blockSize*(maxSX+1-border)), y+(int)(blockSize*(minSY+border)), x+blockSize*(maxSX+1), y+(int)(blockSize*(maxSY+1-border)));//right
             }
         }
     }

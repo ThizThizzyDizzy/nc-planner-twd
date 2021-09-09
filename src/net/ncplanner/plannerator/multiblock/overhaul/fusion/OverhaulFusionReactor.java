@@ -33,6 +33,7 @@ import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.menu.MenuEdit;
 import net.ncplanner.plannerator.planner.menu.MenuResizeFusion;
 import net.ncplanner.plannerator.planner.menu.component.EditorGrid;
+import net.ncplanner.plannerator.planner.menu.component.EditorGridComponent;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -102,7 +103,7 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
                 return isLocationValid(block, x, y, z);
             }
             @Override            
-            public void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize){
+            public void createComponents(MenuEdit editor, ArrayList<EditorGridComponent> components, int cellSize){
                 for(int y = 0; y<height; y++){
                     components.add(new EditorGrid(cellSize, editor, OverhaulFusionReactor.this, this, 0, 0, width-1, width-1, Axis.Y, y));
                 }

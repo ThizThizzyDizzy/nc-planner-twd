@@ -35,6 +35,7 @@ import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryExce
 import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.menu.MenuEdit;
 import net.ncplanner.plannerator.planner.menu.component.EditorGrid;
+import net.ncplanner.plannerator.planner.menu.component.EditorGridComponent;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -778,7 +779,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                 return block.template.blade;
             }
             @Override
-            public void createComponents(MenuEdit editor, ArrayList<Component> components, int cellSize){
+            public void createComponents(MenuEdit editor, ArrayList<EditorGridComponent> components, int cellSize){
 //                comps.add(new MenuComponentEditorGrid(0, 0, cellSize, editor, OverhaulTurbine.this, this, 1, 1, OverhaulTurbine.this.x, OverhaulTurbine.this.y, Axis.Z, 0));
 //                comps.add(new MenuComponentEditorGrid(0, 0, cellSize, editor, OverhaulTurbine.this, this, 1, 1, OverhaulTurbine.this.x, OverhaulTurbine.this.y, Axis.Z, OverhaulTurbine.this.z+1));
                 //include the casing on the coils ones for now, because I'm to lazy to make sure it actually works without it
