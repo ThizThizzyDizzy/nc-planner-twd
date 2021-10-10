@@ -1,6 +1,8 @@
 package net.ncplanner.plannerator;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
+import com.codename1.ui.plaf.Style;
+import net.ncplanner.plannerator.planner.FormattedText;
 public class Renderer{
     private final Graphics g;
     public Renderer(Graphics g){
@@ -36,5 +38,14 @@ public class Renderer{
         }
         if(image==null)fillRect(left, top, right, bottom);
         else g.drawImage(image, left, top, right-left, bottom-top);
+    }
+    public void drawFormattedText(int x, int y, FormattedText str){
+        while(str!=null){
+            int deco = 0;
+            if(str.strikethrough)deco|=Style.TEXT_DECORATION_STRIKETHRU;
+            g.drawString(str.text, x, y, deco);
+            x+=g.getFont().stringWidth(str.text);
+            str = str.next;
+        }
     }
 }

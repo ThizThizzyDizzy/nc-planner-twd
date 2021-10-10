@@ -51,6 +51,7 @@ public class TextureManager{
         return converted;
     }
     public static Image fromCN1(com.codename1.ui.Image img){
+        if(img==null)return null;
         Image image = new Image(img.getWidth(), img.getHeight());
         for(int x = 0; x<img.getWidth(); x++){
             for(int y = 0; y<img.getHeight(); y++){
@@ -61,6 +62,7 @@ public class TextureManager{
     }
     private static HashMap<Image, com.codename1.ui.Image> cn1map = new HashMap<>();
     public static com.codename1.ui.Image toCN1(Image img){
+        if(img==null)return null;
         if(cn1map.containsKey(img))return cn1map.get(img);
         int[] rgb = new int[img.getWidth()*img.getHeight()];
         for(int y = 0; y<img.getHeight(); y++){
