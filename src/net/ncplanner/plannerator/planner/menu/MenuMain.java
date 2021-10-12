@@ -2,6 +2,7 @@ package net.ncplanner.plannerator.planner.menu;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
+import com.codename1.ui.CN;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -102,8 +103,9 @@ public class MenuMain extends Form{
                     private void export(String file, String filename){
                         try(OutputStream stream = fs.openOutputStream(file)){
                             FileWriter.write(ncpf, stream, writer);
-                            if(writer instanceof ImageFormatWriter){
+                            if(CN.isNativeShareSupported()&&writer instanceof ImageFormatWriter){
                                 Display.getInstance().share(null, file, ((ImageFormatWriter)writer).getMimeType());
+                                return;
                             }
                         }catch(IOException ex){
                             Log.e(ex);
