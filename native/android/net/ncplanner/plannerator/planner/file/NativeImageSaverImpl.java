@@ -2,7 +2,7 @@ package net.ncplanner.plannerator.planner.file;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.content.ContentValues;
-import android.context.Context; 
+import android.content.Context; 
 public class NativeImageSaverImpl{
     public void saveImage(String filepath){
         ContentValues values = new ContentValues();
