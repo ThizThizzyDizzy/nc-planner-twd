@@ -116,4 +116,8 @@ public class PNGFormatWriter extends ImageFormatWriter{
     public String getIIOFormat(){
         return ImageIO.FORMAT_PNG;
     }
+    @Override
+    public String getMimeType(){
+        return "image/png";
+    }
 }

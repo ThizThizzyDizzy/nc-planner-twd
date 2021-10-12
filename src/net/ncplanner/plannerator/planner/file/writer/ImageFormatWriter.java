@@ -18,4 +18,5 @@ public abstract class ImageFormatWriter extends FormatWriter{
     }
     public abstract Image writeImage(NCPFFile ncpf);
     public abstract String getIIOFormat();
+    public abstract String getMimeType();
 }
