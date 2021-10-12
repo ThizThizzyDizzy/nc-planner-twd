@@ -16,29 +16,19 @@ import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReacto
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.FormattedText;
 import net.ncplanner.plannerator.planner.file.FileFormat;
-import net.ncplanner.plannerator.planner.file.FormatWriter;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
-public class PNGFormatWriter extends FormatWriter{
+public class PNGFormatWriter extends ImageFormatWriter{
     private final double borderSizeMod = 16/20d;//based on text height
     @Override
     public FileFormat getFileFormat(){
         return FileFormat.PNG;
     }
     @Override
-    public void write(NCPFFile ncpf, OutputStream stream){
-        try{
-            Image image = writeImage(ncpf);
-            ImageIO.getImageIO().save(image, stream, ImageIO.FORMAT_PNG, 1);
-            stream.close();
-        }catch(IOException ex){
-            throw new RuntimeException(ex);
-        }
-    }
-    @Override
     public boolean isMultiblockSupported(Multiblock multi){
         return true;
     }
-    private Image writeImage(NCPFFile ncpf){
+    @Override
+    public Image writeImage(NCPFFile ncpf){
         if(!ncpf.multiblocks.isEmpty()){
             if(ncpf.multiblocks.size()>1)throw new IllegalArgumentException("Multible multiblocks are not supported by PNG!");
             final Multiblock multi = ncpf.multiblocks.get(0);
@@ -121,5 +111,9 @@ public class PNGFormatWriter extends FormatWriter{
         }else{
             throw new IllegalArgumentException("Cannot export configuration to image!");
         }
+    }
+    @Override
+    public String getIIOFormat(){
+        return ImageIO.FORMAT_PNG;
     }
 }
