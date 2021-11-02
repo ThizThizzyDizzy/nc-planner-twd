@@ -11,7 +11,7 @@ import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.PartialConfiguration;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.OverhaulConfiguration;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.OverhaulMSR;
-import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
@@ -43,6 +43,11 @@ public class FissionMSRConfiguration extends AbstractBlockContainer<Block> {
         for(Block block : this.blocks){
             if(block.parent!=null)continue;
             blocks.add(block.save(parent, this, partial));
+        }
+        if(parent!=null){
+            for(Block b : allBlocks){
+                blocks.add(b.save(parent, this, partial));
+            }
         }
         config.set("blocks", blocks);
         return config;
@@ -151,10 +156,10 @@ public class FissionMSRConfiguration extends AbstractBlockContainer<Block> {
     public Block convertToMSR(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionsfr.Block template) throws MissingConfigurationEntryException{
         if(template==null)return null;
         for(Block block : allBlocks){
-            if(block.name.equals(Core.superReplace(template.name, "solid", "salt", "cell", "vessel", "sink", "heater")))return block;
+            if(block.name.equals(StringUtil.superReplace(template.name, "solid", "salt", "cell", "vessel", "sink", "heater")))return block;
         }
         for(Block block : blocks){
-            if(block.name.equals(Core.superReplace(template.name, "solid", "salt", "cell", "vessel", "sink", "heater")))return block;
+            if(block.name.equals(StringUtil.superReplace(template.name, "solid", "salt", "cell", "vessel", "sink", "heater")))return block;
         }
         throw new MissingConfigurationEntryException("Failed to find match for block "+template.name+"!");
     }

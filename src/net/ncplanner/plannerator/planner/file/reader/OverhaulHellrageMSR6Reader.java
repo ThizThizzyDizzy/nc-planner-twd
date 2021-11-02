@@ -1,11 +1,11 @@
 package net.ncplanner.plannerator.planner.file.reader;
-import com.codename1.util.regex.RE;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.OverhaulMSR;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.file.FormatReader;
 import net.ncplanner.plannerator.planner.file.JSON;
 import net.ncplanner.plannerator.planner.file.NCPFFile;
@@ -34,7 +34,7 @@ public class OverhaulHellrageMSR6Reader implements FormatReader{
         for(String name : heatSinks.keySet()){
             net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block block = null;
             for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block blok : Core.configuration.overhaul.fissionMSR.allBlocks){
-                for(String nam : blok.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ", "coolant", "heater", "liquid").equalsIgnoreCase(Core.superReplace(name.toLowerCase(), "water", "standard", " ", "")))block = blok;
+                for(String nam : blok.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ", "coolant", "heater", "liquid").equalsIgnoreCase(StringUtil.superReplace(StringUtil.toLowerCase(name), "water", "standard", " ", "")))block = blok;
             }
             if(block==null)throw new IllegalArgumentException("Unknown block: "+name);
             JSON.JSONArray array = heatSinks.getJSONArray(name);
@@ -51,7 +51,7 @@ public class OverhaulHellrageMSR6Reader implements FormatReader{
         for(String name : moderators.keySet()){
             net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block block = null;
             for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block blok : Core.configuration.overhaul.fissionMSR.allBlocks){
-                for(String nam : blok.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ", "moderator").equalsIgnoreCase(Core.superRemove(name, " ")))block = blok;
+                for(String nam : blok.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ", "moderator").equalsIgnoreCase(StringUtil.superRemove(name, " ")))block = blok;
             }
             if(block==null)throw new IllegalArgumentException("Unknown block: "+name);
             JSON.JSONArray array = moderators.getJSONArray(name);
@@ -82,7 +82,7 @@ public class OverhaulHellrageMSR6Reader implements FormatReader{
         for(String name : reflectors.keySet()){
             net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block block = null;
             for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block blok : Core.configuration.overhaul.fissionMSR.allBlocks){
-                for(String nam : blok.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ", "reflector").equalsIgnoreCase(Core.superRemove(name, " ")))block = blok;
+                for(String nam : blok.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ", "reflector").equalsIgnoreCase(StringUtil.superRemove(name, " ")))block = blok;
             }
             if(block==null)throw new IllegalArgumentException("Unknown block: "+name);
             JSON.JSONArray array = reflectors.getJSONArray(name);
@@ -98,7 +98,7 @@ public class OverhaulHellrageMSR6Reader implements FormatReader{
         for(String name : neutronShields.keySet()){
             net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block block = null;
             for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block blok : Core.configuration.overhaul.fissionMSR.allBlocks){
-                for(String nam : blok.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ", "neutronshield", "shield").equalsIgnoreCase(Core.superRemove(name, " ")))block = blok;
+                for(String nam : blok.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ", "neutronshield", "shield").equalsIgnoreCase(StringUtil.superRemove(name, " ")))block = blok;
             }
             if(block==null)throw new IllegalArgumentException("Unknown block: "+name);
             JSON.JSONArray array = neutronShields.getJSONArray(name);
@@ -144,16 +144,16 @@ public class OverhaulHellrageMSR6Reader implements FormatReader{
         JSON.JSONObject fuelVessels = data.getJSONObject("FuelCells");
         HashMap<net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.Block, net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block> sources = new HashMap<>();
         for(String name : fuelVessels.keySet()){
-            String[] fuelSettings = new RE(";").split(name);
+            String[] fuelSettings = StringUtil.split(name, ";");
             String fuelName = fuelSettings[0];
             boolean hasSource = Boolean.parseBoolean(fuelSettings[1]);
             BlockRecipe fuel = null;
             for(BlockRecipe feul : vessel.allRecipes){
-                for(String nam : feul.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ").equalsIgnoreCase(Core.superRemove(fuelName.substring(4), " ")))fuel = feul;
+                for(String nam : feul.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ").equalsIgnoreCase(StringUtil.superRemove(fuelName.substring(4), " ")))fuel = feul;
             }
             if(fuelName.startsWith("[F4]"))fuelName = fuelName.substring(4)+" Fluoride";
             for(BlockRecipe feul : vessel.allRecipes){
-                for(String nam : feul.getLegacyNames())if(Core.superRemove(nam.toLowerCase(), " ").equalsIgnoreCase(Core.superRemove(fuelName, " ")))fuel = feul;
+                for(String nam : feul.getLegacyNames())if(StringUtil.superRemove(StringUtil.toLowerCase(nam), " ").equalsIgnoreCase(StringUtil.superRemove(fuelName, " ")))fuel = feul;
             }
             if(fuel==null)throw new IllegalArgumentException("Unknown fuel: "+name);
             net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block src = null;

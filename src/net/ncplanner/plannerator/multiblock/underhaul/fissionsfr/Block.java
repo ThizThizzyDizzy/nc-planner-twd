@@ -1,7 +1,6 @@
 package net.ncplanner.plannerator.multiblock.underhaul.fissionsfr;
-import com.codename1.ui.Graphics;
-import com.codename1.util.regex.RE;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
@@ -9,6 +8,8 @@ import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
 import net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.PlacementRule;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
 public class Block extends net.ncplanner.plannerator.multiblock.Block implements ITemplateAccess<net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.Block> {
@@ -94,8 +95,8 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
             tip+="\n"
                     + " Adjacent Cells: "+adjacentCells+"\n"
                     + " Adjacent Moderators: "+adjacentModerators+"\n"
-                    + " Energy Multiplier: "+percent(energyMult, 0)+"\n"
-                    + " Heat Multiplier: "+percent(heatMult, 0);
+                    + " Energy Multiplier: "+MathUtil.percent(energyMult, 0)+"\n"
+                    + " Heat Multiplier: "+MathUtil.percent(heatMult, 0);
         }
         if(isModerator()){
             tip+="\nModerator "+(moderatorActive?"Active":(moderatorValid?"Valid":"Invalid"));
@@ -121,12 +122,12 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return tip;
     }
     @Override
-    public void renderOverlay(Graphics g, int x, int y, int width, int height, Multiblock multiblock){
+    public void renderOverlay(Renderer renderer, double x, double y, double width, double height, Multiblock multiblock){
         if(!isValid()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
         }
         if(isActive()&&isModerator()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineActive());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineActive());
         }
     }
     @Override
@@ -151,6 +152,14 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return false;
     }
     @Override
+    public boolean canRequire(net.ncplanner.plannerator.multiblock.Block oth){
+        if(template.cooling!=0)return requires(oth, null);
+        Block other = (Block) oth;
+        if(template.fuelCell||template.moderator)return other.template.moderator||other.template.fuelCell;
+//        if(template.casing)return other.template.casing;
+        return false;
+    }
+    @Override
     public boolean requires(net.ncplanner.plannerator.multiblock.Block oth, Multiblock mb){
         if(template.cooling==0)return false;
         Block other = (Block) oth;
@@ -165,6 +174,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     }
     private boolean ruleHas(PlacementRule rule, Block b){
         if(rule.block==b.template)return true;
+        if(rule.blockType!=null&&rule.blockType.blockMatches(null, b))return true;
         for(AbstractPlacementRule<PlacementRule.BlockType, net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.Block> rul : rule.rules){
             if(ruleHas((PlacementRule) rul, b))return true;
         }
@@ -212,10 +222,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     @Override
     public ArrayList<String> getSearchableNames(){
         ArrayList<String> searchables = template.getSearchableNames();
-        for(String s : new RE("\n").split(getListTooltip()))searchables.add(s.trim());
+        for(String s : StringUtil.split(getListTooltip(), "\n"))searchables.add(s.trim());
         return searchables;
     }
-
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
+        return template.getSimpleSearchableNames();
+    }
     @Override
     public net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.Block getTemplate() {
         return template;

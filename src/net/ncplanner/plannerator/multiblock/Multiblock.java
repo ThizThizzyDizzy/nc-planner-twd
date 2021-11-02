@@ -10,12 +10,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import net.ncplanner.plannerator.generator.Priority;
-import net.ncplanner.plannerator.multiblock.action.SetblockAction;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
-import net.ncplanner.plannerator.multiblock.ppe.PostProcessingEffect;
-import net.ncplanner.plannerator.multiblock.symmetry.Symmetry;
+import net.ncplanner.plannerator.multiblock.editor.Action;
+import net.ncplanner.plannerator.multiblock.editor.ActionResult;
+import net.ncplanner.plannerator.multiblock.editor.Decal;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblockAction;
+import net.ncplanner.plannerator.multiblock.editor.ppe.PostProcessingEffect;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.Symmetry;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.FormattedText;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.Queue;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.Task;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
@@ -23,11 +30,11 @@ import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.module.Module;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
-public abstract class Multiblock<T extends Block> extends MultiblockBit{
+public abstract class Multiblock<T extends Block>{
     public long lastChangeTime;
     public Stack<Action> history = new Stack<>();
     public Stack<Action> future = new Stack<>();
-    public ArrayList<Action> queue = new ArrayList<>();
+    public Queue<Action> queue = new Queue<>();
     public HashMap<String, String> metadata = new HashMap<>();
     public Boolean showDetails = null;//details override
     public Configuration configuration;
@@ -35,11 +42,11 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
     public HashMap<Module, Object> moduleData = new HashMap<Module, Object>();
     public Task calculateTask;
     public final int[] dimensions;
-    public final ArrayList<Decal> decals = new ArrayList<>();
+    public final Queue<Decal> decals = new Queue<>();
     public boolean calculationPaused = false;//if calculation is incomplete and paused
     {
         resetMetadata();
-        lastChangeTime = System.currentTimeMillis();
+        lastChangeTime = MathUtil.nanoTime();
     }
     public void resetMetadata(){
         metadata.clear();
@@ -248,7 +255,7 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
     }
     public void undo(boolean calculate){
         if(!history.isEmpty()){
-            lastChangeTime = System.currentTimeMillis();
+            lastChangeTime = MathUtil.nanoTime();
             Action a = history.pop();
             ActionResult result = a.undo(this);
             if(calculate)recalculate(result);
@@ -257,7 +264,7 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
     }
     public void redo(boolean calculate){
         if(!future.isEmpty()){
-            lastChangeTime = System.currentTimeMillis();
+            lastChangeTime = MathUtil.nanoTime();
             Action a = future.pop();
             ActionResult result = a.apply(this, true);
             if(calculate)recalculate(result);
@@ -265,7 +272,7 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
         }
     }
     public void action(Action action, boolean calculate, boolean allowUndo){
-        lastChangeTime = System.currentTimeMillis();
+        lastChangeTime = MathUtil.nanoTime();
         ActionResult result = action.apply(this, allowUndo);
         if(calculate)recalculate(result);
         future.clear();
@@ -367,13 +374,13 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
     }
     public abstract void getPostProcessingEffects(ArrayList<PostProcessingEffect> postProcessingEffects);
     public void queueAction(Action action){
-        queue.add(action);
+        queue.enqueue(action);
     }
     public void performActions(boolean allowUndo){
         future.clear();
         ArrayList<T> affected = new ArrayList<>();
         while(!queue.isEmpty()){
-            Action action = queue.remove(0);
+            Action action = queue.dequeue();
             ActionResult result = action.apply(this, allowUndo);
             ArrayList<T> affectedGroups = result.getAffectedGroups();
             if(affected!=null){
@@ -419,8 +426,11 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
         return copy;
     }
     public abstract Multiblock<T> doCopy();
+    public long nanosSinceLastChange(){
+        return MathUtil.nanoTime()-lastChangeTime;
+    }
     public long millisSinceLastChange(){
-        return System.currentTimeMillis()-lastChangeTime;
+        return nanosSinceLastChange()/1_000_000;
     }
     public int count(Object o){
         if(o==null){
@@ -523,6 +533,7 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
     public float get3DPreviewScale(){
         return 1;
     }
+    public abstract Form getResizeMenu();
     public boolean areBlocksEqual(Multiblock other){
         if(!isShapeEqual(other))return false;
         boolean[] isEqual = new boolean[1];
@@ -602,5 +613,64 @@ public abstract class Multiblock<T extends Block> extends MultiblockBit{
      *initialize a new multiblock, filling it with default features
      */
     public void init(){}
-    public abstract Form getResizeMenu();
+    private ArrayList<GraphLink> links = new ArrayList<>();
+    private HashMap<Block, String> graphBlocks = new HashMap<>();
+    private HashMap<String, String> labels = new HashMap<>();
+    public void generateCrazyGraph(){
+        for(Block b1 : getBlocks(true)){
+            if(b1.getName().contains("Casing"))continue;
+            if(b1.getName().contains("Glass"))continue;
+            if(b1.getName().contains("Source"))continue;
+            if(b1.getName().contains("Port"))continue;
+            if(b1.getName().contains("Vent"))continue;
+            for(Direction d : Direction.values()){
+                if(contains(b1.x+d.x, b1.y+d.y, b1.z+d.z)){
+                    Block b2 = getBlock(b1.x+d.x, b1.y+d.y, b1.z+d.z);
+                    if(b2==null)continue;
+                    if(b2.getName().contains("Casing"))continue;
+                    if(b2.getName().contains("Glass"))continue;
+                    if(b2.getName().contains("Source"))continue;
+                    if(b2.getName().contains("Port"))continue;
+                    if(b2.getName().contains("Vent"))continue;
+                    if(getGraphLink(b1, b2)==null&&(b1.canRequire(b2)||b2.canRequire(b1))){
+                        links.add(new GraphLink(b1, b2));
+                        if(!graphBlocks.containsKey(b1))graphBlocks.put(b1, genNewGraphName(b1));
+                        if(!graphBlocks.containsKey(b2))graphBlocks.put(b2, genNewGraphName(b2));
+                    }
+                }
+            }
+        }
+        for(String key : labels.keySet()){
+            System.out.println(key+"[label=\""+labels.get(key)+"\"]");
+        }
+        for(GraphLink link : links){
+            System.out.println(graphBlocks.get(link.b1)+" -- "+graphBlocks.get(link.b2));
+        }
+    }
+    private String genNewGraphName(Block b){
+        int i = 1;
+        String nam = StringUtil.superRemove(b.getName(), "Liquid", "Cooler", "Reactor", "Fuel", "Transparent", " ", "Heat Sink").trim();
+        String name;
+        do{
+            name = nam+i;
+            i++;
+        }while(graphBlocks.values().contains(name));
+        labels.put(name, nam);
+        return name;
+    }
+    private GraphLink getGraphLink(Block b1, Block b2){
+        for(GraphLink l : links){
+            if(l.b1==b1&&l.b2==b2)return l;
+            if(l.b2==b1&&l.b1==b2)return l;
+        }
+        return null;
+    }
+    private static class GraphLink{
+        private final Block b1;
+        private final Block b2;
+        public GraphLink(Block b1, Block b2){
+            this.b1 = b1;
+            this.b2 = b2;
+        }
+    }
 }

@@ -1,12 +1,11 @@
 package net.ncplanner.plannerator.planner.editor.tool;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
-import net.ncplanner.plannerator.multiblock.action.PasteAction;
-import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.PasteAction;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.ClipboardEntry;
 import net.ncplanner.plannerator.planner.editor.Editor;
@@ -18,15 +17,15 @@ public class PasteTool extends EditorTool{
         super(editor, id);
     }
     @Override
-    public void render(Graphics g, int x, int y, int width, int height){
-        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
-        g.fillRect(x+width*7/20, y+height*3/20, x+width*4/5, y+height*3/4);
-        g.setColor(Core.theme.getEditorToolBackgroundColor().getRGB());
-        g.fillRect(x+width*2/5, y+height*1/5, x+width*3/4, y+height*7/10);
-        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
-        g.fillRect(x+width/5, y+height/4, x+width*13/20, y+height*17/20);
-        g.setColor(Core.theme.getEditorToolBackgroundColor().getRGB());
-        g.fillRect(x+width/4, y+height*3/10, x+width*3/5, y+height*4/5);
+    public void render(Renderer renderer, double x, double y, double width, double height){
+        renderer.setColor(Core.theme.getEditorToolTextColor());
+        renderer.fillRect(x+width*.35, y+height*.15, x+width*.8, y+height*.75);
+        renderer.setColor(Core.theme.getEditorToolBackgroundColor());
+        renderer.fillRect(x+width*.4, y+height*.2, x+width*.75, y+height*.7);
+        renderer.setColor(Core.theme.getEditorToolTextColor());
+        renderer.fillRect(x+width*.2, y+height*.25, x+width*.65, y+height*.85);
+        renderer.setColor(Core.theme.getEditorToolBackgroundColor());
+        renderer.fillRect(x+width*.25, y+height*.3, x+width*.6, y+height*.8);
     }
     @Override
     public void mouseReset(EditorSpace editorSpace, int button){}
@@ -50,7 +49,7 @@ public class PasteTool extends EditorTool{
         return true;
     }
     @Override
-    public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+    public void drawGhosts(Renderer renderer, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, double x, double y, double width, double height, int blockSize, Image texture){
         if(mouseX==-1||mouseY==-1||mouseZ==-1)return;
         synchronized(editor.getClipboard(id)){
             for(ClipboardEntry entry : editor.getClipboard(id)){
@@ -66,18 +65,12 @@ public class PasteTool extends EditorTool{
                 if(sz!=layer)continue;
                 if(sx<x1||sx>x2)continue;
                 if(sy<y1||sy>y2)continue;
-                if(entry.block==null){
-                    g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
-                    g.setAlpha(127);
-                    g.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
-                }else{
-                    g.setColor(Core.theme.getWhiteColor().getRGB());
-                    g.setAlpha(127);
-                    g.drawImage(TextureManager.toCN1(entry.block.getTexture()), x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
-                }
+                if(entry.block!=null)renderer.setWhite(.5f);
+                else renderer.setColor(Core.theme.getEditorBackgroundColor(), .5f);
+                renderer.drawImage(entry.block==null?null:entry.block.getTexture(), x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
             }
         }
-        g.setAlpha(255);
+        renderer.setWhite();
     }
     @Override
     public String getTooltip(){

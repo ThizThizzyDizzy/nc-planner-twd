@@ -1,10 +1,9 @@
 package net.ncplanner.plannerator.planner.editor.tool;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
-import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblocksAction;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.Editor;
 public class RectangleTool extends EditorTool{
@@ -16,9 +15,8 @@ public class RectangleTool extends EditorTool{
     private int[] leftDragEnd;
     private int[] rightDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height){
-        Renderer r = new Renderer(g);
-        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
+    public void render(Renderer renderer, double x, double y, double width, double height){
+        renderer.setColor(Core.theme.getEditorToolTextColor());
         int n = 3;
         double border = width/24;
         x+=border;
@@ -29,15 +27,13 @@ public class RectangleTool extends EditorTool{
         double h = height/n;
         for(int X = 0; X<n; X++){
             for(int Y = 0; Y<n; Y++){
-                r.fillRect((int)(x+X*w+border), (int)(y+Y*h+border), (int)(x+(X+1)*w-border), (int)(y+(Y+1)*h-border));
+                renderer.fillRect(x+X*w+border, y+Y*h+border, x+(X+1)*w-border, y+(Y+1)*h-border);
             }
         }
     }
     @Override
-    public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
-        Renderer r = new Renderer(g);
-        g.setColor(Core.theme.getWhiteColor().getRGB());
-        g.setAlpha(127);
+    public void drawGhosts(Renderer renderer, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, double x, double y, double width, double height, int blockSize, Image texture){
+        renderer.setWhite(.5f);
         if(leftDragEnd!=null&&leftDragStart!=null)foreach(leftDragStart[0], leftDragStart[1], leftDragStart[2], leftDragEnd[0], leftDragEnd[1], leftDragEnd[2], (bx,by,bz) -> {
             if(!editorSpace.isSpaceValid(editor.getSelectedBlock(id), bx, by, bz))return;
             Axis xAxis = axis.get2DXAxis();
@@ -48,9 +44,9 @@ public class RectangleTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<0||sx>x2-x1)return;
             if(sy<0||sy>y2-y1)return;
-            r.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            renderer.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
-        g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
+        renderer.setColor(Core.theme.getEditorBackgroundColor(), .5f);
         if(rightDragEnd!=null&&rightDragStart!=null)foreach(rightDragStart[0], rightDragStart[1], rightDragStart[2], rightDragEnd[0], rightDragEnd[1], rightDragEnd[2], (bx,by,bz) -> {
             Axis xAxis = axis.get2DXAxis();
             Axis yAxis = axis.get2DYAxis();
@@ -60,9 +56,9 @@ public class RectangleTool extends EditorTool{
             if(sz!=layer)return;
             if(sx<0||sx>x2-x1)return;
             if(sy<0||sy>y2-y1)return;
-            r.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+            renderer.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
         });
-        g.setAlpha(255);
+        renderer.setWhite();
     }
     @Override
     public void mouseReset(EditorSpace editorSpace, int button){

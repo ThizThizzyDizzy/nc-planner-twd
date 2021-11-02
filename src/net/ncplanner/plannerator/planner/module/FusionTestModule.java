@@ -1,9 +1,8 @@
 package net.ncplanner.plannerator.planner.module;
-import com.codename1.ui.util.Resources;
-import java.io.IOException;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReactor;
+import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.file.FileReader;
 public class FusionTestModule extends Module{
     public FusionTestModule(){
@@ -24,11 +23,7 @@ public class FusionTestModule extends Module{
     @Override
     public void addConfigurations(){
         Configuration.configurations.add(FileReader.read(() -> {
-            try{
-                return Resources.open("/configurations.res").getData("fusion_test.ncpf");
-            }catch(IOException ex){
-                return null;
-            }
+            return Core.getInputStream("configurations/fusion_test.ncpf");
         }).configuration.addAlternative("Fusion"));
     }
 }

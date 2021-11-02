@@ -1,9 +1,9 @@
 package net.ncplanner.plannerator.planner.editor;
 import java.util.ArrayList;
-import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.Multiblock;
-import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
+import net.ncplanner.plannerator.multiblock.editor.Action;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblocksAction;
 import net.ncplanner.plannerator.planner.Task;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.tool.EditorTool;

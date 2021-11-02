@@ -1,16 +1,15 @@
 package net.ncplanner.plannerator.multiblock;
-import com.codename1.ui.Graphics;
-import com.codename1.util.StringUtil;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
-import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
-import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Pinnable;
+import net.ncplanner.plannerator.planner.Queue;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
-public abstract class Block extends MultiblockBit implements Pinnable{
+public abstract class Block implements Pinnable{
     protected Configuration configuration;
     public int x;
     public int y;
@@ -41,73 +40,77 @@ public abstract class Block extends MultiblockBit implements Pinnable{
     }
     public abstract String getName();
     public abstract void clearData();
-    public <T extends Block> ArrayList<T> getAdjacent(Multiblock<T> multiblock){
-        ArrayList<T> adjacent = new ArrayList<>();
-        for(Direction direction : directions){
+    public <T extends Block> Queue<T> getAdjacent(Multiblock<T> multiblock){
+        Queue<T> adjacent = new Queue<>();
+        for(Direction direction : Direction.values()){
             if(!multiblock.contains(x+direction.x, y+direction.y, z+direction.z))continue;
             T b = multiblock.getBlock(x+direction.x, y+direction.y, z+direction.z);
-            if(b!=null)adjacent.add(b);
+            if(b!=null)adjacent.enqueue(b);
         }
         return adjacent;
     }
-    public <T extends Block> ArrayList<T> getActiveAdjacent(Multiblock<T> multiblock){
-        ArrayList<T> adjacent = new ArrayList<>();
-        for(Direction direction : directions){
+    public <T extends Block> Queue<T> getActiveAdjacent(Multiblock<T> multiblock){
+        Queue<T> adjacent = new Queue<>();
+        for(Direction direction : Direction.values()){
             if(!multiblock.contains(x+direction.x, y+direction.y, z+direction.z))continue;
             T b = multiblock.getBlock(x+direction.x, y+direction.y, z+direction.z);
-            if(b!=null&&b.isActive())adjacent.add(b);
+            if(b!=null&&b.isActive())adjacent.enqueue(b);
         }
         return adjacent;
     }
     public abstract String getTooltip(Multiblock multiblock);
     public abstract String getListTooltip();
-    public void render(Graphics g, int x, int y, int width, int height, boolean renderOverlay, Multiblock multiblock){
-        render(g, x, y, width, height, renderOverlay, 1, multiblock);
+    public void render(Renderer renderer, double x, double y, double width, double height, boolean renderOverlay, Multiblock multiblock){
+        render(renderer, x, y, width, height, renderOverlay, 1, multiblock);
     }
-    public void render(Graphics g, int x, int y, int width, int height, boolean renderOverlay, float alpha, Multiblock multiblock){
+    public void render(Renderer renderer, double x, double y, double width, double height, boolean renderOverlay, float alpha, Multiblock multiblock){
         if(getTexture()==null){
-            g.setColor(new Color(255,0,255).getRGB());
-            g.fillRect(x, y, width, height);
-            g.setColor(new Color(0,0,0).getRGB());
-            g.fillRect(x, y, width/2, height/2);
-            g.fillRect(x+width/2, y+height/2, width/2, height/2);
+            renderer.setColor(new Color(255,0,255));
+            renderer.fillRect(x, y, x+width, y+height);
+            renderer.setColor(new Color(0,0,0));
+            renderer.fillRect(x, y, x+width/2, y+height/2);
+            renderer.fillRect(x+width/2, y+height/2, x+width, y+height);
         }else{
-            g.setColor(Core.theme.getWhiteColor().getRGB());
-            g.drawImage(TextureManager.toCN1(getTexture()), x, y, width, height);
+            renderer.setWhite(alpha);
+            renderer.drawImage(getTexture(), x, y, x+width, y+height);
         }
-        if(renderOverlay)renderOverlay(g, x, y,width,height, multiblock);
+        if(renderOverlay)renderOverlay(renderer,x,y,width,height, multiblock);
     }
-    public void renderGrayscale(Graphics g, int x, int y, int width, int height, boolean renderOverlay, Multiblock multiblock){
-        renderGrayscale(g, x, y, width, height, renderOverlay, 1, multiblock);
+    public void renderGrayscale(Renderer renderer, double x, double y, double width, double height, boolean renderOverlay, Multiblock multiblock){
+        renderGrayscale(renderer, x, y, width, height, renderOverlay, 1, multiblock);
     }
-    public void renderGrayscale(Graphics g, int x, int y, int width, int height, boolean renderOverlay, float alpha, Multiblock multiblock){
+    public void renderGrayscale(Renderer renderer, double x, double y, double width, double height, boolean renderOverlay, float alpha, Multiblock multiblock){
         if(getGrayscaleTexture()==null){
-            g.setColor(new Color(191,191,191).getRGB());
-            g.fillRect(x, y, width, height);
-            g.setColor(new Color(0,0,0).getRGB());
-            g.fillRect(x, y, width/2, height/2);
-            g.fillRect(x+width/2, y+height/2, width/2, height/2);
+            renderer.setColor(new Color(191,191,191));
+            renderer.fillRect(x, y, x+width, y+height);
+            renderer.setColor(new Color(0,0,0));
+            renderer.fillRect(x, y, x+width/2, x+height/2);
+            renderer.fillRect(x+width/2, y+height/2, x+width, x+height);
         }else{
-            g.setColor(Core.theme.getWhiteColor().getRGB());
-            g.drawImage(TextureManager.toCN1(getGrayscaleTexture()), x, y, width, height);
+            renderer.setWhite(alpha);
+            renderer.drawImage(getGrayscaleTexture(), x, y, x+width, y+height);
         }
-        if(renderOverlay)renderOverlay(g, x,y,width,height, multiblock);
+        if(renderOverlay)renderOverlay(renderer,x,y,width,height, multiblock);
     }
-    public abstract void renderOverlay(Graphics g, int x, int y, int width, int height, Multiblock multiblock);
-    public void drawCircle(Graphics g, int x, int y, int width, int height, Color color){
-        Core.drawCircle(g, x+width/2, y+height/2, width/4, width*3/8, color);
+    public abstract void renderOverlay(Renderer renderer, double x, double y, double width, double height, Multiblock multiblock);
+    public void drawCircle(Renderer renderer, double x, double y, double width, double height, Color color){
+        renderer.setColor(color);
+        renderer.drawCircle(x+width/2, y+height/2, width/4, width*3/8);
+        renderer.setWhite();
     }
-    public void drawOutline(Graphics g, int x, int y, int width, int height, Color color){
-        drawOutline(g, x, y, width, height, 1/32d, color);
+    public void drawOutline(Renderer renderer, double x, double y, double width, double height, Color color){
+        renderer.setColor(color);
+        drawOutline(renderer, x, y, width, height, 1/32d, color);
+        renderer.setWhite();
     }
-    public void drawOutline(Graphics g, int x, int y, int width, int height, double dInset, Color color){
-        g.setColor(color.getRGB());
+    public void drawOutline(Renderer renderer, double x, double y, double width, double height, double dInset, Color color){
+        renderer.setColor(color);
         int inset = (int)(width*dInset);
         int outline = (int)(width*dInset*2);
-        g.fillRect(x+inset, y+inset, width-inset*2, outline);
-        g.fillRect(x+inset, y+height-inset-outline, width-inset*2, outline);
-        g.fillRect(x+inset, y+inset+outline, outline, height-inset*2-outline*2);
-        g.fillRect(x+width-inset-outline, y+inset+outline, outline, height-inset*2-outline*2);
+        renderer.fillRect(x+inset, y+inset, width-inset*2, outline);
+        renderer.fillRect(x+inset, y+height-inset-outline, width-inset*2, outline);
+        renderer.fillRect(x+inset, y+inset+outline, outline, height-inset*2-outline*2);
+        renderer.fillRect(x+width-inset-outline, y+inset+outline, outline, height-inset*2-outline*2);
     }
     public Block copy(int x, int y, int z){
         Block b = newInstance(x, y, z);
@@ -120,6 +123,7 @@ public abstract class Block extends MultiblockBit implements Pinnable{
     public abstract boolean hasRules();
     public abstract boolean calculateRules(Multiblock multiblock);
     public abstract boolean matches(Block template);
+    public abstract boolean canRequire(Block other);
     public abstract boolean requires(Block other, Multiblock mb);
     public abstract boolean canGroup();
     public abstract boolean canBeQuickReplaced();
@@ -129,13 +133,13 @@ public abstract class Block extends MultiblockBit implements Pinnable{
     public abstract Block copy();
     public abstract boolean isEqual(Block other);
     public boolean roughMatch(String blockNam){
-        blockNam = blockNam.toLowerCase();
+        blockNam = StringUtil.toLowerCase(blockNam);
         if(blockNam.endsWith("s"))blockNam = blockNam.substring(0, blockNam.length()-1);
-        blockNam = Core.superRemove(StringUtil.replaceAll(blockNam, "_", " "), "liquid ", " cooler", " heat sink", " heatsink", " sink", " neutron shield", " shield", " moderator", " coolant", " heater", "fuel ", " reflector");
+        blockNam = StringUtil.superRemove(StringUtil.replace(blockNam, "_", " "), "liquid ", " cooler", " heat sink", " heatsink", " sink", " neutron shield", " shield", " moderator", " coolant", " heater", "fuel ", " reflector");
         if(blockNam.endsWith("s"))blockNam = blockNam.substring(0, blockNam.length()-1);
         String blockName = getName();
         if(blockName.endsWith("s"))blockName = blockName.substring(0, blockName.length()-1);
-        blockName = Core.superRemove(StringUtil.replaceAll(blockName.toLowerCase(), "_", " "), "liquid ", " cooler", " heat sink", " heatsink", " sink", " neutron shield", " shield", " moderator", " coolant", " heater", "fuel ", " reflector");
+        blockName = StringUtil.superRemove(StringUtil.replace(StringUtil.toLowerCase(blockName), "_", " "), "reactor ", "liquid ", " cooler", " heat sink", " heatsink", " sink", " neutron shield", " shield", " moderator", " coolant", " heater", "fuel ", " reflector");
         if(blockName.endsWith("s"))blockName = blockName.substring(0, blockName.length()-1);
         return blockNam.equalsIgnoreCase(blockName);
     }

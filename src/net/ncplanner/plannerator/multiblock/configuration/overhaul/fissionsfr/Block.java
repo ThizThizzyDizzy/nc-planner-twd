@@ -8,6 +8,7 @@ import net.ncplanner.plannerator.multiblock.configuration.RuleContainer;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Pinnable;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigNumberList;
@@ -17,7 +18,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.controller = true;
         block.casing = true;
         return block;
@@ -26,7 +27,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.casing = true;
         block.casingEdge = edge;
         return block;
@@ -35,11 +36,11 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         Block block = new Block(name);
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.casing = true;
         block.coolantVent = true;
         block.coolantVentOutputDisplayName = outputDisplayName;
-        block.setCoolantVentOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        block.setCoolantVentOutputTexture(TextureManager.getImage(outputTexture));
         return block;
     }
     public static Block port(Block parent, String name, String displayName, String texture, String outputDisplayName, String outputTexture){
@@ -47,16 +48,16 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.parent = parent;
         block.displayName = displayName;
         block.legacyNames.add(displayName);
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.portOutputDisplayName = outputDisplayName;
-        block.setPortOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        block.setPortOutputTexture(TextureManager.getImage(outputTexture));
         return block;
     }
     public static Block source(String name, String displayName, String texture, float efficiency){
         Block block = new Block(name);
         block.displayName = displayName;
-        block.legacyNames.add(Core.superRemove(displayName, " Neutron Source"));
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.legacyNames.add(StringUtil.superRemove(displayName, " Neutron Source"));
+        block.setTexture(TextureManager.getImage(texture));
         block.casing = true;
         block.source = true;
         block.sourceEfficiency = efficiency;
@@ -72,7 +73,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         for(PlacementRule r : rules){
             block.rules.add(r);
         }
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.functional = true;
         block.cluster = true;
         return block;
@@ -86,7 +87,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.createCluster = true;
         block.blocksLOS = true;
         block.functional = true;
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         return block;
     }
     public static Block irradiator(String name, String displayName, String texture){
@@ -98,7 +99,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.irradiator = true;
         block.functional = true;
         block.blocksLOS = true;
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         return block;
     }
     public static Block conductor(String name, String displayName, String texture){
@@ -106,7 +107,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.displayName = displayName;
         block.legacyNames.add(displayName);
         block.cluster = true;//because conductors connect clusters together
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         return block;
     }
     public static Block moderator(String name, String displayName, String texture, int flux, float efficiency){
@@ -118,7 +119,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.moderatorActive = true;
         block.moderatorFlux = flux;
         block.moderatorEfficiency = efficiency;
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         block.functional = true;
         return block;
     }
@@ -132,7 +133,7 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.reflectorReflectivity = reflectivity;
         block.functional = true;
         block.blocksLOS = true;
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        block.setTexture(TextureManager.getImage(texture));
         return block;
     }
     public static Block shield(String name, String displayName, String texture, String closedTexture, int heatPerFlux, float efficiency){
@@ -149,8 +150,8 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         block.shieldEfficiency = efficiency;
         block.moderatorHasBaseStats = true;
         block.moderatorEfficiency = efficiency;
-        block.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
-        block.setShieldClosedTexture(TextureManager.fromCN1(TextureManager.getImage(closedTexture)));
+        block.setTexture(TextureManager.getImage(texture));
+        block.setShieldClosedTexture(TextureManager.getImage(closedTexture));
         return block;
     }
     public String name;
@@ -452,12 +453,12 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
         if(heatsink)return null;
         for(BlockRecipe recipe : allRecipes){
             for(String inputName : recipe.getLegacyNames()){
-                if(inputName.equals(template.inputName)||inputName.trim().toLowerCase().startsWith(Core.superReplace(template.getInputDisplayName().trim().toLowerCase(), " fluoride", "", "mf4", "mox")))return recipe;
+                if(inputName.equals(template.inputName)||StringUtil.toLowerCase(inputName.trim()).startsWith(StringUtil.superReplace(StringUtil.toLowerCase(template.getInputDisplayName().trim()), " fluoride", "", "mf4", "mox")))return recipe;
             }
         }
         for(BlockRecipe recipe : recipes){
             for(String inputName : recipe.getLegacyNames()){
-                if(inputName.equals(template.inputName)||inputName.trim().toLowerCase().startsWith(Core.superReplace(template.getInputDisplayName().trim().toLowerCase(), " fluoride", "", "mf4", "mox")))return recipe;
+                if(inputName.equals(template.inputName)||StringUtil.toLowerCase(inputName.trim()).startsWith(StringUtil.superReplace(StringUtil.toLowerCase(template.getInputDisplayName().trim()), " fluoride", "", "mf4", "mox")))return recipe;
             }
         }
         throw new IllegalArgumentException("Failed to find match for block recipe "+template.inputName+"!");
@@ -536,9 +537,14 @@ public class Block extends RuleContainer<PlacementRule.BlockType, Block> impleme
     }
     @Override
     public ArrayList<String> getSearchableNames(){
+        ArrayList<String> nams = getSimpleSearchableNames();
+        for(AbstractPlacementRule<PlacementRule.BlockType, Block> r : rules)nams.addAll(r.getSearchableNames());
+        return nams;
+    }
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
         ArrayList<String> nams = getLegacyNames();
         nams.add(getDisplayName());
-        for(AbstractPlacementRule<PlacementRule.BlockType, Block> r : rules)nams.addAll(r.getSearchableNames());
         return nams;
     }
     @Override

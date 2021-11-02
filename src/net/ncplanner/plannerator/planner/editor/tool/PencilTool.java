@@ -1,12 +1,11 @@
 package net.ncplanner.plannerator.planner.editor.tool;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.Block;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
-import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblocksAction;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.Editor;
 public class PencilTool extends EditorTool{
@@ -20,11 +19,11 @@ public class PencilTool extends EditorTool{
     private ArrayList<int[]> leftSelectedBlocks = new ArrayList<>();
     private ArrayList<int[]> rightSelectedBlocks = new ArrayList<>();
     @Override
-    public void render(Graphics g, int x, int y, int width, int height){
-        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
-        g.fillPolygon(new int[]{x+width/4, x+width*3/8, x+width/4}, new int[]{y+height*3/4, y+height*3/4, y+height*5/8}, 3);
-        g.fillPolygon(new int[]{x+width*2/5, x+width*11/40, x+width/2, x+width*5/8}, new int[]{y+height*29/40, y+height*3/5, y+height*3/8, y+height/2}, 4);
-        g.fillPolygon(new int[]{x+width*21/40, x+width*13/20, x+width*3/4, x+width*5/8}, new int[]{y+height*7/20, y+height*19/40, y+height*3/8, y+height/4}, 4);
+    public void render(Renderer renderer, double x, double y, double width, double height){
+        renderer.setColor(Core.theme.getEditorToolTextColor());
+        renderer.fillPolygon(new double[]{x+width*.25, x+width*.375, x+width*.25}, new double[]{y+height*.75, y+height*.75, y+height*.625});
+        renderer.fillPolygon(new double[]{x+width*.4, x+width*.275, x+width*.5, x+width*.625}, new double[]{y+height*.725, y+height*.6, y+height*.375, y+height*.5});
+        renderer.fillPolygon(new double[]{x+width*.525, x+width*.65, x+width*.75, x+width*.625}, new double[]{y+height*.35, y+height*.475, y+height*.375, y+height*.25});
     }
     @Override
     public void mouseReset(EditorSpace editorSpace, int button){
@@ -132,10 +131,8 @@ public class PencilTool extends EditorTool{
         return true;
     }
     @Override
-    public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
-        Renderer r = new Renderer(g);
-        g.setColor(Core.theme.getWhiteColor().getRGB());
-        g.setAlpha(127);
+    public void drawGhosts(Renderer renderer, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, double x, double y, double width, double height, int blockSize, Image texture){
+        renderer.setWhite(.5f);
         synchronized(leftSelectedBlocks){
             for(int[] i : leftSelectedBlocks){
                 int bx = i[0];
@@ -149,10 +146,10 @@ public class PencilTool extends EditorTool{
                 if(sz!=layer)continue;
                 if(sx<x1||sx>x2)continue;
                 if(sy<y1||sy>y2)continue;
-                r.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+                renderer.drawImage(texture, x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
             }
         }
-        g.setColor(Core.theme.getEditorBackgroundColor().getRGB());
+        renderer.setColor(Core.theme.getEditorBackgroundColor(), .5f);
         synchronized(rightSelectedBlocks){
             for(int[] i : rightSelectedBlocks){
                 int bx = i[0];
@@ -166,10 +163,10 @@ public class PencilTool extends EditorTool{
                 if(sz!=layer)continue;
                 if(sx<x1||sx>x2)continue;
                 if(sy<y1||sy>y2)continue;
-                r.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
+                renderer.fillRect(x+sx*blockSize, y+sy*blockSize, x+(sx+1)*blockSize, y+(sy+1)*blockSize);
             }
         }
-        g.setAlpha(255);
+        renderer.setWhite();
     }
     @Override
     public String getTooltip(){

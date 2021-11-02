@@ -16,21 +16,22 @@ import com.codename1.ui.plaf.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import net.ncplanner.plannerator.multiblock.Action;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.BlockPos;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.Multiblock;
-import net.ncplanner.plannerator.multiblock.action.ClearSelectionAction;
-import net.ncplanner.plannerator.multiblock.action.SetCoolantRecipeAction;
-import net.ncplanner.plannerator.multiblock.action.SetFuelAction;
-import net.ncplanner.plannerator.multiblock.action.SetFusionCoolantRecipeAction;
-import net.ncplanner.plannerator.multiblock.action.SetFusionRecipeAction;
-import net.ncplanner.plannerator.multiblock.action.SetSelectionAction;
-import net.ncplanner.plannerator.multiblock.action.SetTurbineRecipeAction;
-import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
 import net.ncplanner.plannerator.multiblock.configuration.IBlockRecipe;
+import net.ncplanner.plannerator.multiblock.editor.Action;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.ClearSelectionAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetCoolantRecipeAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetFuelAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetFusionCoolantRecipeAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetFusionRecipeAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetSelectionAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetTurbineRecipeAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblocksAction;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.OverhaulMSR;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.OverhaulSFR;
 import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReactor;
@@ -112,10 +113,11 @@ public class MenuEdit extends Form implements Editor{
             @Override
             public void paint(Graphics g){
                 super.paint(g);
+                Renderer renderer = new Renderer(g);
                 g.setColor(Core.theme.getComponentTextColor().getRGB());
                 int tallness = getHeight()*3/2;
-                Core.drawOval(g, getX()+getWidth()/2, getY()+getHeight()/2+tallness-getHeight()/16, getWidth(), tallness, getHeight()/8, 160, 0, 151, 10);
-                Core.drawRegularPolygon(g, getX()+getWidth()/4, getY()+getHeight()*9/16, getWidth()/4, 3, -5, 0);
+                renderer.drawOval(getX()+getWidth()/2, getY()+getHeight()/2+tallness-getHeight()/16, getWidth(), tallness, getHeight()/8, 160, 0, 151, 10);
+                renderer.drawRegularPolygon(getX()+getWidth()/4, getY()+getHeight()*9/16, getWidth()/4, 3, -5, 0);
             }
         };
         undo.addActionListener((evt) -> {
@@ -131,10 +133,11 @@ public class MenuEdit extends Form implements Editor{
             @Override
             public void paint(Graphics g){
                 super.paint(g);
+                Renderer renderer = new Renderer(g);
                 g.setColor(Core.theme.getComponentTextColor().getRGB());
                 int tallness = getHeight()*3/2;
-                Core.drawOval(g, getX()+getWidth()/2, getY()+getHeight()/2+tallness-getHeight()/16, getWidth(), tallness, getHeight()/8, 160, 0, 150, 9);
-                Core.drawRegularPolygon(g, getX()+getWidth()*3/4, getY()+getHeight()*9/16, getWidth()/4, 3, 5, 0);
+                renderer.drawOval(getX()+getWidth()/2, getY()+getHeight()/2+tallness-getHeight()/16, getWidth(), tallness, getHeight()/8, 160, 0, 150, 9);
+                renderer.drawRegularPolygon(getX()+getWidth()*3/4, getY()+getHeight()*9/16, getWidth()/4, 3, 5, 0);
             }
         };
         redo.addActionListener((evt) -> {
@@ -172,7 +175,7 @@ public class MenuEdit extends Form implements Editor{
                 public void paint(Graphics g){
                     super.paint(g);
                     g.setColor(getStyle().getFgColor());
-                    tool.render(g, getX(), getY(), getWidth(), getHeight());
+                    tool.render(new Renderer(g), getX(), getY(), getWidth(), getHeight());
                     if(isSelected){
                         int x = getX();
                         int y = getY();
@@ -613,7 +616,7 @@ public class MenuEdit extends Form implements Editor{
                 @Override
                 public void paint(Graphics g){
                     super.paint(g);
-                    if(availableBlock!=null)availableBlock.render(g, getX(), getY(), getWidth(), getHeight(), false, null);
+                    if(availableBlock!=null)availableBlock.render(new Renderer(g), getX(), getY(), getWidth(), getHeight(), false, null);
                     if(isSelected){
                         int x = getX();
                         int y = getY();

@@ -1,6 +1,4 @@
 package net.ncplanner.plannerator.multiblock.overhaul.turbine;
-import com.codename1.ui.Component;
-import com.codename1.util.MathUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,25 +7,27 @@ import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.Direction;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.FluidStack;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.PartCount;
-import net.ncplanner.plannerator.multiblock.action.SetblockAction;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.PlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.Recipe;
-import net.ncplanner.plannerator.multiblock.decal.BlockInvalidDecal;
-import net.ncplanner.plannerator.multiblock.decal.BlockValidDecal;
-import net.ncplanner.plannerator.multiblock.decal.MissingBladeDecal;
-import net.ncplanner.plannerator.multiblock.decal.MissingCasingDecal;
-import net.ncplanner.plannerator.multiblock.ppe.ClearInvalid;
-import net.ncplanner.plannerator.multiblock.ppe.PostProcessingEffect;
-import net.ncplanner.plannerator.multiblock.symmetry.CoilSymmetry;
-import net.ncplanner.plannerator.multiblock.symmetry.Symmetry;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblockAction;
+import net.ncplanner.plannerator.multiblock.editor.decal.BlockInvalidDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.BlockValidDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.MissingBladeDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.MissingCasingDecal;
+import net.ncplanner.plannerator.multiblock.editor.ppe.ClearInvalid;
+import net.ncplanner.plannerator.multiblock.editor.ppe.PostProcessingEffect;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.CoilSymmetry;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.Symmetry;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.FormattedText;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.Queue;
 import net.ncplanner.plannerator.planner.Task;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
@@ -230,7 +230,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                     Block block = getBlock(x, y, z);
                     if(block==null){
                         missingCasings++;
-                        if(addDecals)decals.add(new MissingCasingDecal(x, y, z));
+                        if(addDecals)decals.enqueue(new MissingCasingDecal(x, y, z));
                     }
                     if(block!=null){
                         if(block.template.inlet)hasInlet = true;
@@ -238,7 +238,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                         if(block.template.controller)numControllers++;
                         if(block.template.casing||block.template.inlet||block.template.outlet||block.template.controller){
                             block.valid = true;
-                            if(addDecals)decals.add(new BlockValidDecal(x, y, z));
+                            if(addDecals)decals.enqueue(new BlockValidDecal(x, y, z));
                         }
                     }
                 });
@@ -248,9 +248,9 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
             case 1://calculate bearing
                 int minBearingDiameter = getMinBearingDiameter();
                 int maxBearingDiameter = getMaxBearingDiameter();
-                ArrayList<Block> realToValidate = new ArrayList<>();
+                Queue<Block> realToValidate = new Queue<>();
                 BEARING:for(int i = minBearingDiameter; i<=maxBearingDiameter; i+=2){
-                    ArrayList<Block> toValidate = new ArrayList<>();
+                    Queue<Block> toValidate = new Queue<>();
                     int bearingMin = getExternalWidth()/2-i/2;
                     int bearingMax = getExternalWidth()/2+i/2-(i%2==0?1:0);
                     for(int x = bearingMin; x<=bearingMax; x++){
@@ -259,7 +259,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                                 Block block = getBlock(x, y, z);
                                 boolean valid = block!=null&&((z==0||z==getExternalDepth()-1)?block.template.bearing:block.template.shaft);
                                 if(!valid)break BEARING;
-                                toValidate.add(block);
+                                toValidate.enqueue(block);
                             }
                         }
                     }
@@ -269,7 +269,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                 }
                 for(Block b : realToValidate){
                     b.valid = true;
-                    if(addDecals)decals.add(new BlockValidDecal(b.x, b.y, b.z));
+                    if(addDecals)decals.enqueue(new BlockValidDecal(b.x, b.y, b.z));
                 }
                 calcBearing.finish();
                 calcStep++;
@@ -282,7 +282,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                 for(int z = 1; z<=getInternalDepth(); z++){
                     boolean badBlade = false;
                     boolean bladeIncomplete = false;
-                    ArrayList<Block> toValidate = new ArrayList<>();
+                    Queue<Block> toValidate = new Queue<>();
                     for(int x = 1; x<=getInternalWidth(); x++){
                         for(int y = 1; y<=getInternalHeight(); y++){
                             Block block = getBlock(x, y, z);
@@ -290,14 +290,14 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                             boolean yBlade = y>=bearingMin&&y<=bearingMax;
                             if(xBlade&&yBlade)continue;//that's a bearing, already done
                             if(!xBlade&&!yBlade){
-                                if(block!=null&&addDecals)decals.add(new BlockInvalidDecal(x, y, z));
+                                if(block!=null&&addDecals)decals.enqueue(new BlockInvalidDecal(x, y, z));
                                 continue;
                             }
                             if(block==null){
-                                decals.add(new MissingBladeDecal(x, y, z));
+                                decals.enqueue(new MissingBladeDecal(x, y, z));
                                 bladeIncomplete = true;
                             }else{
-                                toValidate.add(block);
+                                toValidate.enqueue(block);
                                 if(blades[z-1]==null)blades[z-1] = block.template;
                                 else if(blades[z-1]!=block.template)badBlade = true;
                             }
@@ -307,7 +307,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
                     else{
                         for(Block b : toValidate){
                             b.valid = true;
-                            if(addDecals)decals.add(new BlockValidDecal(b.x, b.y, b.z));
+                            if(addDecals)decals.enqueue(new BlockValidDecal(b.x, b.y, b.z));
                         }
                     }
                     bladesComplete[z-1] = !bladeIncomplete;
@@ -430,7 +430,7 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
         if(!block.isCoil()&&!block.isConnector())return false;
         boolean wasValid = block.valid;
         boolean hasAny = false;
-        for(Direction d : directions){
+        for(Direction d : Direction.values()){
             if(contains(block.x+d.x, block.y+d.y, block.z+d.z)){
                 Block b = getBlock(block.x+d.x, block.y+d.y, block.z+d.z);
                 if(b!=null&&(b.isCoil()||b.isConnector()||b.isBearing())&&b.isValid()){
@@ -440,18 +440,18 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
             }
         }
         if(!hasAny){
-            if(block.valid&&addDecals)decals.add(new BlockInvalidDecal(block.x, block.y, block.z));
+            if(block.valid&&addDecals)decals.enqueue(new BlockInvalidDecal(block.x, block.y, block.z));
             block.valid = false;
             return wasValid!=block.valid;
         }
         for(AbstractPlacementRule<PlacementRule.BlockType, net.ncplanner.plannerator.multiblock.configuration.overhaul.turbine.Block> rule : block.template.rules){
             if(!rule.isValid(block, this)){
-                if(block.valid&&addDecals)decals.add(new BlockInvalidDecal(block.x, block.y, block.z));
+                if(block.valid&&addDecals)decals.enqueue(new BlockInvalidDecal(block.x, block.y, block.z));
                 block.valid = false;
                 return wasValid!=block.valid;
             }
         }
-        if(!block.valid&&addDecals)decals.add(new BlockValidDecal(block.x, block.y, block.z));
+        if(!block.valid&&addDecals)decals.enqueue(new BlockValidDecal(block.x, block.y, block.z));
         block.valid = true;
         return wasValid!=block.valid;
     }
@@ -473,16 +473,16 @@ public class OverhaulTurbine extends CuboidalMultiblock<Block>{
         if(rotorValid){
             tooltip = "Total output: "+totalOutput+" RF/t\n"
                     + "Input: "+getInputRate()+"/"+maxInput+" mb/t\n"
-                    + "Power Efficiency: "+round(totalFluidEfficiency, 2)+" RF/mb\n"
-                    + "Total Efficiency: "+percent(totalEfficiency, 2)+"\n"
-                    + "Rotor Efficiency: "+percent(rotorEfficiency, 2)+"\n"
-                    + "Coil Efficiency: "+percent(coilEfficiency, 2)+"\n"
-                    + "Throughput Efficiency: "+percent(throughputEfficiency, 2)+"\n"
-                    + "Ideality Multiplier: "+percent(idealityMultiplier, 2);
+                    + "Power Efficiency: "+MathUtil.round(totalFluidEfficiency, 2)+" RF/mb\n"
+                    + "Total Efficiency: "+MathUtil.percent(totalEfficiency, 2)+"\n"
+                    + "Rotor Efficiency: "+MathUtil.percent(rotorEfficiency, 2)+"\n"
+                    + "Coil Efficiency: "+MathUtil.percent(coilEfficiency, 2)+"\n"
+                    + "Throughput Efficiency: "+MathUtil.percent(throughputEfficiency, 2)+"\n"
+                    + "Ideality Multiplier: "+MathUtil.percent(idealityMultiplier, 2);
         }else{
             tooltip = "Rotor Invalid!"+(blades==null?"":" ("+bladeCount+"/"+blades.length+")")+"\n"
                     + "Input: "+getInputRate()+"/"+maxInput+" mb/t\n"
-                    + "Coil Efficiency: "+percent(coilEfficiency, 2);
+                    + "Coil Efficiency: "+MathUtil.percent(coilEfficiency, 2);
         }
         tooltip+=getModuleTooltip();
         text.addText(tooltip, rotorValid?Core.theme.getTooltipTextColor():Core.theme.getTooltipInvalidTextColor());

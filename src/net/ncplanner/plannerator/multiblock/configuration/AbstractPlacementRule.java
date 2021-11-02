@@ -1,15 +1,14 @@
 package net.ncplanner.plannerator.multiblock.configuration;
-import com.codename1.util.regex.RE;
 import java.util.ArrayList;
 import java.util.Objects;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.Direction;
-import net.ncplanner.plannerator.multiblock.Edge3;
+import net.ncplanner.plannerator.multiblock.Edge;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.Vertex;
-import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Searchable;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.simplelibrary.config2.Config;
 import net.ncplanner.plannerator.simplelibrary.config2.ConfigList;
 public abstract class AbstractPlacementRule<BlockType extends IBlockType, Template extends IBlockTemplate> extends RuleContainer<BlockType, Template> implements Searchable {
@@ -90,13 +89,13 @@ public abstract class AbstractPlacementRule<BlockType extends IBlockType, Templa
                 for (AbstractPlacementRule<BlockType, Template> rule : rules) {
                     s.append(" AND ").append(rule.toString());
                 }
-                return (s.length() == 0) ? s.toString() : Core.substring(s, 5);
+                return (s.length() == 0) ? s.toString() : StringUtil.substring(s, 5);
             case OR:
                 s = new StringBuilder();
                 for (AbstractPlacementRule<BlockType, Template> rule : rules) {
                     s.append(" OR ").append(rule.toString());
                 }
-                return (s.length() == 0) ? s.toString() : Core.substring(s, 4);
+                return (s.length() == 0) ? s.toString() : StringUtil.substring(s, 4);
         }
         return "Unknown Rule";
     }
@@ -123,7 +122,7 @@ public abstract class AbstractPlacementRule<BlockType extends IBlockType, Templa
                 }
                 return num >= min && num <= max;
             case AXIAL:
-                for (Axis axis : axes) {
+                for(Axis axis : Axis.axes){
                     if(!reactor.contains(block.x - axis.x, block.y - axis.y, block.z - axis.z))continue;
                     if(!reactor.contains(block.x + axis.x, block.y + axis.y, block.z + axis.z))continue;
                     T b1 = reactor.getBlock(block.x - axis.x, block.y - axis.y, block.z - axis.z);
@@ -158,7 +157,7 @@ public abstract class AbstractPlacementRule<BlockType extends IBlockType, Templa
                         return true;
                     }
                 } else if (ruleType == RuleType.EDGE) {
-                    outer: for (Edge3 e : Edge3.values()) {
+                    outer: for (Edge e : Edge.values()) {
                         for (Direction d : e.directions) {
                             if (!dirs[d.ordinal()]) continue outer;
                         }
@@ -201,6 +200,10 @@ public abstract class AbstractPlacementRule<BlockType extends IBlockType, Templa
         }
         return nams;
     }
+    @Override
+    public ArrayList<String> getSimpleSearchableNames() {
+        return getSearchableNames();
+    }
 
     /**
      * Warning: The order of enums in here is *significant*.
@@ -242,14 +245,14 @@ public abstract class AbstractPlacementRule<BlockType extends IBlockType, Templa
     protected void parseNcInto(AbstractBlockContainer<Template> configuration, String str) {
         if (str.contains("||")) {
             this.ruleType = RuleType.OR;
-            for (String sub : new RE("\\|\\|").split(str)){
+            for (String sub : StringUtil.split(str, "\\|\\|")){
                 AbstractPlacementRule<BlockType, Template> rul = newRule();
                 rul.parseNcInto(configuration, sub.trim());
                 this.rules.add(rul);
             }
         } else if (str.contains("&&")) {
             this.ruleType = RuleType.AND;
-            for (String sub : new RE("&&").split(str)) {
+            for (String sub : StringUtil.split(str, "&&")) {
                 AbstractPlacementRule<BlockType, Template> rul = newRule();
                 rul.parseNcInto(configuration, sub.trim());
                 this.rules.add(rul);

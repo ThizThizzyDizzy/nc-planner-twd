@@ -4,6 +4,7 @@ import com.codename1.util.regex.RE;
 import com.codename1.util.regex.RECharacter;
 import java.util.ArrayList;
 public interface Searchable{
+    public ArrayList<String> getSimpleSearchableNames();//[\s\A](-([\w\d]+)|-\"(.+?)\")[\Z\s]
     public ArrayList<String> getSearchableNames();//[\s\A](-([\w\d]+)|-\"(.+?)\")[\Z\s]
     public static final String excludePattern = "(\\s|^)(-([\\w\\d]+)|-\\\"(.+?)\\\")($|\\s)";
     public static boolean isValidForSearch(Searchable searchable, String searchText){

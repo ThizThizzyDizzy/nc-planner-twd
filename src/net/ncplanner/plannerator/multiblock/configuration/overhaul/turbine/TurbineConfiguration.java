@@ -123,9 +123,9 @@ public class TurbineConfiguration extends AbstractBlockContainer<Block> {
                 boolean foundMatch = false;
                 for(Configuration c : addon.addons){
                     if(c.overhaulNameMatches(addn)){
+                        foundMatch = true;
                         if(c.overhaul==null)c.overhaul = new OverhaulConfiguration();
                         if(c.overhaul.turbine==null)c.overhaul.turbine = new TurbineConfiguration();
-                        foundMatch = true;
                         c.overhaul.turbine.blocks.addAll(theBlocks);
                     }
                 }

@@ -3,31 +3,33 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import net.ncplanner.plannerator.generator.Priority;
-import net.ncplanner.plannerator.multiblock.Action;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.FluidStack;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.PartCount;
-import net.ncplanner.plannerator.multiblock.action.SetblockAction;
-import net.ncplanner.plannerator.multiblock.action.SetblocksAction;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.Fuel;
 import net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.PlacementRule;
-import net.ncplanner.plannerator.multiblock.decal.AdjacentCellDecal;
-import net.ncplanner.plannerator.multiblock.decal.AdjacentModeratorDecal;
-import net.ncplanner.plannerator.multiblock.decal.BlockInvalidDecal;
-import net.ncplanner.plannerator.multiblock.decal.BlockValidDecal;
-import net.ncplanner.plannerator.multiblock.decal.MissingCasingDecal;
-import net.ncplanner.plannerator.multiblock.decal.UnderhaulModeratorLineDecal;
-import net.ncplanner.plannerator.multiblock.ppe.ClearInvalid;
-import net.ncplanner.plannerator.multiblock.ppe.PostProcessingEffect;
-import net.ncplanner.plannerator.multiblock.symmetry.AxialSymmetry;
-import net.ncplanner.plannerator.multiblock.symmetry.Symmetry;
+import net.ncplanner.plannerator.multiblock.editor.Action;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblockAction;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblocksAction;
+import net.ncplanner.plannerator.multiblock.editor.decal.AdjacentCellDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.AdjacentModeratorDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.BlockInvalidDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.BlockValidDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.MissingCasingDecal;
+import net.ncplanner.plannerator.multiblock.editor.decal.UnderhaulModeratorLineDecal;
+import net.ncplanner.plannerator.multiblock.editor.ppe.ClearInvalid;
+import net.ncplanner.plannerator.multiblock.editor.ppe.PostProcessingEffect;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.AxialSymmetry;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.Symmetry;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.FormattedText;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.Queue;
 import net.ncplanner.plannerator.planner.Task;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
@@ -133,11 +135,11 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
                     Block block = getBlock(x, y, z);
                     if(block==null||!block.isCasing()){
                         missingCasings++;
-                        if(addDecals)decals.add(new MissingCasingDecal(x,y,z));
+                        if(addDecals)decals.enqueue(new MissingCasingDecal(x,y,z));
                     }
                     if(block!=null&&block.isCasing()){
                         block.casingValid = true;
-                        if(addDecals)decals.add(new BlockValidDecal(x,y,z));
+                        if(addDecals)decals.enqueue(new BlockValidDecal(x,y,z));
                     }
                 });
                 calcCasing.finish();
@@ -196,9 +198,9 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
     }
     public void calculateCore(Block that, boolean addDecals){
         if(!that.template.fuelCell)return;
-        if(addDecals)decals.add(new BlockValidDecal(that.x, that.y, that.z));
-        for(Direction d : directions){
-            ArrayList<Block> toValidate = new ArrayList<>();
+        if(addDecals)decals.enqueue(new BlockValidDecal(that.x, that.y, that.z));
+        for(Direction d : Direction.values()){
+            Queue<Block> toValidate = new Queue<>();
             for(int i = 1; i<=getConfiguration().underhaul.fissionSFR.neutronReach+1; i++){
                 if(!contains(that.x+d.x*i, that.y+d.y*i, that.z+d.z*i))break;
                 Block block = getBlock(that.x+d.x*i,that.y+d.y*i,that.z+d.z*i);
@@ -206,17 +208,17 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
                 if(block.isModerator()){
                     if(i==1){
                         block.moderatorActive = block.moderatorValid = true;
-                        if(addDecals)decals.add(new AdjacentModeratorDecal(block.x, block.y, block.z, d.getOpposite()));
+                        if(addDecals)decals.enqueue(new AdjacentModeratorDecal(block.x, block.y, block.z, d.getOpposite()));
                         that.adjacentModerators++;
                     }
-                    toValidate.add(block);
+                    toValidate.enqueue(block);
                     continue;
                 }
                 if(block.isFuelCell()){
-                    if(addDecals)decals.add(new AdjacentCellDecal(that.x, that.y, that.z, d));
+                    if(addDecals)decals.enqueue(new AdjacentCellDecal(that.x, that.y, that.z, d));
                     for(Block b : toValidate){
                         b.moderatorValid = true;
-                        if(addDecals&&d.x+d.y+d.z<1)decals.add(new UnderhaulModeratorLineDecal(b.x, b.y, b.z, Axis.fromDirection(d)));//negative directions go last; this stops double-decals
+                        if(addDecals&&d.x+d.y+d.z<1)decals.enqueue(new UnderhaulModeratorLineDecal(b.x, b.y, b.z, Axis.fromDirection(d)));//negative directions go last; this stops double-decals
                     }
                     that.adjacentCells++;
                     break;
@@ -240,12 +242,12 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
         boolean wasValid = block.coolerValid;
         for(AbstractPlacementRule<PlacementRule.BlockType, net.ncplanner.plannerator.multiblock.configuration.underhaul.fissionsfr.Block> rule : block.template.rules){
             if(!rule.isValid(block, this)){
-                if(block.coolerValid&&addDecals)decals.add(new BlockInvalidDecal(block.x,block.y,block.z));
+                if(block.coolerValid&&addDecals)decals.enqueue(new BlockInvalidDecal(block.x,block.y,block.z));
                 block.coolerValid = false;
                 return wasValid!=block.coolerValid;
             }
         }
-        if(!block.coolerValid&&addDecals)decals.add(new BlockValidDecal(block.x,block.y,block.z));
+        if(!block.coolerValid&&addDecals)decals.enqueue(new BlockValidDecal(block.x,block.y,block.z));
         block.coolerValid = true;
         return wasValid!=block.coolerValid;
     }
@@ -259,8 +261,8 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
                 + "Total Heat: "+heat+"H/t\n"
                 + "Total Cooling: "+cooling+"H/t\n"
                 + "Net Heat: "+netHeat+"H/t\n"
-                + "Efficiency: "+percent(efficiency, 0)+"\n"
-                + "Heat multiplier: "+percent(heatMult, 0)+"\n"
+                + "Efficiency: "+MathUtil.percent(efficiency, 0)+"\n"
+                + "Heat multiplier: "+MathUtil.percent(heatMult, 0)+"\n"
                 + "Fuel cells: "+cells;
         mainTooltip+=getModuleTooltip();
         FormattedText finalTooltip = new FormattedText();
@@ -468,7 +470,7 @@ public class UnderhaulSFR extends CuboidalMultiblock<Block> {
                             ArrayList<Action> actions = new ArrayList<>();
                             actions.add(new SetblockAction(x, y, z, cell));
                             SetblocksAction multi = new SetblocksAction(moderator);
-                            DIRECTION:for(Direction d : directions){
+                            DIRECTION:for(Direction d : Direction.values()){
                                 ArrayList<int[]> toSet = new ArrayList<>();
                                 boolean yep = false;
                                 for(int i = 1; i<=configuration.underhaul.fissionSFR.neutronReach+1; i++){

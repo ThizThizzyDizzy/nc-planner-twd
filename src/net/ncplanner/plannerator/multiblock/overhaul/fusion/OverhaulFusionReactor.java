@@ -1,5 +1,4 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fusion;
-import com.codename1.ui.Component;
 import com.codename1.ui.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,22 +8,23 @@ import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.BlockGrid;
 import net.ncplanner.plannerator.multiblock.Direction;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.FluidStack;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.PartCount;
-import net.ncplanner.plannerator.multiblock.action.SetblockAction;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.CoolantRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.Recipe;
-import net.ncplanner.plannerator.multiblock.ppe.ClearInvalid;
-import net.ncplanner.plannerator.multiblock.ppe.FusionFill;
-import net.ncplanner.plannerator.multiblock.ppe.PostProcessingEffect;
-import net.ncplanner.plannerator.multiblock.symmetry.AxialSymmetry;
-import net.ncplanner.plannerator.multiblock.symmetry.Symmetry;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.action.SetblockAction;
+import net.ncplanner.plannerator.multiblock.editor.ppe.ClearInvalid;
+import net.ncplanner.plannerator.multiblock.editor.ppe.FusionFill;
+import net.ncplanner.plannerator.multiblock.editor.ppe.PostProcessingEffect;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.AxialSymmetry;
+import net.ncplanner.plannerator.multiblock.editor.symmetry.Symmetry;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.FormattedText;
+import net.ncplanner.plannerator.planner.MathUtil;
 import net.ncplanner.plannerator.planner.Task;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestion;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
@@ -287,10 +287,10 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
                     + "Total Heat: "+totalHeat+"H/t\n"
                     + "Total Cooling: "+totalCooling+"H/t\n"
                     + "Net Heat: "+netHeat+"H/t\n"
-                    + "Overall Efficiency: "+percent(totalEfficiency, 0)+"\n"
-                    + "Overall Heat Multiplier: "+percent(totalHeatMult, 0)+"\n"
+                    + "Overall Efficiency: "+MathUtil.percent(totalEfficiency, 0)+"\n"
+                    + "Overall Heat Multiplier: "+MathUtil.percent(totalHeatMult, 0)+"\n"
                     + "Sparsity Penalty Multiplier: "+Math.round(sparsityMult*10000)/10000d+"\n"
-                    + "Shieldiness Factor: "+percent(shieldinessFactor, 1)+"\n"
+                    + "Shieldiness Factor: "+MathUtil.percent(shieldinessFactor, 1)+"\n"
                     + "Clusters: "+(validClusters==clusters.size()?clusters.size():(validClusters+"/"+clusters.size())));
             text.addText(getModuleTooltip()+"\n");
             if(full){
@@ -580,7 +580,7 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
         }
         private boolean wallCheck(ArrayList<Block> blocks){
             for(Block block : blocks){
-                for(Direction d : directions){
+                for(Direction d : Direction.values()){
                     Block b = getBlock(block.x+d.x, block.y+d.y, block.z+d.z);
                     if(b!=null&&b.isConnector())return true;
                 }
@@ -591,11 +591,11 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
             if(!isCreated())return "Invalid cluster!";
             if(!isValid())return "Cluster is not connected to a connector!";
             return "Total output: "+Math.round(totalOutput)+"\n"
-                + "Efficiency: "+percent(efficiency, 0)+"\n"
+                + "Efficiency: "+MathUtil.percent(efficiency, 0)+"\n"
                 + "Total Heating: "+totalHeat+"H/t\n"
                 + "Total Cooling: "+totalCooling+"H/t\n"
                 + "Net Heating: "+netHeat+"H/t\n"
-                + "Heat Multiplier: "+percent(heatMult, 0)+"\n"
+                + "Heat Multiplier: "+MathUtil.percent(heatMult, 0)+"\n"
                 + "Cooling penalty mult: "+Math.round(coolingPenaltyMult*10000)/10000d;
         }
         private Cluster copy(OverhaulFusionReactor newReactor){
@@ -834,6 +834,10 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
     public enum LocationCategory{
         CORE,CONNECTOR,PLASMA,INTERIOR,POLOID,EXTERIOR,TOROID,NONE;
     }
+    @Override
+    public Form getResizeMenu(){
+        return new MenuResizeFusion(this);
+    }
     public boolean isLocationValid(Block block, int x, int y, int z){
         switch(getLocationCategory(x, y, z)){
             case CONNECTOR:
@@ -916,9 +920,5 @@ public class OverhaulFusionReactor extends Multiblock<Block> {
     @Override
     public String getPreviewTexture(){
         return null;
-    }
-    @Override
-    public Form getResizeMenu(){
-        return new MenuResizeFusion(this);
     }
 }

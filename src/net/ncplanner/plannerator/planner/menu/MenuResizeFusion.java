@@ -8,6 +8,7 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.BoundingBox;
 import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReactor;
@@ -143,7 +144,7 @@ public class MenuResizeFusion extends Form{
                             g.fillRect(getX(), getY()+border/4, border/4, getHeight()-border/2);
                             g.fillRect(getX()+getWidth()-border/4, getY()+border/4, border/4, getHeight()-border/2);
                             Block block = multiblock.getBlock(column+bbox.x1, layer+bbox.y1, row+bbox.z1);
-                            if(block!=null)block.render(g, getX(), getY(), getWidth(), getHeight(), false, multiblock);
+                            if(block!=null)block.render(new Renderer(g), getX(), getY(), getWidth(), getHeight(), false, multiblock);
                         }
                     };
                     columnContainer.add(blok);

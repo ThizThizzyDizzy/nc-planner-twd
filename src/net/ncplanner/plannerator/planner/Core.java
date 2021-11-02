@@ -2,11 +2,11 @@ package net.ncplanner.plannerator.planner;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.plaf.UIManager;
-import com.codename1.util.MathUtil;
-import com.codename1.util.StringUtil;
+import com.codename1.ui.util.Resources;
+import com.codename1.util.regex.RE;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,22 +39,6 @@ public class Core{
         metadata.clear();
         metadata.put("Name", "");
         metadata.put("Author", "");
-    }
-    public static void drawCircle(Graphics g, int x, int y, int innerRadius, int outerRadius, Color color){
-        g.setColor(color.getRGB());
-        int resolution = (int)(Math.PI*outerRadius);
-        double angle = 0;
-        int[] xp = new int[resolution*2];
-        int[] yp = new int[resolution*2];
-        for(int i = 0; i<resolution; i++){
-            xp[i] = x+(int)(Math.cos(Math.toRadians(angle-90))*innerRadius);
-            yp[i] = y+(int)(Math.sin(Math.toRadians(angle-90))*innerRadius);
-            xp[resolution*2-i-1] = x+(int)(Math.cos(Math.toRadians(angle-90))*outerRadius);
-            yp[resolution*2-i-1] = y+(int)(Math.sin(Math.toRadians(angle-90))*outerRadius);
-            angle+=(360d/(resolution-1));
-            if(angle>=360)angle-=360;
-        }
-        g.fillPolygon(xp, yp, resolution*2);
     }
     public static String[] split(String str, String splitBy){
         ArrayList<String> splitArray = new ArrayList<>();
@@ -95,9 +79,6 @@ public class Core{
         }
         return alphas.get(image);
     }
-    public static int logBase(int base, int n){
-        return (int)(MathUtil.log(n)/MathUtil.log(base));
-    }
     public static void refreshModules(){
         multiblockTypes.clear();
         Configuration.clearConfigurations();
@@ -108,77 +89,10 @@ public class Core{
             }
         }
     }
-    public static String superRemove(String str, String... patterns){
-        for(String s : patterns)str = StringUtil.replaceAll(str, s, "");
-        return str;
-    }
-    public static String superReplace(String str, String... strs){
-        for(int i = 0; i<strs.length; i+=2){
-            str = StringUtil.replaceAll(str, strs[i], strs[i+1]);
-        }
-        return str;
-    }
-    public static String substring(StringBuilder sb, int min){
-        for(int i = 0; i<min; i++)sb.deleteCharAt(0);
-        return sb.toString();
-    }
     public static void setTheme(Theme t){
         t.onSet();
         theme = t;
         UIManager.initNamedTheme("/theme", t.name);
-    }
-    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double xThickness, double yThickness, int quality, int texture){
-        drawOval(g, x, y, xRadius, yRadius, xThickness, yThickness, quality, texture, 0, quality-1);
-    }
-    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double thickness, int quality, int texture){
-        drawOval(g, x, y, xRadius, yRadius, thickness, thickness, quality, texture, 0, quality-1);
-    }
-    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double thickness, int quality, int texture, int left, int right){
-        drawOval(g, x, y, xRadius, yRadius, thickness, thickness, quality, texture, left, right);
-    }
-    public static void drawOval(Graphics g, int x, int y, double xRadius, double yRadius, double xThickness, double yThickness, int quality, int texture, int left, int right){
-        if(quality<3){
-            throw new IllegalArgumentException("Quality must be >=3!");
-        }
-        while(left<0)left+=quality;
-        while(right<0)right+=quality;
-        while(left>quality)left-=quality;
-        while(right>quality)right-=quality;
-        double angle = 0;
-        for(int i = 0; i<quality; i++){
-            boolean inRange = false;
-            if(left>right)inRange = i>=left||i<=right;
-            else inRange = i>=left&&i<=right;
-            int[] xp = new int[4];
-            int[] yp = new int[4];
-            if(inRange){
-                xp[0] = x+(int)(Math.cos(Math.toRadians(angle-90))*xRadius);
-                yp[0] = y+(int)(Math.sin(Math.toRadians(angle-90))*yRadius);
-                xp[1] = x+(int)(Math.cos(Math.toRadians(angle-90))*(xRadius-xThickness));
-                yp[1] = y+(int)(Math.sin(Math.toRadians(angle-90))*(yRadius-yThickness));
-            }
-            angle+=(360D/quality);
-            if(inRange){
-                xp[2] = x+(int)(Math.cos(Math.toRadians(angle-90))*(xRadius-xThickness));
-                yp[2] = y+(int)(Math.sin(Math.toRadians(angle-90))*(yRadius-yThickness));
-                xp[3] = x+(int)(Math.cos(Math.toRadians(angle-90))*xRadius);
-                yp[3] = y+(int)(Math.sin(Math.toRadians(angle-90))*yRadius);
-                g.fillPolygon(xp, yp, 4);
-            }
-        }
-    }
-    public static void drawRegularPolygon(Graphics g, int x, int y, int radius, int quality, int angle, int texture){
-        if(quality<3){
-            throw new IllegalArgumentException("A polygon must have at least 3 sides!");
-        }
-        int[] xs = new int[quality];
-        int[] ys = new int[quality];
-        for(int i = 0; i<quality; i++){
-            xs[i] = x+(int)(Math.cos(Math.toRadians(angle-90))*radius);
-            ys[i] = y+(int)(Math.sin(Math.toRadians(angle-90))*radius);
-            angle+=(360D/quality);
-        }
-        g.fillPolygon(xs, ys, quality);
     }
     public static void autosave(){
         FileSystemStorage fs = FileSystemStorage.getInstance();
@@ -204,6 +118,23 @@ public class Core{
             Core.configuration.save(null, Config.newConfig()).save(stream);
         }catch(IOException ex){
             Log.e(ex);
+        }
+    }
+    public static InputStream getInputStream(String path){
+        String p = "";
+        while(path.contains("/")){
+            String[] split = new RE("\\/").split(path);
+            if(p.isEmpty())p+="/"+split[0];
+            else p+="_"+split[0];
+            path = "";
+            for(int i = 1; i<split.length-1; i++)path+=split[i]+"/";
+            path += split[split.length-1];
+        }
+        try{
+            return Resources.open(p+".res").getData(path);
+        }catch(IOException ex){
+            System.err.println("Couldn't read resource "+path+" in "+p+".res");
+            return null;
         }
     }
 }

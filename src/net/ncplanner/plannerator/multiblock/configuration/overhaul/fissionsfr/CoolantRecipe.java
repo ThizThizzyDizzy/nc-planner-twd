@@ -13,9 +13,9 @@ public class CoolantRecipe implements Pinnable{
         CoolantRecipe recipe = new CoolantRecipe(inputName, outputName, heat, outputRatio);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
+        recipe.setInputTexture(TextureManager.getImage(inputTexture));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
         return recipe;
     }
     public String inputName;
@@ -121,6 +121,10 @@ public class CoolantRecipe implements Pinnable{
     }
     @Override
     public ArrayList<String> getSearchableNames(){
+        return getSimpleSearchableNames();
+    }
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
         ArrayList<String> lst = getLegacyNames();
         lst.add(getInputDisplayName());
         return lst;

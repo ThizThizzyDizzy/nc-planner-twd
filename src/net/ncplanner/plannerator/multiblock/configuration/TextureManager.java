@@ -7,7 +7,10 @@ import java.util.HashMap;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
 public class TextureManager{
-    public static com.codename1.ui.Image getImage(String texture){
+    public static Image getImage(String texture){
+        return fromCN1(getImageCN1(texture));
+    }
+    public static com.codename1.ui.Image getImageCN1(String texture){
         String path = "";
         while(texture.contains("/")){
             String[] split = new RE("\\/").split(texture);

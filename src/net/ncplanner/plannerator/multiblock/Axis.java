@@ -1,9 +1,16 @@
 package net.ncplanner.plannerator.multiblock;
+import java.util.ArrayList;
 public enum Axis{
     X(1,0,0),
     Y(0,1,0),
     Z(0,0,1),
     Y_INVERTED(0,1,0);
+    public static final ArrayList<Axis> axes = new ArrayList<>();
+    static{
+        axes.add(X);
+        axes.add(Y);
+        axes.add(Z);
+    }
     public final int x;
     public final int y;
     public final int z;

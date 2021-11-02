@@ -1,7 +1,6 @@
 package net.ncplanner.plannerator.planner.module;
-import com.codename1.util.MathUtil;
-import net.ncplanner.plannerator.generator.Priority;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.generator.Priority;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.suggestion.Suggestor;
@@ -42,16 +41,6 @@ public abstract class Module<T>{
     }
     public String getTooltip(Multiblock m, T o){
         return null;
-    }
-    protected String percent(double n, int digits){
-        double fac = MathUtil.pow(10, digits);
-        double d = (Math.round(n*fac*100)/(double)Math.round(fac));
-        return (digits==0?Math.round(d):d)+"%";
-    }
-    protected String round(double n, int digits){
-        double fac = MathUtil.pow(10, digits);
-        double d = Math.round(n*fac)/(double)Math.round(fac);
-        return (digits==0?Math.round(d):d)+"";
     }
     public void getGenerationPriorities(Multiblock multiblock, ArrayList<Priority> priorities){}
     public void getSuggestors(Multiblock multiblock, ArrayList<Suggestor> suggestors){}

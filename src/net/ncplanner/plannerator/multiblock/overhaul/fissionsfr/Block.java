@@ -1,18 +1,18 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fissionsfr;
-import com.codename1.ui.Graphics;
-import com.codename1.util.regex.RE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
-import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionsfr.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionsfr.PlacementRule;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
@@ -97,10 +97,10 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
             tip+="\nFuel Cell "+(isFuelCellActive()?"Active":"Inactive");
             if(isFuelCellActive()){
                 tip+="\nAdjacent moderator lines: "+moderatorLines+"\n"
-                        + "Heat Multiplier: "+percent(moderatorLines, 0)+"\n"
+                        + "Heat Multiplier: "+MathUtil.percent(moderatorLines, 0)+"\n"
                         + "Heat Produced: "+moderatorLines*(recipe==null?template.fuelCellHeat:recipe.fuelCellHeat)+"H/t\n"
-                        + "Efficiency: "+percent(efficiency, 0)+"\n"
-                        + "Positional Efficiency: "+percent(positionalEfficiency, 0)+"\n"
+                        + "Efficiency: "+MathUtil.percent(efficiency, 0)+"\n"
+                        + "Positional Efficiency: "+MathUtil.percent(positionalEfficiency, 0)+"\n"
                         + "Total Neutron Flux: "+neutronFlux+"\n"
                         + "Criticality Factor: "+(recipe==null?template.fuelCellCriticality:recipe.fuelCellCriticality);
             }else{
@@ -147,7 +147,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
             if(recipe==null&&!template.irradiatorHasBaseStats)tip+="\nNo Recipe";
             tip+="\nIrradiator flux: "+neutronFlux;
             if(template.irradiatorHasBaseStats||recipe!=null){
-                tip+="\nEfficiency bonus: "+percent(recipe==null?template.irradiatorEfficiency:recipe.irradiatorEfficiency,0)
+                tip+="\nEfficiency bonus: "+MathUtil.percent(recipe==null?template.irradiatorEfficiency:recipe.irradiatorEfficiency,0)
                         + "\nHeat per flux: "+(recipe==null?template.irradiatorHeat:recipe.irradiatorHeat)
                         + "\nTotal heat: "+(recipe==null?template.irradiatorHeat:recipe.irradiatorHeat)*neutronFlux+"H/t";
             }
@@ -321,24 +321,22 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return (isActive()||isInert())&&template.cluster;
     }
     @Override
-    public void renderOverlay(Graphics g, int x, int y, int width, int height, Multiblock multiblock){
+    public void renderOverlay(Renderer renderer, double x, double y, double width, double height, Multiblock multiblock){
         if(!isValid()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
         }
         if(isModeratorActive()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineActive());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineActive());
         }
         if(recipe!=null&&(template.parent==null?template.allRecipes:template.parent.allRecipes).size()>1){
-            g.setColor(Core.theme.getWhiteColor().getRGB());
-            g.setAlpha(template.parent==null?255:191);
-            g.drawImage(TextureManager.toCN1(recipe.inputDisplayTexture), x+width/4, y+height/4, width/2, height/2);
-            g.setAlpha(255);
+            renderer.setWhite(template.parent==null?1:0.75f);
+            renderer.drawImage(recipe.inputDisplayTexture, x+width*.125, y+height*.125, x+width*.875, y+height*.875);
         }
         if(template.fuelCell&&(template.fuelCellHasBaseStats||recipe!=null)){
             boolean self = recipe==null?template.fuelCellSelfPriming:recipe.fuelCellSelfPriming;
             Block src = source;
             if(src!=null||self){
-                drawCircle(g, x, y, width, height, Core.theme.getBlockColorSourceCircle(src==null?1:src.template.sourceEfficiency, self));
+                drawCircle(renderer, x, y, width, height, Core.theme.getBlockColorSourceCircle(src==null?1:src.template.sourceEfficiency, self));
             }
         }
         OverhaulSFR.Cluster cluster = this.cluster;
@@ -351,38 +349,37 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 primaryColor = Core.theme.getClusterOvercoolingColor();
             }
             if(primaryColor!=null){
-                g.setColor(primaryColor.getRGB());
-                g.setAlpha(31);
-                g.fillRect(x, y, width, height);
-                g.setAlpha(191);
-                int border = width/8;
+                renderer.setColor(primaryColor, .125f);
+                renderer.fillRect(x, y, x+width, y+height);
+                renderer.setColor(primaryColor, .75f);
+                double border = width/8;
                 boolean top = cluster.contains(this.x, this.y, z-1);
                 boolean right = cluster.contains(this.x+1, this.y, z);
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top||!left||!cluster.contains(this.x-1, this.y, z-1)){//top left
-                    g.fillRect(x, y, border, border);
+                    renderer.fillRect(x, y, x+border, y+border);
                 }
                 if(!top){//top
-                    g.fillRect(x+width/2-border, y, border*2, border);
+                    renderer.fillRect(x+width/2-border, y, x+width/2+border, y+border);
                 }
                 if(!top||!right||!cluster.contains(this.x+1, this.y, z-1)){//top right
-                    g.fillRect(x+width-border, y, border, border);
+                    renderer.fillRect(x+width-border, y, x+width, y+border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+height/2-border, border, border*2);
+                    renderer.fillRect(x+width-border, y+height/2-border, x+width, y+height/2+border);
                 }
                 if(!bottom||!right||!cluster.contains(this.x+1, this.y, z+1)){//bottom right
-                    g.fillRect(x+width-border, y+height-border, border, border);
+                    renderer.fillRect(x+width-border, y+height-border, x+width, y+height);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+width/2-border, y+height-border, border*2, border);
+                    renderer.fillRect(x+width/2-border, y+height-border, x+width/2+border, y+height);
                 }
                 if(!bottom||!left||!cluster.contains(this.x-1, this.y, z+1)){//bottom left
-                    g.fillRect(x, y+height-border, border, border);
+                    renderer.fillRect(x, y+height-border, x+border, y+height);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+height/2-border, border, border*2);
+                    renderer.fillRect(x, y+height/2-border, x+border, y+height/2+border);
                 }
             }
             Color secondaryColor = null;
@@ -393,32 +390,30 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 secondaryColor = Core.theme.getClusterInvalidColor();
             }
             if(secondaryColor!=null){
-                g.setColor(secondaryColor.getRGB());
-                g.setAlpha(191);
-                int border = width/8;
+                renderer.setColor(secondaryColor, .75f);
+                double border = width/8;
                 boolean top = cluster.contains(this.x, this.y, z-1);
                 boolean right = cluster.contains(this.x+1, this.y, z);
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top){//top
-                    g.fillRect(x+border, y, width/2-border*2, border);
-                    g.fillRect(x+width/2+border, y, width/2-border*2, border);
+                    renderer.fillRect(x+border, y, x+width/2-border, y+border);
+                    renderer.fillRect(x+width/2+border, y, x+width-border, y+border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+border, border, height/2-border*2);
-                    g.fillRect(x+width-border, y+height/2+border, border, height/2-border*2);
+                    renderer.fillRect(x+width-border, y+border, x+width, y+height/2-border);
+                    renderer.fillRect(x+width-border, y+height/2+border, x+width, y+height-border);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+border, y+height-border, width/2-border*2, border);
-                    g.fillRect(x+width/2+border, y+height-border, width/2-border*2, border);
+                    renderer.fillRect(x+border, y+height-border, x+width/2-border, y+height);
+                    renderer.fillRect(x+width/2+border, y+height-border, x+width-border, y+height);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+border, border, height/2-border*2);
-                    g.fillRect(x, y+height/2+border, border, height/2-border*2);
+                    renderer.fillRect(x, y+border, x+border, y+height/2-border);
+                    renderer.fillRect(x, y+height/2+border, x+border, y+height-border);
                 }
             }
         }
-        g.setAlpha(255);
     }
     public boolean isInert(){
         return template.cluster&&!template.functional;
@@ -445,6 +440,14 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return false;
     }
     @Override
+    public boolean canRequire(net.ncplanner.plannerator.multiblock.Block oth){
+        if(template.heatsink)return requires(oth, null);
+        Block other = (Block) oth;
+        if(template.fuelCell||template.reflector||template.irradiator||template.moderator)return other.template.moderator;
+        if(template.conductor)return other.template.cluster;
+        return false;
+    }
+    @Override
     public boolean requires(net.ncplanner.plannerator.multiblock.Block oth, Multiblock mb){
         if(!template.heatsink)return false;
         Block other = (Block) oth;
@@ -459,6 +462,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     }
     private boolean ruleHas(AbstractPlacementRule<?, ?> rule, Block b){
         if(rule.block ==b.template)return true;
+        if(rule.blockType!=null&&rule.blockType.blockMatches(null, b))return true;
         for(AbstractPlacementRule<?, ?> rul : rule.rules){
             if(ruleHas(rul, b))return true;
         }
@@ -523,7 +527,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
      */
     public Block addNeutronSource(OverhaulSFR sfr, net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionsfr.Block source){
         HashMap<int[], Integer> possible = new HashMap<>();
-        for(Direction d : directions){
+        for(Direction d : Direction.values()){
             int i = 0;
             while(true){
                 i++;
@@ -561,10 +565,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     @Override
     public ArrayList<String> getSearchableNames(){
         ArrayList<String> searchables = template.getSearchableNames();
-        for(String s : new RE("\n").split(getListTooltip()))searchables.add(s.trim());
+        for(String s : StringUtil.split(getListTooltip(), "\n"))searchables.add(s.trim());
         return searchables;
     }
-
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
+        return template.getSimpleSearchableNames();
+    }
     @Override
     public net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionsfr.Block getTemplate() {
         return template;

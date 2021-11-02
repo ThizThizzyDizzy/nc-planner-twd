@@ -1,5 +1,4 @@
 package net.ncplanner.plannerator.multiblock.configuration;
-import com.codename1.ui.util.Resources;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.util.Objects;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.OverhaulConfiguration;
 import net.ncplanner.plannerator.multiblock.configuration.underhaul.UnderhaulConfiguration;
+import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.Supplier;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.FileReader;
@@ -26,7 +26,7 @@ public class Configuration{
     public static final ArrayList<Supplier<AddonConfiguration>> internalAddons = new ArrayList<>();
     public static final HashMap<Supplier<AddonConfiguration>, String> addonLinks = new HashMap<>();
     public static final HashMap<Supplier<AddonConfiguration>, AddonConfiguration> internalAddonCache = new HashMap<>();
-    private static Configuration NUCLEARCRAFT;
+    public static Configuration NUCLEARCRAFT;
     public static void addInternalAddon(Supplier<AddonConfiguration> internalAddon, String link){
         internalAddons.add(internalAddon);
         addonLinks.put(internalAddon, link);
@@ -34,11 +34,7 @@ public class Configuration{
     public static void initNuclearcraftConfiguration(){
         if(NUCLEARCRAFT!=null)return;//already done m8
         NUCLEARCRAFT = FileReader.read(() -> {
-            try{
-                return Resources.open("/configurations.res").getData("nuclearcraft.ncpf");
-            }catch(IOException ex){
-                throw new RuntimeException(ex);
-            }
+            return Core.getInputStream("configurations/nuclearcraft.ncpf");
         }).configuration.addAlternative("").addAlternative("SF4");
         configurations.add(NUCLEARCRAFT);
     }

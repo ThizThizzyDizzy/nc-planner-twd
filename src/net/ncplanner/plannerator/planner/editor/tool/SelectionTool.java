@@ -1,9 +1,8 @@
 package net.ncplanner.plannerator.planner.editor.tool;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
 import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.editor.Editor;
 public class SelectionTool extends EditorTool{
@@ -15,20 +14,19 @@ public class SelectionTool extends EditorTool{
     private int[] rightDragStart;
     private int[] rightDragEnd;
     @Override
-    public void render(Graphics g, int x, int y, int width, int height){
-        g.setColor(Core.theme.getEditorToolTextColor().getRGB());
-        Renderer r = new Renderer(g);
-        r.fillRect(x+width/10, y+height/10, x+width/3, y+height/6);
-        r.fillRect(x+width/10, y+height/10, x+width/6, y+height/3);
-        r.fillRect(x+width-width/10, y+height/10, x+width-width/3, y+height/6);
-        r.fillRect(x+width-width/10, y+height/10, x+width-width/6, y+height/3);
-        r.fillRect(x+width/10, y+height-height/10, x+width/3, y+height-height/6);
-        r.fillRect(x+width/10, y+height-height/10, x+width/6, y+height-height/3);
-        r.fillRect(x+width-width/10, y+height-height/10, x+width-width/3, y+height-height/6);
-        r.fillRect(x+width-width/10, y+height-height/10, x+width-width/6, y+height-height/3);
+    public void render(Renderer renderer, double x, double y, double width, double height){
+        renderer.setColor(Core.theme.getEditorToolTextColor());
+        renderer.fillRect(x+width/10, y+height/10, x+width/3, y+height/6);
+        renderer.fillRect(x+width/10, y+height/10, x+width/6, y+height/3);
+        renderer.fillRect(x+width-width/10, y+height/10, x+width-width/3, y+height/6);
+        renderer.fillRect(x+width-width/10, y+height/10, x+width-width/6, y+height/3);
+        renderer.fillRect(x+width/10, y+height-height/10, x+width/3, y+height-height/6);
+        renderer.fillRect(x+width/10, y+height-height/10, x+width/6, y+height-height/3);
+        renderer.fillRect(x+width-width/10, y+height-height/10, x+width-width/3, y+height-height/6);
+        renderer.fillRect(x+width-width/10, y+height-height/10, x+width-width/6, y+height-height/3);
     }
     @Override
-    public void drawGhosts(Graphics g, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, int x, int y, int width, int height, int blockSize, Image texture){
+    public void drawGhosts(Renderer renderer, EditorSpace editorSpace, int x1, int y1, int x2, int y2, int blocksWide, int blocksHigh, Axis axis, int layer, double x, double y, double width, double height, int blockSize, Image texture){
         if(leftDragEnd!=null&&leftDragStart!=null){
             float border = 1/8f;
             int minBX = Math.min(leftDragStart[0], leftDragEnd[0]);
@@ -51,15 +49,13 @@ public class SelectionTool extends EditorTool{
                 int minSZ = minBX*axis.x+minBY*axis.y+minBZ*axis.z;
                 int maxSZ = maxBX*axis.x+maxBY*axis.y+maxBZ*axis.z;
                 if(layer>=minSZ&&layer<=maxSZ){
-                    g.setColor(Core.theme.getSelectionColor().getRGB());
-                    g.setAlpha(127);
-                    g.fillRect(x+blockSize*minSX, y+blockSize*minSY, blockSize*(maxSX-minSX+1), blockSize*(maxSY-minSY+1));
-                    g.setColor(Core.theme.getSelectionColor().getRGB());
-                    g.setAlpha(255);
-                    g.fillRect(x+blockSize*minSX, y+blockSize*minSY, blockSize*(maxSX-minSX+1), (int)(blockSize*border));//top
-                    g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(maxSY+1-border)), blockSize*(maxSX-minSX+1), (int)(blockSize*border));//bottom
-                    g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(minSY+border)), (int)(blockSize*border), (int)(blockSize*(maxSY-minSY+1-border*2)));//left
-                    g.fillRect(x+(int)(blockSize*(maxSX+1-border)), y+(int)(blockSize*(minSY+border)),  (int)(blockSize*border), (int)(blockSize*(maxSY-minSY+1-border*2)));//right
+                    renderer.setColor(Core.theme.getSelectionColor(), .5f);
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));
+                    renderer.setColor(Core.theme.getSelectionColor());
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+blockSize*(border+minSY));//top
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*(maxSY+1-border), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));//bottom
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*(minSY+border), x+blockSize*(border+minSX), y+blockSize*(maxSY+1-border));//left
+                    renderer.fillRect(x+blockSize*(maxSX+1-border), y+blockSize*(minSY+border), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1-border));//right
                 }
             }
         }
@@ -85,14 +81,15 @@ public class SelectionTool extends EditorTool{
                 int minSZ = minBX*axis.x+minBY*axis.y+minBZ*axis.z;
                 int maxSZ = maxBX*axis.x+maxBY*axis.y+maxBZ*axis.z;
                 if(layer>=minSZ&&layer<=maxSZ){
-                    g.setColor(Core.theme.getSelectionColor().getRGB());
-                    g.fillRect(x+blockSize*minSX, y+blockSize*minSY, blockSize*(maxSX-minSX+1), (int)(blockSize*border));//top
-                    g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(maxSY+1-border)), blockSize*(maxSX-minSX+1), (int)(blockSize*border));//bottom
-                    g.fillRect(x+blockSize*minSX, y+(int)(blockSize*(minSY+border)), (int)(blockSize*border), (int)(blockSize*(maxSY-minSY+1-border*2)));//left
-                    g.fillRect(x+(int)(blockSize*(maxSX+1-border)), y+(int)(blockSize*(minSY+border)),  (int)(blockSize*border), (int)(blockSize*(maxSY-minSY+1-border*2)));//right
+                    renderer.setColor(Core.theme.getSelectionColor());
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*minSY, x+blockSize*(maxSX+1), y+blockSize*(border+minSY));//top
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*(maxSY+1-border), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1));//bottom
+                    renderer.fillRect(x+blockSize*minSX, y+blockSize*(minSY+border), x+blockSize*(border+minSX), y+blockSize*(maxSY+1-border));//left
+                    renderer.fillRect(x+blockSize*(maxSX+1-border), y+blockSize*(minSY+border), x+blockSize*(maxSX+1), y+blockSize*(maxSY+1-border));//right
                 }
             }
         }
+        renderer.setWhite();
     }
     @Override
     public void mouseReset(EditorSpace editorSpace, int button){

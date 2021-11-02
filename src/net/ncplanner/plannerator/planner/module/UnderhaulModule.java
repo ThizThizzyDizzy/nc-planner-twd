@@ -1,9 +1,8 @@
 package net.ncplanner.plannerator.planner.module;
-import com.codename1.ui.util.Resources;
-import java.io.IOException;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.underhaul.fissionsfr.UnderhaulSFR;
+import net.ncplanner.plannerator.planner.Core;
 import net.ncplanner.plannerator.planner.file.FileReader;
 public class UnderhaulModule extends Module{
     public UnderhaulModule(){
@@ -24,18 +23,10 @@ public class UnderhaulModule extends Module{
     @Override
     public void addConfigurations(){
         Configuration.configurations.add(FileReader.read(() -> {
-            try{
-                return Resources.open("/configurations.res").getData("po3.ncpf");
-            }catch(IOException ex){
-                return null;
-            }
+            return Core.getInputStream("configurations/po3.ncpf");
         }).configuration.addAlternative("PO3"));
         Configuration.configurations.add(FileReader.read(() -> {
-            try{
-                return Resources.open("/configurations.res").getData("e2e.ncpf");
-            }catch(IOException ex){
-                return null;
-            }
+            return Core.getInputStream("configurations/e2e.ncpf");
         }).configuration.addAlternative("E2E"));
     }
 }

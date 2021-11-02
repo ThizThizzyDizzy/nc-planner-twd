@@ -3,8 +3,6 @@ import com.codename1.ui.Font;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.util.ImageIO;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Block;
@@ -79,7 +77,7 @@ public class PNGFormatWriter extends ImageFormatWriter{
             g.setColor(Core.theme.getImageExportTextColor().getRGB());
             for(int i = 0; i<strs.size(); i++){
                 FormattedText str = strs.get(i);
-                renderer.drawFormattedText(borderSize/2, i*textHeight+borderSize/2, str);
+                renderer.drawFormattedText(borderSize/2, i*textHeight+borderSize/2, tW+borderSize, str, -1);
             }
             g.setColor(Core.theme.getImageExportTextColor().getRGB());
             for(int i = 0; i<parts.size(); i++){
@@ -100,7 +98,7 @@ public class PNGFormatWriter extends ImageFormatWriter{
                 for(int x = 0; x<bbox.getWidth(); x++){
                     for(int z = 0; z<bbox.getDepth(); z++){
                         Block b = multi.getBlock(x+bbox.x1, y+bbox.y1, z+bbox.z1);
-                        if(b!=null)b.render(g, column*layerWidth+borderSize/2+x*blockSize, row*layerHeight+borderSize+z*blockSize+totalTextHeight, blockSize, blockSize, true, multi);
+                        if(b!=null)b.render(renderer, column*layerWidth+borderSize/2+x*blockSize, row*layerHeight+borderSize+z*blockSize+totalTextHeight, blockSize, blockSize, true, multi);
                         if(multi instanceof OverhaulFusionReactor&&((OverhaulFusionReactor)multi).getLocationCategory(x, y, z)==OverhaulFusionReactor.LocationCategory.PLASMA){
                             renderer.drawImage(TextureManager.getImage("/textures/overhaul/fusion/plasma.png"), column*layerWidth+borderSize/2+x*blockSize, row*layerHeight+borderSize+z*blockSize+totalTextHeight, column*layerWidth+borderSize/2+x*blockSize+blockSize, row*layerHeight+borderSize+z*blockSize+totalTextHeight+blockSize);
                         }

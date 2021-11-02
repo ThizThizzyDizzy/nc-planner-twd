@@ -3,13 +3,14 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.simplelibrary.image.Image;
 public class MenuAddMultiblock extends Form{
     public MenuAddMultiblock(){
         super(new BorderLayout());
@@ -28,7 +29,7 @@ public class MenuAddMultiblock extends Form{
                     super.paint(g);
                     if(image!=null){
                         int size = Math.min(getWidth(), getHeight()-getStyle().getPaddingTop()-getStyle().getPaddingBottom());
-                        g.drawImage(image, getX()+getWidth()/2-size/2, getY()+getHeight()/2-size/2, size, size);
+                        new Renderer(g).drawImage(image, getX()+getWidth()/2-size/2, getY()+getHeight()/2-size/2, size, size);
                     }
                 }
             };

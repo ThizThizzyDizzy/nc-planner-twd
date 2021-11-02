@@ -7,6 +7,7 @@ import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.OverhaulSFR;
 import net.ncplanner.plannerator.multiblock.underhaul.fissionsfr.UnderhaulSFR;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.file.FileFormat;
 import net.ncplanner.plannerator.planner.file.FormatWriter;
 import net.ncplanner.plannerator.planner.file.JSON;
@@ -53,7 +54,7 @@ public class HellrageFormatWriter extends FormatWriter{
                             array.add(bl);
                         }
                     }
-                    compressedReactor.put(Core.superRemove(Core.superReplace(b.getDisplayName(), "Reactor Cell", "Fuel Cell", "Active", "Active "), " ", "Liquid", "Cooler", "Moderator"), array);
+                    compressedReactor.put(StringUtil.superRemove(StringUtil.superReplace(b.getDisplayName(), "Reactor Cell", "Fuel Cell", "Active", "Active "), " ", "Liquid", "Cooler", "Moderator"), array);
                 }
                 JSON.JSONObject dims = new JSON.JSONObject();
                 dims.set("X", reactor.getInternalWidth());
@@ -102,7 +103,7 @@ public class HellrageFormatWriter extends FormatWriter{
                                 array.add(bl);
                             }
                         }
-                        heatSinks.set(Core.superRemove(b.getDisplayName(), " ", "HeatSink", "Sink", "Heatsink", "Liquid"), array);
+                        heatSinks.set(StringUtil.superRemove(b.getDisplayName(), " ", "HeatSink", "Sink", "Heatsink", "Liquid"), array);
                     }
                     if(b.moderator&&!b.shield){
                         JSON.JSONArray array = new JSON.JSONArray();
@@ -116,7 +117,7 @@ public class HellrageFormatWriter extends FormatWriter{
                                 array.add(bl);
                             }
                         }
-                        moderators.set(Core.superRemove(b.getDisplayName(), " ", "Moderator"), array);
+                        moderators.set(StringUtil.superRemove(b.getDisplayName(), " ", "Moderator"), array);
                     }
                     if(b.reflector){
                         JSON.JSONArray array = new JSON.JSONArray();
@@ -130,7 +131,7 @@ public class HellrageFormatWriter extends FormatWriter{
                                 array.add(bl);
                             }
                         }
-                        reflectors.set(Core.superRemove(b.getDisplayName(), " ", "Reflector"), array);
+                        reflectors.set(StringUtil.superRemove(b.getDisplayName(), " ", "Reflector"), array);
                     }
                     if(b.shield){
                         JSON.JSONArray array = new JSON.JSONArray();
@@ -144,7 +145,7 @@ public class HellrageFormatWriter extends FormatWriter{
                                 array.add(bl);
                             }
                         }
-                        shields.set(Core.superRemove(b.getDisplayName(), " ", "NeutronShield", "Shield"), array);
+                        shields.set(StringUtil.superRemove(b.getDisplayName(), " ", "NeutronShield", "Shield"), array);
                     }
                     if(b.fuelCell){
                         HashMap<String, ArrayList<net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.Block>> cells = new HashMap<>();
@@ -152,9 +153,9 @@ public class HellrageFormatWriter extends FormatWriter{
                             if(block.x==0||block.y==0||block.z==0||block.x==reactor.getInternalWidth()+1||block.y==reactor.getInternalHeight()+1||block.z==reactor.getInternalDepth()+1)continue;//can't save the casing :(
                             if(block.template==b){
                                 String name = block.recipe.getInputDisplayName();
-                                if(name.endsWith(" Oxide"))name = "[OX]"+Core.superReplace(name, " Oxide", "");
-                                if(name.endsWith(" Nitride"))name = "[NI]"+Core.superReplace(name, " Nitride", "");
-                                if(name.endsWith("-Zirconium Alloy"))name = "[ZA]"+Core.superReplace(name, "-Zirconium Alloy", "");
+                                if(name.endsWith(" Oxide"))name = "[OX]"+StringUtil.superReplace(name, " Oxide", "");
+                                if(name.endsWith(" Nitride"))name = "[NI]"+StringUtil.superReplace(name, " Nitride", "");
+                                if(name.endsWith("-Zirconium Alloy"))name = "[ZA]"+StringUtil.superReplace(name, "-Zirconium Alloy", "");
                                 name+=";"+(block.isPrimed()?"True":"False")+";";
                                 if(block.isPrimed())name+=(block.recipe.fuelCellSelfPriming?"Self":block.source.template.getDisplayName());
                                 else name+="None";

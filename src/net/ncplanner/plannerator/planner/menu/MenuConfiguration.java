@@ -1,6 +1,5 @@
 package net.ncplanner.plannerator.planner.menu;
 import com.codename1.ext.filechooser.FileChooser;
-import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import static com.codename1.ui.Component.CENTER;

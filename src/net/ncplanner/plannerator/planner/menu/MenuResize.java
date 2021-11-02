@@ -7,6 +7,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.CuboidalMultiblock;
 import net.ncplanner.plannerator.planner.Core;
@@ -129,7 +130,7 @@ public class MenuResize extends Form{
                             g.fillRect(getX(), getY()+border/4, border/4, getHeight()-border/2);
                             g.fillRect(getX()+getWidth()-border/4, getY()+border/4, border/4, getHeight()-border/2);
                             Block block = multiblock.getBlock(column+1, layer+1, row+1);
-                            if(block!=null)block.render(g, getX(), getY(), getWidth(), getHeight(), false, multiblock);
+                            if(block!=null)block.render(new Renderer(g), getX(), getY(), getWidth(), getHeight(), false, multiblock);
                         }
                     };
                     columnContainer.add(blok);

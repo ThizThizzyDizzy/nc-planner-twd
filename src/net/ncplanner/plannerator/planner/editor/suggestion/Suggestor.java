@@ -1,6 +1,7 @@
 package net.ncplanner.plannerator.planner.editor.suggestion;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.planner.Consumer;
+import net.ncplanner.plannerator.planner.MathUtil;
 public abstract class Suggestor<T extends Multiblock>{
     public final String name;
     public final int limit;
@@ -50,7 +51,7 @@ public abstract class Suggestor<T extends Multiblock>{
                 denied(suggestion);
                 return;
             }
-            if(startTime==0)startTime = System.currentTimeMillis();
+            if(startTime==0)startTime = MathUtil.nanoTime();
             if(suggestion.test(multiblock)){
                 accepted(suggestion);
                 num++;
@@ -73,7 +74,7 @@ public abstract class Suggestor<T extends Multiblock>{
             return num<limit;
         }
         public long elapsedTime(){
-            return (System.currentTimeMillis()-startTime);
+            return (MathUtil.nanoTime()-startTime)/1_000_000;
         }
     }
 }

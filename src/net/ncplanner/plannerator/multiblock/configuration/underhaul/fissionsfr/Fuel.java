@@ -13,7 +13,7 @@ public class Fuel implements Pinnable{
         Fuel fuel = new Fuel(name, power, heat, time);
         fuel.displayName = displayName;
         fuel.legacyNames.add(displayName);
-        fuel.setTexture(TextureManager.fromCN1(TextureManager.getImage(texture)));
+        fuel.setTexture(TextureManager.getImage(texture));
         return fuel;
     }
     public String name;
@@ -87,6 +87,10 @@ public class Fuel implements Pinnable{
     }
     @Override
     public ArrayList<String> getSearchableNames(){
+        return getSimpleSearchableNames();
+    }
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
         ArrayList<String> lst = getLegacyNames();
         lst.add(getDisplayName());
         return lst;

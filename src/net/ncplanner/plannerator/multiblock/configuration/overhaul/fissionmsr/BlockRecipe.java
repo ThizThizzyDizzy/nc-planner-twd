@@ -14,9 +14,9 @@ public class BlockRecipe implements Pinnable, IBlockRecipe{
         BlockRecipe recipe = new BlockRecipe(inputName, outputName);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
+        recipe.setInputTexture(TextureManager.getImage(inputTexture));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
         recipe.heaterCooling = cooling;
         recipe.inputRate = inputRate;
         recipe.outputRate = outputRate;
@@ -26,9 +26,9 @@ public class BlockRecipe implements Pinnable, IBlockRecipe{
         BlockRecipe recipe = new BlockRecipe(inputName, outputName);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
+        recipe.setInputTexture(TextureManager.getImage(inputTexture));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
         recipe.irradiatorEfficiency = efficiency;
         recipe.irradiatorHeat = heat;
         return recipe;
@@ -37,9 +37,9 @@ public class BlockRecipe implements Pinnable, IBlockRecipe{
         BlockRecipe recipe = new BlockRecipe(inputName, outputName);
         recipe.inputDisplayName = inputDisplayName;
         recipe.inputLegacyNames.add(inputDisplayName);
-        recipe.setInputTexture(TextureManager.fromCN1(TextureManager.getImage(inputTexture)));
+        recipe.setInputTexture(TextureManager.getImage(inputTexture));
         recipe.outputDisplayName = outputDisplayName;
-        recipe.setOutputTexture(TextureManager.fromCN1(TextureManager.getImage(outputTexture)));
+        recipe.setOutputTexture(TextureManager.getImage(outputTexture));
         recipe.fuelVesselEfficiency = efficiency;
         recipe.fuelVesselHeat = heat;
         recipe.fuelVesselTime = time;
@@ -213,10 +213,14 @@ public class BlockRecipe implements Pinnable, IBlockRecipe{
         return allNames;
     }
     @Override
-    public ArrayList<String> getSearchableNames(){
+    public ArrayList<String> getSimpleSearchableNames(){
         ArrayList<String> lst = getLegacyNames();
         lst.add(getInputDisplayName());
         return lst;
+    }
+    @Override
+    public ArrayList<String> getSearchableNames(){
+        return getSimpleSearchableNames();
     }
     @Override
     public String getPinnedName(){

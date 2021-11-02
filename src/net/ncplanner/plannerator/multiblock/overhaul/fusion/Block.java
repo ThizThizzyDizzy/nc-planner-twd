@@ -1,7 +1,6 @@
 package net.ncplanner.plannerator.multiblock.overhaul.fusion;
-import com.codename1.ui.Graphics;
-import com.codename1.util.regex.RE;
 import java.util.ArrayList;
+import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Direction;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.AbstractPlacementRule;
@@ -10,6 +9,8 @@ import net.ncplanner.plannerator.multiblock.configuration.ITemplateAccess;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.BlockRecipe;
 import net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.PlacementRule;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.MathUtil;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.simplelibrary.image.Color;
 import net.ncplanner.plannerator.simplelibrary.image.Image;
@@ -68,15 +69,15 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         if(isHeatingBlanket()){
             tip+="\nHeating Blanket "+(isHeatingBlanketActive()?"Active":"Inactive");
             if(isHeatingBlanketActive()){
-                tip+="\nHeat Multiplier: "+percent(heatMult, 0)+"\n"
+                tip+="\nHeat Multiplier: "+MathUtil.percent(heatMult, 0)+"\n"
                         + "Heat Produced: "+heatMult*fusion.recipe.heat+"H/t\n"
-                        + "Efficiency: "+percent(efficiency, 0)+"\n";
+                        + "Efficiency: "+MathUtil.percent(efficiency, 0)+"\n";
             }
         }
         if(isBreedingBlanket()){
             if(recipe==null||!template.breedingBlanketHasBaseStats)tip+="\nNo Recipe";
             tip+="\nBreeding Blanket "+(breedingBlanketAugmented?"Augmented":(breedingBlanketValid?"Valid":"Invalid"))
-                    + "\nEfficiency multiplier: "+round(efficiencyMult, 2)+"\n";
+                    + "\nEfficiency multiplier: "+MathUtil.round(efficiencyMult, 2)+"\n";
         }
         if(isReflector()){
             if(recipe==null&&!template.reflectorHasBaseStats)tip+="\nNo Recipe";
@@ -148,12 +149,12 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return tip;
     }
     @Override
-    public void renderOverlay(Graphics g, int x, int y, int width, int height, Multiblock multiblock){
+    public void renderOverlay(Renderer renderer, double x, double y, double width, double height, Multiblock multiblock){
         if(!isValid()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineInvalid());
         }
         if(isBreedingBlanketAugmented()){
-            drawOutline(g, x, y, width, height, Core.theme.getBlockColorOutlineActive());
+            drawOutline(renderer, x, y, width, height, Core.theme.getBlockColorOutlineActive());
         }
         OverhaulFusionReactor.Cluster cluster = this.cluster;
         if(cluster!=null){
@@ -165,38 +166,37 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 primaryColor = Core.theme.getClusterOvercoolingColor();
             }
             if(primaryColor!=null){
-                g.setColor(primaryColor.getRGB());
-                g.setAlpha(31);
-                g.fillRect(x, y, width, height);
-                g.setAlpha(191);
-                int border = width/8;
+                renderer.setColor(primaryColor, .125f);
+                renderer.fillRect(x, y, x+width, y+height);
+                renderer.setColor(primaryColor, .75f);
+                double border = width/8;
                 boolean top = cluster.contains(this.x, this.y, z-1);
                 boolean right = cluster.contains(this.x+1, this.y, z);
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top||!left||!cluster.contains(this.x-1, this.y, z-1)){//top left
-                    g.fillRect(x, y, border, border);
+                    renderer.fillRect(x, y, x+border, y+border);
                 }
                 if(!top){//top
-                    g.fillRect(x+width/2-border, y, border*2, border);
+                    renderer.fillRect(x+width/2-border, y, x+width/2+border, y+border);
                 }
                 if(!top||!right||!cluster.contains(this.x+1, this.y, z-1)){//top right
-                    g.fillRect(x+width-border, y, border, border);
+                    renderer.fillRect(x+width-border, y, x+width, y+border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+height/2-border, border, border*2);
+                    renderer.fillRect(x+width-border, y+height/2-border, x+width, y+height/2+border);
                 }
                 if(!bottom||!right||!cluster.contains(this.x+1, this.y, z+1)){//bottom right
-                    g.fillRect(x+width-border, y+height-border, border, border);
+                    renderer.fillRect(x+width-border, y+height-border, x+width, y+height);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+width/2-border, y+height-border, border*2, border);
+                    renderer.fillRect(x+width/2-border, y+height-border, x+width/2+border, y+height);
                 }
                 if(!bottom||!left||!cluster.contains(this.x-1, this.y, z+1)){//bottom left
-                    g.fillRect(x, y+height-border, border, border);
+                    renderer.fillRect(x, y+height-border, x+border, y+height);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+height/2-border, border, border*2);
+                    renderer.fillRect(x, y+height/2-border, x+border, y+height/2+border);
                 }
             }
             Color secondaryColor = null;
@@ -207,32 +207,30 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
                 secondaryColor = Core.theme.getClusterInvalidColor();
             }
             if(secondaryColor!=null){
-                g.setColor(secondaryColor.getRGB());
-                g.setAlpha(191);
-                int border = width/8;
+                renderer.setColor(secondaryColor, .75f);
+                double border = width/8;
                 boolean top = cluster.contains(this.x, this.y, z-1);
                 boolean right = cluster.contains(this.x+1, this.y, z);
                 boolean bottom = cluster.contains(this.x, this.y, z+1);
                 boolean left = cluster.contains(this.x-1, this.y, z);
                 if(!top){//top
-                    g.fillRect(x+border, y, width/2-border*2, border);
-                    g.fillRect(x+width/2+border, y, width/2-border*2, border);
+                    renderer.fillRect(x+border, y, x+width/2-border, y+border);
+                    renderer.fillRect(x+width/2+border, y, x+width-border, y+border);
                 }
                 if(!right){//right
-                    g.fillRect(x+width-border, y+border, border, height/2-border*2);
-                    g.fillRect(x+width-border, y+height/2+border, border, height/2-border*2);
+                    renderer.fillRect(x+width-border, y+border, x+width, y+height/2-border);
+                    renderer.fillRect(x+width-border, y+height/2+border, x+width, y+height-border);
                 }
                 if(!bottom){//bottom
-                    g.fillRect(x+border, y+height-border, width/2-border*2, border);
-                    g.fillRect(x+width/2+border, y+height-border, width/2-border*2, border);
+                    renderer.fillRect(x+border, y+height-border, x+width/2-border, y+height);
+                    renderer.fillRect(x+width/2+border, y+height-border, x+width-border, y+height);
                 }
                 if(!left){//left
-                    g.fillRect(x, y+border, border, height/2-border*2);
-                    g.fillRect(x, y+height/2+border, border, height/2-border*2);
+                    renderer.fillRect(x, y+border, x+border, y+height/2-border);
+                    renderer.fillRect(x, y+height/2+border, x+border, y+height-border);
                 }
             }
         }
-        g.setAlpha(255);
     }
     public boolean isInert(){
         return template.cluster&&!template.functional;
@@ -306,6 +304,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         return false;
     }
     @Override
+    public boolean canRequire(net.ncplanner.plannerator.multiblock.Block oth){
+        if(template.heatsink)return requires(oth, null);
+        Block other = (Block) oth;
+        if(template.conductor)return other.template.cluster;
+        return false;
+    }
+    @Override
     public boolean requires(net.ncplanner.plannerator.multiblock.Block oth, Multiblock mb){
         if(!template.heatsink)return false;
         Block other = (Block) oth;
@@ -363,7 +368,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         if(!template.breedingBlanketHasBaseStats&&recipe==null)return;//empty breeding blanket
         breedingBlanketValid = true;//shrug
         efficiencyMult = 1;
-        FOR:for(Direction d : directions){
+        FOR:for(Direction d : Direction.values()){
             int X = x+d.x;
             int Y = y+d.y;
             int Z = z+d.z;
@@ -389,7 +394,7 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
         if(!template.heatingBlanket)return;
         heatMult = 1;
         efficiency = 1;
-        for(Direction d : directions){
+        for(Direction d : Direction.values()){
             Block b = reactor.getBlock(x+d.x, y+d.y, z+d.z);
             if(b==null)continue;
             if(b.isBreedingBlanket()){
@@ -430,10 +435,13 @@ public class Block extends net.ncplanner.plannerator.multiblock.Block implements
     @Override
     public ArrayList<String> getSearchableNames(){
         ArrayList<String> searchables = template.getSearchableNames();
-        for(String s : new RE("\n").split(getListTooltip()))searchables.add(s.trim());
+        for(String s : StringUtil.split(getListTooltip(), "\n"))searchables.add(s.trim());
         return searchables;
     }
-
+    @Override
+    public ArrayList<String> getSimpleSearchableNames(){
+        return template.getSimpleSearchableNames();
+    }
     @Override
     public net.ncplanner.plannerator.multiblock.configuration.overhaul.fusion.Block getTemplate() {
         return template;

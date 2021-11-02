@@ -11,16 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
 import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.StringUtil;
 import net.ncplanner.plannerator.planner.Supplier;
 import net.ncplanner.plannerator.planner.Task;
-import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.file.FileReader;
 import net.ncplanner.plannerator.planner.file.FormatReader;
-import net.ncplanner.plannerator.planner.file.NCPFFile;
 import net.ncplanner.plannerator.planner.file.reader.NCPF10Reader;
 import net.ncplanner.plannerator.planner.file.reader.NCPF11Reader;
 import net.ncplanner.plannerator.planner.file.reader.NCPF1Reader;
@@ -48,7 +46,6 @@ import net.ncplanner.plannerator.planner.file.reader.OverhaulNCConfigReader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulHellrage1Reader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulHellrage2Reader;
 import net.ncplanner.plannerator.planner.file.reader.UnderhaulNCConfigReader;
-import net.ncplanner.plannerator.planner.menu.MenuMain;
 import net.ncplanner.plannerator.planner.menu.component.ProgressBar;
 import net.ncplanner.plannerator.planner.module.FusionTestModule;
 import net.ncplanner.plannerator.planner.module.Module;
@@ -227,7 +224,7 @@ public class MenuInit extends Form{
                     for(net.ncplanner.plannerator.multiblock.configuration.overhaul.fissionmsr.Block b : configuration.overhaul.fissionMSR.allBlocks){
                         if(b.heater&&!b.getDisplayName().contains("Standard")){
                             try{
-                                b.setInternalTexture(TextureManager.fromCN1(TextureManager.getImage("overhaul/"+Core.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid "))));
+                                b.setInternalTexture(TextureManager.getImage("overhaul/"+StringUtil.superRemove(b.getDisplayName().toLowerCase(), " coolant heater", "liquid ")));
                             }catch(Exception ex){
                                 Core.showOKDialog("Unable to load texture", "Failed to load internal texture for MSR block: "+b.name);
                                 Log.e(ex);

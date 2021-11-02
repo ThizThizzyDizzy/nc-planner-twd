@@ -1,10 +1,10 @@
 package net.ncplanner.plannerator.multiblock;
-import com.codename1.ui.Component;
 import com.codename1.ui.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import net.ncplanner.plannerator.multiblock.configuration.Configuration;
-import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
+import net.ncplanner.plannerator.planner.MathUtil;
 import net.ncplanner.plannerator.planner.exception.MissingConfigurationEntryException;
 import net.ncplanner.plannerator.planner.menu.MenuEdit;
 import net.ncplanner.plannerator.planner.menu.MenuResize;
@@ -87,8 +87,8 @@ public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     public boolean isCompact(int totalBlocks){
         int blockCount = getBlocks(true).size();
         int volume = getExternalDepth()*getExternalHeight()*getExternalWidth();
-        int bitsPerDim = Core.logBase(2, Math.max(getExternalWidth(), Math.max(getExternalHeight(), getExternalDepth())));
-        int bitsPerType = Core.logBase(2, totalBlocks);
+        int bitsPerDim = MathUtil.logBase(2, Math.max(getExternalWidth(), Math.max(getExternalHeight(), getExternalDepth())));
+        int bitsPerType = MathUtil.logBase(2, totalBlocks);
         int compactBits = bitsPerType*volume;
         int spaciousBits = 4*Math.max(bitsPerDim, bitsPerType)*blockCount;
         return compactBits<spaciousBits;
@@ -384,6 +384,10 @@ public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     public String getDimensionsStr(){
         return getInternalWidth()+"x"+getInternalHeight()+"x"+getInternalDepth();
     }
+    @Override
+    public Form getResizeMenu(){
+        return new MenuResize(this);
+    }
     private HashMap<BlockPos, T> cache(){
         HashMap<BlockPos, T> cache = new HashMap<>();
         forEachPosition((x, y, z) -> {
@@ -406,9 +410,5 @@ public abstract class CuboidalMultiblock<T extends Block> extends Multiblock<T>{
     public void init(){
         super.init();
         buildDefaultCasing();
-    }
-    @Override
-    public Form getResizeMenu(){
-        return new MenuResize(this);
     }
 }

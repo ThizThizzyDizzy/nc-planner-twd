@@ -1,5 +1,4 @@
 package net.ncplanner.plannerator.planner.menu.component;
-import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
@@ -12,10 +11,10 @@ import net.ncplanner.plannerator.Renderer;
 import net.ncplanner.plannerator.multiblock.Axis;
 import net.ncplanner.plannerator.multiblock.Block;
 import net.ncplanner.plannerator.multiblock.BlockPos;
-import net.ncplanner.plannerator.multiblock.Decal;
-import net.ncplanner.plannerator.multiblock.EditorSpace;
 import net.ncplanner.plannerator.multiblock.Multiblock;
 import net.ncplanner.plannerator.multiblock.configuration.TextureManager;
+import net.ncplanner.plannerator.multiblock.editor.Decal;
+import net.ncplanner.plannerator.multiblock.editor.EditorSpace;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionmsr.OverhaulMSR;
 import net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.OverhaulSFR;
 import net.ncplanner.plannerator.multiblock.overhaul.fusion.OverhaulFusionReactor;
@@ -89,7 +88,7 @@ public class EditorGrid extends EditorGridComponent{
                         g.fillRect(getX()+getWidth()-border, getY()+border, border, getHeight()-border*2);
                         Block block = multiblock.getBlock(bx, by, bz);
                         if(block!=null){
-                            block.render(g, getX(), getY(), getWidth(), getWidth(), true, multiblock);
+                            block.render(r, getX(), getY(), getWidth(), getWidth(), true, multiblock);
                             boolean recipeMatches = false;
                             if(multiblock instanceof OverhaulSFR){
                                 net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.Block bl = (net.ncplanner.plannerator.multiblock.overhaul.fissionsfr.Block)block;
@@ -110,7 +109,7 @@ public class EditorGrid extends EditorGridComponent{
                         }
                         if(multiblock instanceof OverhaulFusionReactor&&((OverhaulFusionReactor)multiblock).getLocationCategory(bx, by, bz)==OverhaulFusionReactor.LocationCategory.PLASMA){
                             if(plasma==null){
-                                plasma = TextureManager.getImage("overhaul/fusion/plasma");
+                                plasma = TextureManager.getImageCN1("overhaul/fusion/plasma");
                             }
                             g.drawImage(plasma, getX(), getY(), getWidth(), getHeight());
                         }
@@ -118,7 +117,7 @@ public class EditorGrid extends EditorGridComponent{
                             for(Object o : multiblock.decals){
                                 Decal decal = (Decal)o;
                                 if(decal.x==bx&&decal.y==by&&decal.z==bz){
-                                    decal.render(g, getX(), getY(), blockSize);
+                                    decal.render(r, getX(), getY(), blockSize);
                                 }
                             }
                         }
@@ -167,7 +166,7 @@ public class EditorGrid extends EditorGridComponent{
                                     if(b==null){
                                         r.fillRect(getX(), getY(), getX()+blockSize, getY()+blockSize);
                                     }else{
-                                        b.render(g, getX(), getY(), blockSize, blockSize, false, resonatingAlpha+.5f, s.result);
+                                        b.render(r, getX(), getY(), blockSize, blockSize, false, resonatingAlpha+.5f, s.result);
                                     }
                                 }
                                 g.setColor(Core.theme.getSuggestionOutlineColor().getRGB());
@@ -214,7 +213,7 @@ public class EditorGrid extends EditorGridComponent{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        editor.getSelectedTool(0).drawGhosts(g, editorSpace, x1, y1, x2, y2, blocksWide, blocksHigh, axis, layer, getX(), getY(), getWidth(), getHeight(), blockSize, (editor.getSelectedBlock(0)==null?null:TextureManager.toCN1(editor.getSelectedBlock(0).getTexture())));
+        editor.getSelectedTool(0).drawGhosts(new Renderer(g), editorSpace, x1, y1, x2, y2, blocksWide, blocksHigh, axis, layer, getX(), getY(), getWidth(), getHeight(), blockSize, (editor.getSelectedBlock(0)==null?null:TextureManager.toCN1(editor.getSelectedBlock(0).getTexture())));
     }
     public boolean isBlockSelected(int x, int y){
         x+=x1;
