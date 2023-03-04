@@ -55,10 +55,11 @@ public class TextureManager{
     }
     public static Image fromCN1(com.codename1.ui.Image img){
         if(img==null)return null;
+        int[] rgb = img.getRGB();
         Image image = new Image(img.getWidth(), img.getHeight());
         for(int x = 0; x<img.getWidth(); x++){
             for(int y = 0; y<img.getHeight(); y++){
-                image.setRGB(x, y, img.getRGB()[y*image.getWidth()+x]);
+                image.setRGB(x, y, rgb[y*image.getWidth()+x]);
             }
         }
         return image;
