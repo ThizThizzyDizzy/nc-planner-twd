@@ -1,0 +1,11 @@
+sourceSets.main.java.srcDirs = [new File(rootProject.planneratorDir, 'src')]
+sourceSets.main.resources {
+    srcDirs = [new File(rootProject.planneratorDir, 'src')]
+    exclude '**/*.java', '**/version.properties'
+}
+dependencies {
+    api project(':engine')
+    api project(':ncpf')
+    implementation files(new File(rootProject.planneratorDir, 'libraries/dssl-4.2.jar'))
+    compileOnly fileTree(dir: new File(rootProject.planneratorDir, 'libraries'), include: ['*.jar'], exclude: ['*natives*', 'dssl*', 'joml*'])
+}

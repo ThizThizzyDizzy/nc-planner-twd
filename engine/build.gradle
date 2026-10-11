@@ -1,0 +1,7 @@
+sourceSets.main.java.srcDirs = [new File(rootProject.engineDir, 'src')]
+sourceSets.main.resources { srcDirs = [new File(rootProject.engineDir, 'src')]; exclude '**/*.java', 'textures/icon.png' }
+dependencies {
+    api 'org.joml:joml:1.10.5'
+    api 'com.google.code.gson:gson:2.14.0'
+    compileOnly fileTree(dir: new File(rootProject.engineDir, 'lib'), include: ['*.jar'], exclude: ['*natives*', 'joml*', 'gson*', '*sources*', '*javadoc*'])
+}

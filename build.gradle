@@ -1,0 +1,14 @@
+plugins { id 'com.android.application' version '8.13.0' apply false }
+def workspace = providers.gradleProperty('planneratorWorkspace').getOrElse(new File(System.getProperty('user.home'), 'NetBeansProjects').path)
+ext.planneratorDir = file(providers.gradleProperty('planneratorDir').getOrElse("${workspace}/NuclearCraft Plannerator"))
+ext.engineDir = file(providers.gradleProperty('dizzyEngineDir').getOrElse("${workspace}/Dizzy-Engine"))
+ext.ncpfDir = file(providers.gradleProperty('ncpfDir').getOrElse("${workspace}/NCPF"))
+ext.outputRoot = file(providers.gradleProperty('androidBuildDir').getOrElse(new File(System.getProperty('user.home'), '.cache/plannerator-android/build').path))
+allprojects { layout.buildDirectory = new File(rootProject.outputRoot, project.name) }
+subprojects {
+    if (name != 'app') {
+        apply plugin: 'java-library'
+        java { sourceCompatibility = JavaVersion.VERSION_21; targetCompatibility = JavaVersion.VERSION_21 }
+        tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+    }
+}
