@@ -10,6 +10,7 @@ dependencies {
 sourceSets {
     contextRecoveryTest {
         java.srcDir rootProject.file('tests')
+        java.include 'ContextRecoveryTest.java'
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
         runtimeClasspath += output + compileClasspath
     }

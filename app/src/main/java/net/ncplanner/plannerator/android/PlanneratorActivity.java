@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.*;
 import com.thizthizzydizzy.dizzyengine.DizzyEngine;
-import com.thizthizzydizzy.dizzyengine.graphics.Shader;
 import com.thizthizzydizzy.dizzyengine.graphics.text.Font;
 import com.thizthizzydizzy.dizzyengine.io.ImageIO;
 import com.thizthizzydizzy.dizzyengine.platform.GL;
@@ -26,8 +25,8 @@ import javax.microedition.khronos.opengles.GL10;
 /** Minimal Android host. All visible planner menus and editor content are rendered by DizzyEngine. */
 public final class PlanneratorActivity extends Activity implements Core.Host {
     private GLSurfaceView surface;
-    private boolean initialized;
-    private Shader hostedShader;
+    // Core and DizzyEngine also survive replacement Activity instances.
+    private static final HostedSession session=new HostedSession();
     private int mouseButton;
     private Consumer<File> fileAccepted;
     private boolean saving;
@@ -89,16 +88,8 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
                     GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA,GLES30.GL_ONE_MINUS_SRC_ALPHA);
                     GLES30.glEnable(GLES30.GL_STENCIL_TEST);
                     PlanneratorRenderer.addCustomElements();
-                    if(!initialized){
-                        hostedShader=new Shader(VERTEX,FRAGMENT);
-                        DizzyEngine.initHosted(1,1,hostedShader);
-                        AndroidFonts.restoreContext();
-                        Core.initHosted();initialized=true;
-                    }else{
-                        hostedShader.restoreContext(VERTEX,FRAGMENT);
-                        DizzyEngine.restoreHostedGraphics(hostedShader);
-                        AndroidFonts.restoreContext();
-                    }
+                    Core.bindHostedUIThread();
+                    session.surfaceCreated(VERTEX,FRAGMENT,AndroidFonts::restoreContext,Core::initHosted);
                     lastFrame=0;
                 }catch(Throwable ex){android.util.Log.e("Plannerator","Initialization failed",ex);throw new RuntimeException(ex);}
             }
@@ -135,7 +126,7 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
         // Queue before pausing the surface so recovery data and preferences are
         // persisted on the GL thread while the planner is still available.
         surface.queueEvent(() -> {
-            if(initialized)try{Core.shutdownHosted();}
+            if(session.isInitialized())try{Core.shutdownHosted();}
             catch(Exception ex){android.util.Log.w("Plannerator","Saving hosted state failed",ex);}
         });
         surface.onPause();super.onPause();

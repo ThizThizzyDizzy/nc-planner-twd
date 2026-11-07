@@ -30,6 +30,8 @@ The shared Plannerator checkout must include commit `7672d7476a1e2cbad832107dca2
 
 Run `./build-android.sh :engine:contextRecoveryTest --offline` for the mock-GL regression test covering repeated context replacement, texture caches, glyph buffers, shader uniforms, and preservation of layers and cleanup hooks.
 
+Run `./build-android.sh :planner:activityRecreationTest --offline` for the separate mock-GL regression test covering replacement hosts sharing one process session. It uses distinct render threads and checks that planner initialization runs once, the existing layer/project survives, and Core dispatches queued UI actions on the replacement thread; it does not run Android framework lifecycle callbacks. Activity instances reuse this process session and restore graphics when their new surface is created.
+
 ## Draft scope
 
 The app loads the standard NuclearCraft configuration and the existing menus/editor, with a single touch mapped to the left mouse button. Optional modpack configurations are skipped during Android startup. UI redesign, touch gestures, software keyboard integration, VR, Discord bot mode, desktop updates, and DSSL native interop are outside this draft. The Android document picker adapts imported/exported files through private cache files. When the EGL context is recreated, the host rebuilds renderer buffers, cached textures, and font glyph buffers while retaining the open project and menus. Physical-device verification of context loss and activity recreation is still required.
@@ -49,6 +51,8 @@ The original settings record version `1.09` but no Android versionCode. Read the
 Use `-PreleaseSigningProperties=/private/path/codenameone_settings.properties` and `-PreleaseKeystore=/private/path/Keychain.ks` to relocate the private release files. The old Codename One build hints are not used by this app.
 
 ## Shared platform boundary
+
+The shared Plannerator checkout must also include commit `e6deee34` (or its equivalent), providing `Core.bindHostedUIThread()` to rebind UI dispatch when the retained session moves to a replacement surface thread.
 
 The shared DizzyEngine checkout must include `DizzyEngine.restoreHostedGraphics`, `ResourceManager.invalidateContextTextures`, `Renderer.restoreElements`, and `Shader.restoreContext` for context-loss recovery.
 
