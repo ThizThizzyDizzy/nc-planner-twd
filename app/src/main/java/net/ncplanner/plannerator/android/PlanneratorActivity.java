@@ -28,11 +28,10 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
     // Core and DizzyEngine also survive replacement Activity instances.
     private static final HostedSession session=new HostedSession();
     private int mouseButton;
-    private Consumer<File> fileAccepted;
-    private boolean saving;
-    private String[] documentExtensions;
+    private static final DocumentRequests documentRequests=new DocumentRequests();
+    private static final String PENDING_DOCUMENT="pendingDocument";
     // Accessed only on the GL thread, after shared writers have returned.
-    private final List<DocumentExport> documentExports=new ArrayList<>();
+    private static final List<DocumentExport> documentExports=new ArrayList<>();
     private record DocumentExport(File file,Uri uri) {}
     private static final int DOCUMENT_REQUEST=1;
     private static final String VERTEX="""
@@ -61,6 +60,9 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
         """;
     @Override public void onCreate(Bundle state){
         super.onCreate(state);
+        if(state!=null && state.getBoolean(PENDING_DOCUMENT) && !documentRequests.isPending()){
+            android.widget.Toast.makeText(this,"Document operation cancelled because Plannerator restarted. Please try again. A newly created export document may be empty.",android.widget.Toast.LENGTH_LONG).show();
+        }
         // JOML's optional desktop Unsafe path is unavailable on Android.
         System.setProperty("joml.nounsafe","true");
         GL.setBackend(new AndroidGL());
@@ -131,22 +133,31 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
         });
         surface.onPause();super.onPause();
     }
+    @Override protected void onSaveInstanceState(Bundle state){
+        state.putBoolean(PENDING_DOCUMENT,documentRequests.isPending());
+        super.onSaveInstanceState(state);
+    }
     @Override protected void onResume(){super.onResume();surface.onResume();}
     @Override public void chooseFile(File selected,Consumer<File> accepted,String[] extensions,String hint,boolean save){
         runOnUiThread(() -> {
-            fileAccepted=accepted;saving=save;documentExtensions=extensions.clone();
+            documentRequests.begin(accepted,save,extensions);
             Intent intent=new Intent(save?Intent.ACTION_CREATE_DOCUMENT:Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);intent.setType("*/*");
             if(save)intent.putExtra(Intent.EXTRA_TITLE,documentName(selected==null?"reactor":selected.getName(),extensions));
-            startActivityForResult(intent,DOCUMENT_REQUEST);
+            try{startActivityForResult(intent,DOCUMENT_REQUEST);}
+            catch(RuntimeException ex){documentRequests.take();throw ex;}
         });
     }
     @Override protected void onActivityResult(int request,int result,Intent data){
         super.onActivityResult(request,result,data);
-        if(request!=DOCUMENT_REQUEST || result!=RESULT_OK || data==null){fileAccepted=null;return;}
-        Uri uri=data.getData();Consumer<File> accepted=fileAccepted;fileAccepted=null;boolean save=saving;
-        String[] extensions=documentExtensions;
-        if(uri==null || accepted==null)return;
+        if(request!=DOCUMENT_REQUEST)return;
+        DocumentRequests.Request pending=documentRequests.take();
+        if(result!=RESULT_OK || data==null || pending==null)return;
+        Uri uri=data.getData();
+        if(uri==null)return;
+        Consumer<File> accepted=pending.accepted();
+        boolean save=pending.save();
+        String[] extensions=pending.extensions();
         surface.queueEvent(() -> {
             try{
                 String name="document";

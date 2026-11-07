@@ -99,3 +99,5 @@ arranged. See https://f-droid.org/docs/Submitting_to_F-Droid_Quick_Start_Guide/.
 Packaging validation does not resolve the draft limitations listed above. Test
 editing, import/export, background/resume, activity recreation and GL context
 loss on a physical device before promoting a release to production.
+
+Pending document-picker callbacks and export transfers survive same-process Activity replacement. If Android kills the process while a picker is open, Plannerator cancels the operation and asks you to retry after restoration; a document created by the interrupted save may be empty. Picker callbacks are not serialized across process death.
