@@ -4,7 +4,7 @@ This repository hosts the Java Android app. Plannerator remains the sole source 
 
 ## Build
 
-Requirements: JDK 21, Android SDK platform 35 and build-tools 35.0.0, and the three authoritative source checkouts. This first draft requires Android 15 / API 35 and OpenGL ES 3.0.
+Requirements: JDK 21, Android SDK platform 36 and build-tools 35.0.0, and the three authoritative source checkouts. This first draft requires Android 15 / API 35 and OpenGL ES 3.0.
 
 By default the checkouts are `$HOME/NetBeansProjects/NuclearCraft Plannerator`, `$HOME/NetBeansProjects/Dizzy-Engine`, and `$HOME/NetBeansProjects/NCPF`. Set `-PplanneratorDir=...`, `-PdizzyEngineDir=...`, and `-PncpfDir=...` for different paths.
 
@@ -34,7 +34,7 @@ The app loads the standard NuclearCraft configuration and the existing menus/edi
 
 `release-metadata.properties` preserves the verified application ID, display name, previous version name, and signing alias from the Windows project `D:\CodenameOne\NCPlannerTWD`. The original settings and verified `Keychain.ks` backup were retrieved and saved outside Git in `$HOME/.local/share/plannerator-android-release`, with private filesystem permissions. They are required to sign an update with the existing certificate. Never commit these files or credentials.
 
-Debug installs use `net.ncplanner.plannerator.debug` and the ordinary Android debug key, so they do not replace the released app. Release installs use the original `net.ncplanner.plannerator` identity. The app version name comes from the authoritative Plannerator properties.
+Debug installs use `net.ncplanner.plannerator.debug` and the ordinary Android debug key, so they do not replace the released app. Release installs use the original `net.ncplanner.plannerator` identity. The Android app version name is set in `release-metadata.properties`; the embedded planner engine keeps its authoritative Plannerator version.
 
 The original settings record version `1.09` but no Android versionCode. Read the highest existing versionCode in Play Console and explicitly provide the next one. The build rejects release packaging without it and the original signing files.
 
@@ -49,3 +49,43 @@ Use `-PreleaseSigningProperties=/private/path/codenameone_settings.properties` a
 DizzyEngine's existing public desktop APIs and LWJGL defaults remain available. The Android host explicitly installs the GL, polled-input, image-codec, and font backends, then uses the hosted rendering entry points. Plannerator's optional host supplies document selection, URL opening, closing, storage paths, and the choice to skip optional configurations. JVM class scanning remains the desktop default; the Android build derives registration lists from the existing annotations for Plannerator and NCPF. Shrinker rules preserve reflective model constructors, fields, annotations, and generic signatures.
 
 Runtime dependencies are existing planner libraries: JOML, Gson, and DSSL. LWJGL, ClassGraph, and Discord integrations are compile-only desktop dependencies; no desktop native libraries are packaged.
+
+## Release packaging
+
+Run `./release-android.sh NEXT_UNUSED_VERSION_CODE` after checking the highest code
+in Play Console (including testing tracks). The script discovers the cached JDK 21
+and Android SDK, builds and lints the optimized release, and copies a signed AAB,
+signed universal APK, R8 mapping, and SHA-256 checksums outside Git to
+`~/.local/share/plannerator-android-release/releases/VERSION_CODE`.
+Override that destination with `PLANNERATOR_RELEASE_DIR`. Do not reuse version codes.
+The target SDK is 36; the minimum remains Android 15 / API 35.
+
+Upload the `.aab` to Play Console. Keep `mapping.txt` for crash deobfuscation.
+Publish the `.apk` as a GitHub release asset for direct installation and Obtainium;
+use a versioned release tag and increasing versionCode on every update. Both
+artifacts use the preserved release certificate. If Play App Signing uses a
+different app signing certificate, Play installs and direct APK installs cannot
+update each other without uninstalling. Verify that certificate in Play Console.
+No release is published automatically by these scripts.
+
+### F-Droid source-build route
+
+F-Droid's official catalog builds from reviewed public source; uploading this APK
+alone is not a submission. An unsigned release can be built without private keys:
+
+```bash
+./build-android.sh :app:assembleRelease -PunsignedRelease=true -PreleaseVersionCode=NEXT_CODE
+```
+
+Before submitting, pin public commits for this repository, Plannerator,
+DizzyEngine, and NCPF, and supply those checkouts using the documented Gradle
+properties. The current build also consumes local JARs (including DSSL) from
+those checkouts: replace prebuilt inputs with source builds or acceptable declared
+build dependencies and audit their licenses before claiming F-Droid readiness.
+F-Droid maintainers must review the resulting recipe. Their normal signing key
+will differ from the direct-release key unless reproducible developer signing is
+arranged. See https://f-droid.org/docs/Submitting_to_F-Droid_Quick_Start_Guide/.
+
+Packaging validation does not resolve the draft limitations listed above. Test
+editing, import/export, background/resume, activity recreation and GL context
+loss on a physical device before promoting a release to production.
