@@ -27,6 +27,7 @@ import javax.microedition.khronos.opengles.GL10;
 public final class PlanneratorActivity extends Activity implements Core.Host {
     private GLSurfaceView surface;
     private boolean initialized;
+    private Shader hostedShader;
     private int mouseButton;
     private Consumer<File> fileAccepted;
     private boolean saving;
@@ -88,8 +89,17 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
                     GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA,GLES30.GL_ONE_MINUS_SRC_ALPHA);
                     GLES30.glEnable(GLES30.GL_STENCIL_TEST);
                     PlanneratorRenderer.addCustomElements();
-                    DizzyEngine.initHosted(1,1,new Shader(VERTEX,FRAGMENT));
-                    if(!initialized){Core.initHosted();initialized=true;}
+                    if(!initialized){
+                        hostedShader=new Shader(VERTEX,FRAGMENT);
+                        DizzyEngine.initHosted(1,1,hostedShader);
+                        AndroidFonts.restoreContext();
+                        Core.initHosted();initialized=true;
+                    }else{
+                        hostedShader.restoreContext(VERTEX,FRAGMENT);
+                        DizzyEngine.restoreHostedGraphics(hostedShader);
+                        AndroidFonts.restoreContext();
+                    }
+                    lastFrame=0;
                 }catch(Throwable ex){android.util.Log.e("Plannerator","Initialization failed",ex);throw new RuntimeException(ex);}
             }
             public void onSurfaceChanged(GL10 unused,int width,int height){DizzyEngine.resizeHosted(width,height);}

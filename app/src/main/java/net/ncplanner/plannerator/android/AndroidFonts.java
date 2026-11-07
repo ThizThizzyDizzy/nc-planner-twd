@@ -5,7 +5,21 @@ import com.thizthizzydizzy.dizzyengine.graphics.text.Font;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
 final class AndroidFonts implements Font.Backend {
+    // Weak keys retain the CPU atlas only while a theme/menu still uses its font.
+    // Static so fonts surviving activity recreation are also repaired.
+    private static final Map<Font,Atlas> atlases=new WeakHashMap<>();
+    private record Atlas(int size,ByteBuffer pixels) {}
+    static void restoreContext(){
+        for(var entry:atlases.entrySet()){
+            Atlas atlas=entry.getValue();
+            Font font=entry.getKey();
+            font.texture=ResourceManager.loadGLTexture(atlas.size(),atlas.size(),atlas.pixels().duplicate());
+            font.initCharacters();
+        }
+    }
     private final File cache;
     AndroidFonts(File cache){this.cache=cache;}
     @Override public Font load(ByteBuffer data, float yOff, float requestedHeight, int requestedSize){
@@ -26,8 +40,11 @@ final class AndroidFonts implements Font.Backend {
                 canvas.drawText(String.valueOf(c),x+4,y+48,paint);
                 glyphs.put(c,new Font.Glyph(paint.measureText(String.valueOf(c)), -4,-48,cell-4,cell-48,(float)x/size,(float)y/size,(float)(x+cell)/size,(float)(y+cell)/size));
             }
-            int texture=ResourceManager.loadGLTexture(size,size,AndroidImages.fromBitmap(bitmap).getGLData());
-            return new Font(texture,48,yOff,size,glyphs);
+            ByteBuffer pixels=AndroidImages.fromBitmap(bitmap).getGLData();
+            int texture=ResourceManager.loadGLTexture(size,size,pixels.duplicate());
+            Font font=new Font(texture,48,yOff,size,glyphs);
+            atlases.put(font,new Atlas(size,pixels));
+            return font;
         }catch(IOException ex){throw new RuntimeException("Could not load font",ex);}
         finally{if(bitmap!=null)bitmap.recycle();if(file!=null)file.delete();}
     }

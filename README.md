@@ -28,9 +28,11 @@ Updating the main source checkouts and rerunning the same command builds the upd
 
 The shared Plannerator checkout must include commit `7672d7476a1e2cbad832107dca23555802bb971e` (or its equivalent): ordinary Save/Export actions use `Core.storageFile` to write into Android's private files directory, recovery saves capture current designs, and the export confirmation hides the desktop-only Open Folder action on Android. Use Save Dialog to export to a user-selected document provider. The Android activity saves recovery data and preferences on the GL thread before pausing its surface.
 
+Run `./build-android.sh :engine:contextRecoveryTest --offline` for the mock-GL regression test covering repeated context replacement, texture caches, glyph buffers, shader uniforms, and preservation of layers and cleanup hooks.
+
 ## Draft scope
 
-The app loads the standard NuclearCraft configuration and the existing menus/editor, with a single touch mapped to the left mouse button. Optional modpack configurations are skipped during Android startup. UI redesign, touch gestures, software keyboard integration, VR, Discord bot mode, desktop updates, and DSSL native interop are outside this draft. The Android document picker adapts imported/exported files through private cache files. Pause/resume with a preserved GL context is verified; recovery after GL context loss or activity recreation still needs lifecycle work before production release.
+The app loads the standard NuclearCraft configuration and the existing menus/editor, with a single touch mapped to the left mouse button. Optional modpack configurations are skipped during Android startup. UI redesign, touch gestures, software keyboard integration, VR, Discord bot mode, desktop updates, and DSSL native interop are outside this draft. The Android document picker adapts imported/exported files through private cache files. When the EGL context is recreated, the host rebuilds renderer buffers, cached textures, and font glyph buffers while retaining the open project and menus. Physical-device verification of context loss and activity recreation is still required.
 
 ## Existing-app update identity
 
@@ -47,6 +49,8 @@ The original settings record version `1.09` but no Android versionCode. Read the
 Use `-PreleaseSigningProperties=/private/path/codenameone_settings.properties` and `-PreleaseKeystore=/private/path/Keychain.ks` to relocate the private release files. The old Codename One build hints are not used by this app.
 
 ## Shared platform boundary
+
+The shared DizzyEngine checkout must include `DizzyEngine.restoreHostedGraphics`, `ResourceManager.invalidateContextTextures`, `Renderer.restoreElements`, and `Shader.restoreContext` for context-loss recovery.
 
 DizzyEngine's existing public desktop APIs and LWJGL defaults remain available. The Android host explicitly installs the GL, polled-input, image-codec, and font backends, then uses the hosted rendering entry points. Plannerator's optional host supplies document selection, URL opening, closing, storage paths, and the choice to skip optional configurations. JVM class scanning remains the desktop default; the Android build derives registration lists from the existing annotations for Plannerator and NCPF. Shrinker rules preserve reflective model constructors, fields, annotations, and generic signatures.
 
