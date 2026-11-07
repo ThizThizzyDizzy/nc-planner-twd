@@ -1,0 +1,95 @@
+plugins { id 'com.android.application' }
+def releaseMetadata = new Properties()
+rootProject.file('release-metadata.properties').withInputStream { releaseMetadata.load(it) }
+def plannerProperties = new Properties()
+new File(rootProject.planneratorDir, 'nbproject/project.properties').withInputStream { plannerProperties.load(it) }
+def signingPropertiesFile = file(providers.gradleProperty('releaseSigningProperties').getOrElse(new File(System.getProperty('user.home'), '.local/share/plannerator-android-release/codenameone_settings.properties').path))
+def signingProperties = new Properties()
+if (signingPropertiesFile.isFile()) signingPropertiesFile.withInputStream { signingProperties.load(it) }
+def releaseKeystore = file(providers.gradleProperty('releaseKeystore').getOrElse(new File(signingPropertiesFile.parentFile, 'Keychain.ks').path))
+def unsignedRelease = providers.gradleProperty('unsignedRelease').getOrElse('false').toBoolean()
+def canSignRelease = releaseKeystore.isFile() && signingProperties.getProperty('codename1.android.keystorePassword') != null
+
+android {
+    namespace 'net.ncplanner.plannerator.android'
+    compileSdk 36
+    defaultConfig {
+        applicationId releaseMetadata.getProperty('applicationId')
+        minSdk 35
+        targetSdk 36
+        versionCode providers.gradleProperty('releaseVersionCode').getOrElse('1').toInteger()
+        versionName releaseMetadata.getProperty('versionName', plannerProperties.getProperty('version'))
+        manifestPlaceholders = [appLabel: releaseMetadata.getProperty('displayName')]
+    }
+    signingConfigs {
+        if (canSignRelease) {
+            preservedRelease {
+                storeFile releaseKeystore
+                storePassword signingProperties.getProperty('codename1.android.keystorePassword')
+                keyAlias releaseMetadata.getProperty('keystoreAlias')
+                keyPassword signingProperties.getProperty('codename1.android.keystorePassword')
+            }
+        }
+    }
+    buildTypes {
+        debug { applicationIdSuffix '.debug'; manifestPlaceholders = [appLabel: releaseMetadata.getProperty('displayName') + ' (Draft)']; minifyEnabled true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
+        release { if(canSignRelease && !unsignedRelease) signingConfig signingConfigs.preservedRelease; minifyEnabled true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_21; targetCompatibility JavaVersion.VERSION_21 }
+    sourceSets.main.resources.srcDir layout.buildDirectory.dir('generated/resources')
+    sourceSets.main.res.srcDir layout.buildDirectory.dir('generated/android-res')
+    packaging.resources.excludes += ['META-INF/**', '**/*.dll', '**/*.so', '**/*.dylib']
+}
+dependencies { implementation project(':planner') }
+def generateRegistry = tasks.register('generateRegistry') {
+    inputs.dir new File(rootProject.planneratorDir, 'src')
+    inputs.dir new File(rootProject.ncpfDir, 'src')
+    inputs.file new File(rootProject.planneratorDir, 'nbproject/project.properties')
+    outputs.dir layout.buildDirectory.dir('generated/resources')
+    outputs.dir layout.buildDirectory.dir('generated/android-res')
+    doLast {
+        def output = layout.buildDirectory.dir('generated/resources').get().asFile
+        output.mkdirs()
+        // Reuse the authoritative icon; generated Android resources stay outside Git.
+        copy {
+            from new File(rootProject.planneratorDir, 'src/textures/icon.png')
+            into layout.buildDirectory.dir('generated/android-res/drawable-nodpi')
+            rename { 'plannerator_icon.png' }
+        }
+        def classes = []
+        fileTree(new File(rootProject.planneratorDir, 'src')).matching { include '**/*.java' }.each { source ->
+            def text = source.getText('UTF-8')
+            if (text =~ /@RegisterWith\(/) {
+                def pkg = (text =~ /package\s+([\w.]+)\s*;/)
+                classes.add(pkg[0][1] + '.' + source.name.replace('.java', ''))
+            }
+        }
+        new File(output, 'plannerator-registration.txt').text = classes.sort().join('\n') + '\n'
+        def ncpfClasses = []
+        fileTree(new File(rootProject.ncpfDir, 'src')).matching { include '**/*.java' }.each { source ->
+            def text = source.getText('UTF-8')
+            if (text =~ /@NcpfRegistered\(/) {
+                def pkg = (text =~ /package\s+([\w.]+)\s*;/)
+                ncpfClasses.add(pkg[0][1] + '.' + source.name.replace('.java', ''))
+            }
+        }
+        new File(output, 'ncpf-registration.txt').text = ncpfClasses.sort().join('\n') + '\n'
+        def version = new Properties()
+        new File(rootProject.planneratorDir, 'nbproject/project.properties').withInputStream { version.load(it) }
+        def versionFile = new File(output, 'net/ncplanner/plannerator/version.properties')
+        versionFile.parentFile.mkdirs()
+        versionFile.text = "version=${version.getProperty('version')}\nfile_regex=.*\nbundled=true\n"
+    }
+}
+tasks.named('preBuild').configure { dependsOn generateRegistry }
+// Validate before any release packaging, including direct package tasks.
+tasks.matching { it.name == 'preReleaseBuild' }.configureEach {
+    doFirst {
+        if (!providers.gradleProperty('releaseVersionCode').isPresent())
+            throw new GradleException('Supply -PreleaseVersionCode=<next unused versionCode>; the original settings do not record it.')
+        if (android.defaultConfig.versionCode < 1 || android.defaultConfig.versionCode > 2100000000)
+            throw new GradleException('releaseVersionCode must be between 1 and 2100000000.')
+        if (!canSignRelease && !unsignedRelease)
+            throw new GradleException('The original signing settings and keystore are required for an update release. See README.md.')
+    }
+}

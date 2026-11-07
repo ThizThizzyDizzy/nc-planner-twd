@@ -1,0 +1,33 @@
+sourceSets.main.java.srcDirs = [new File(rootProject.planneratorDir, 'src')]
+sourceSets.main.resources {
+    srcDirs = [new File(rootProject.planneratorDir, 'src')]
+    exclude '**/*.java', '**/version.properties'
+}
+dependencies {
+    api project(':engine')
+    api project(':ncpf')
+    implementation files(new File(rootProject.planneratorDir, 'libraries/dssl-4.2.jar'))
+    compileOnly fileTree(dir: new File(rootProject.planneratorDir, 'libraries'), include: ['*.jar'], exclude: ['*natives*', 'dssl*', 'joml*'])
+}
+
+// Exercises the retained Android session with Core's real UI thread dispatch.
+sourceSets {
+    activityRecreationTest {
+        java.srcDirs = [rootProject.file('tests'), rootProject.file('app/src/main/java')]
+        java.include 'net/ncplanner/plannerator/android/DocumentRequests.java', 'net/ncplanner/plannerator/android/DocumentRequestsTest.java', 'net/ncplanner/plannerator/android/HostedSession.java', 'net/ncplanner/plannerator/android/ActivityRecreationTest.java'
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+tasks.register('activityRecreationTest', JavaExec) {
+    dependsOn tasks.named('activityRecreationTestClasses')
+    classpath = sourceSets.activityRecreationTest.runtimeClasspath
+    mainClass = 'net.ncplanner.plannerator.android.ActivityRecreationTest'
+    timeout = Duration.ofSeconds(30)
+}
+
+tasks.register('documentRequestsTest', JavaExec) {
+    dependsOn tasks.named('activityRecreationTestClasses')
+    classpath = sourceSets.activityRecreationTest.runtimeClasspath
+    mainClass = 'net.ncplanner.plannerator.android.DocumentRequestsTest'
+}

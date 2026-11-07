@@ -1,0 +1,199 @@
+package net.ncplanner.plannerator.android;
+import android.app.Activity;
+import android.content.*;
+import android.database.Cursor;
+import android.net.Uri;
+import android.opengl.*;
+import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.view.*;
+import com.thizthizzydizzy.dizzyengine.DizzyEngine;
+import com.thizthizzydizzy.dizzyengine.graphics.text.Font;
+import com.thizthizzydizzy.dizzyengine.io.ImageIO;
+import com.thizthizzydizzy.dizzyengine.platform.GL;
+import com.thizthizzydizzy.dizzyengine.platform.Input;
+import net.ncplanner.plannerator.graphics.PlanneratorRenderer;
+import net.ncplanner.plannerator.planner.Core;
+import net.ncplanner.plannerator.planner.module.Module;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.*;
+import java.util.function.Consumer;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+/** Minimal Android host. All visible planner menus and editor content are rendered by DizzyEngine. */
+public final class PlanneratorActivity extends Activity implements Core.Host {
+    private GLSurfaceView surface;
+    // Core and DizzyEngine also survive replacement Activity instances.
+    private static final HostedSession session=new HostedSession();
+    private int mouseButton;
+    private static final DocumentRequests documentRequests=new DocumentRequests();
+    private static final String PENDING_DOCUMENT="pendingDocument";
+    // Accessed only on the GL thread, after shared writers have returned.
+    private static final List<DocumentExport> documentExports=new ArrayList<>();
+    private record DocumentExport(File file,Uri uri) {}
+    private static final int DOCUMENT_REQUEST=1;
+    private static final String VERTEX="""
+        #version 300 es
+        precision highp float;
+        layout(location=0) in vec3 aPos;
+        layout(location=1) in vec3 aNormal;
+        layout(location=2) in vec2 aTexCoord;
+        out vec3 ourNormal;
+        out vec2 texCoord;
+        uniform mat4 model;
+        uniform mat4 view;
+        uniform mat4 projection;
+        void main(){gl_Position=projection*view*model*vec4(aPos,1.0);ourNormal=aNormal;texCoord=aTexCoord;}
+        """;
+    private static final String FRAGMENT="""
+        #version 300 es
+        precision highp float;
+        in vec3 ourNormal;
+        in vec2 texCoord;
+        out vec4 FragColor;
+        uniform sampler2D tex;
+        uniform vec4 color;
+        uniform vec4 noTex;
+        void main(){FragColor=(noTex.x>0.5?vec4(1.0):texture(tex,texCoord))*color;}
+        """;
+    @Override public void onCreate(Bundle state){
+        super.onCreate(state);
+        if(state!=null && state.getBoolean(PENDING_DOCUMENT) && !documentRequests.isPending()){
+            android.widget.Toast.makeText(this,"Document operation cancelled because Plannerator restarted. Please try again. A newly created export document may be empty.",android.widget.Toast.LENGTH_LONG).show();
+        }
+        // JOML's optional desktop Unsafe path is unavailable on Android.
+        System.setProperty("joml.nounsafe","true");
+        GL.setBackend(new AndroidGL());
+        ImageIO.setBackend(new AndroidImages());
+        Font.setBackend(new AndroidFonts(getCacheDir()));
+        Input.setBackend(new Input.Backend(){
+            public int getKey(long window,int key){return 0;}
+            public int getMouseButton(long window,int button){return button==0?mouseButton:0;}
+            public void setClipboardString(long window,CharSequence text){runOnUiThread(() -> ((android.content.ClipboardManager)getSystemService(CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Plannerator",text)));}
+        });
+        System.setProperty("ncpf.registrationResource", "ncpf-registration.txt");
+        Core.host=this;
+        Core.setStorageRoot(getFilesDir());
+        Core.tutorialShown=true;
+        Module.registrationClasses=this::registeredClasses;
+        surface=new GLSurfaceView(this);
+        surface.setEGLContextClientVersion(3);
+        surface.setEGLConfigChooser(8,8,8,8,24,8);
+        surface.setPreserveEGLContextOnPause(true);
+        surface.setRenderer(new GLSurfaceView.Renderer(){
+            long lastFrame;
+            public void onSurfaceCreated(GL10 unused,EGLConfig config){
+                try{
+                    GLES30.glEnable(GLES30.GL_BLEND);
+                    GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA,GLES30.GL_ONE_MINUS_SRC_ALPHA);
+                    GLES30.glEnable(GLES30.GL_STENCIL_TEST);
+                    PlanneratorRenderer.addCustomElements();
+                    Core.bindHostedUIThread();
+                    session.surfaceCreated(VERTEX,FRAGMENT,AndroidFonts::restoreContext,Core::initHosted);
+                    lastFrame=0;
+                }catch(Throwable ex){android.util.Log.e("Plannerator","Initialization failed",ex);throw new RuntimeException(ex);}
+            }
+            public void onSurfaceChanged(GL10 unused,int width,int height){DizzyEngine.resizeHosted(width,height);}
+            public void onDrawFrame(GL10 unused){
+                long now=System.nanoTime();
+                try{
+                    DizzyEngine.renderHosted(lastFrame==0?0:Math.min((now-lastFrame)/1e9,0.1));
+                    transferCompletedExports();
+                }
+                catch(Throwable ex){android.util.Log.e("Plannerator","Render failed",ex);throw new RuntimeException(ex);}
+                lastFrame=now;
+            }
+        });
+        surface.setOnTouchListener((view,event) -> {
+            float x=event.getX(),y=event.getY();int action=event.getActionMasked();
+            surface.queueEvent(() -> {
+                DizzyEngine.hostedCursor(0,x,y);
+                if(action==MotionEvent.ACTION_DOWN){mouseButton=1;DizzyEngine.hostedMouseButton(0,0,1,0);}
+                if(action==MotionEvent.ACTION_UP || action==MotionEvent.ACTION_CANCEL){mouseButton=0;DizzyEngine.hostedMouseButton(0,0,0,0);}
+            });
+            return true;
+        });
+        setContentView(surface);
+    }
+    private List<Class<?>> registeredClasses(){
+        ArrayList<Class<?>> classes=new ArrayList<>();
+        try(InputStream input=getClassLoader().getResourceAsStream("plannerator-registration.txt");BufferedReader reader=new BufferedReader(new InputStreamReader(input))){
+            String line;while((line=reader.readLine())!=null)if(!line.isBlank())classes.add(Class.forName(line));
+        }catch(Exception ex){throw new RuntimeException("Cannot load generated module registry",ex);}
+        return classes;
+    }
+    @Override protected void onPause(){
+        // Queue before pausing the surface so recovery data and preferences are
+        // persisted on the GL thread while the planner is still available.
+        surface.queueEvent(() -> {
+            if(session.isInitialized())try{Core.shutdownHosted();}
+            catch(Exception ex){android.util.Log.w("Plannerator","Saving hosted state failed",ex);}
+        });
+        surface.onPause();super.onPause();
+    }
+    @Override protected void onSaveInstanceState(Bundle state){
+        state.putBoolean(PENDING_DOCUMENT,documentRequests.isPending());
+        super.onSaveInstanceState(state);
+    }
+    @Override protected void onResume(){super.onResume();surface.onResume();}
+    @Override public void chooseFile(File selected,Consumer<File> accepted,String[] extensions,String hint,boolean save){
+        runOnUiThread(() -> {
+            documentRequests.begin(accepted,save,extensions);
+            Intent intent=new Intent(save?Intent.ACTION_CREATE_DOCUMENT:Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);intent.setType("*/*");
+            if(save)intent.putExtra(Intent.EXTRA_TITLE,documentName(selected==null?"reactor":selected.getName(),extensions));
+            try{startActivityForResult(intent,DOCUMENT_REQUEST);}
+            catch(RuntimeException ex){documentRequests.take();throw ex;}
+        });
+    }
+    @Override protected void onActivityResult(int request,int result,Intent data){
+        super.onActivityResult(request,result,data);
+        if(request!=DOCUMENT_REQUEST)return;
+        DocumentRequests.Request pending=documentRequests.take();
+        if(result!=RESULT_OK || data==null || pending==null)return;
+        Uri uri=data.getData();
+        if(uri==null)return;
+        Consumer<File> accepted=pending.accepted();
+        boolean save=pending.save();
+        String[] extensions=pending.extensions();
+        surface.queueEvent(() -> {
+            try{
+                String name="document";
+                try(Cursor cursor=getContentResolver().query(uri,null,null,null,null)){
+                    if(cursor!=null && cursor.moveToFirst()){int index=cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);if(index>=0 && !cursor.isNull(index))name=cursor.getString(index);}
+                }
+                File directory=Files.createTempDirectory(getCacheDir().toPath(),"document-").toFile();
+                File file=new File(directory,save?documentName(name,extensions):new File(name).getName());
+                if(!save)try(InputStream input=getContentResolver().openInputStream(uri)){Files.copy(input,file.toPath(),StandardCopyOption.REPLACE_EXISTING);}
+                accepted.accept(file);
+                if(save)documentExports.add(new DocumentExport(file,uri));
+            }catch(Exception ex){Core.error("Could not access document",ex);}
+        });
+    }
+    static String documentName(String name,String[] extensions){
+        name=new File(name).getName();
+        for(String extension:extensions)if(name.endsWith("."+extension))return name;
+        return extensions.length==0?name:name+"."+extensions[0];
+    }
+    private void transferCompletedExports(){
+        for(Iterator<DocumentExport> iterator=documentExports.iterator();iterator.hasNext();){
+            DocumentExport export=iterator.next();
+            // MenuMain may defer the write for several frames while its menu is hidden.
+            // A unique, initially absent path prevents an old export from looking complete.
+            if(!export.file().isFile())continue;
+            iterator.remove();
+            try(OutputStream output=getContentResolver().openOutputStream(export.uri(),"wt")){
+                if(output==null)throw new IOException("Document provider did not open an output stream");
+                Files.copy(export.file().toPath(),output);
+            }catch(Exception ex){Core.error("Could not export document",ex);}
+            finally{export.file().delete();export.file().getParentFile().delete();}
+        }
+    }
+    @Override public boolean openURL(String url){runOnUiThread(() -> startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url))));return true;}
+    @Override public boolean loadOptionalConfigurations(){return false;}
+    // Exports in private app storage cannot be opened by a desktop folder launcher.
+    @Override public boolean canOpenFolder(){return false;}
+    @Override public void close(){runOnUiThread(this::finish);}
+}

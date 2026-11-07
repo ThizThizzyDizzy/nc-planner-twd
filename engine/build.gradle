@@ -1,0 +1,23 @@
+sourceSets.main.java.srcDirs = [new File(rootProject.engineDir, 'src')]
+sourceSets.main.resources { srcDirs = [new File(rootProject.engineDir, 'src')]; exclude '**/*.java', 'textures/icon.png' }
+dependencies {
+    api 'org.joml:joml:1.10.5'
+    api 'com.google.code.gson:gson:2.14.0'
+    compileOnly fileTree(dir: new File(rootProject.engineDir, 'lib'), include: ['*.jar'], exclude: ['*natives*', 'joml*', 'gson*', '*sources*', '*javadoc*'])
+}
+
+// Mock-GL regression test: exercises context replacement without an Android device.
+sourceSets {
+    contextRecoveryTest {
+        java.srcDir rootProject.file('tests')
+        java.include 'ContextRecoveryTest.java'
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+tasks.register('contextRecoveryTest', JavaExec) {
+    dependsOn tasks.named('contextRecoveryTestClasses')
+    classpath = sourceSets.contextRecoveryTest.runtimeClasspath
+    mainClass = 'ContextRecoveryTest'
+    timeout = Duration.ofSeconds(30)
+}
