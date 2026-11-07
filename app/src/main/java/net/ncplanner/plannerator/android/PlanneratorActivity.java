@@ -30,6 +30,10 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
     private int mouseButton;
     private Consumer<File> fileAccepted;
     private boolean saving;
+    private String[] documentExtensions;
+    // Accessed only on the GL thread, after shared writers have returned.
+    private final List<DocumentExport> documentExports=new ArrayList<>();
+    private record DocumentExport(File file,Uri uri) {}
     private static final int DOCUMENT_REQUEST=1;
     private static final String VERTEX="""
         #version 300 es
@@ -91,7 +95,10 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
             public void onSurfaceChanged(GL10 unused,int width,int height){DizzyEngine.resizeHosted(width,height);}
             public void onDrawFrame(GL10 unused){
                 long now=System.nanoTime();
-                try{DizzyEngine.renderHosted(lastFrame==0?0:Math.min((now-lastFrame)/1e9,0.1));}
+                try{
+                    DizzyEngine.renderHosted(lastFrame==0?0:Math.min((now-lastFrame)/1e9,0.1));
+                    transferCompletedExports();
+                }
                 catch(Throwable ex){android.util.Log.e("Plannerator","Render failed",ex);throw new RuntimeException(ex);}
                 lastFrame=now;
             }
@@ -121,10 +128,10 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
     @Override protected void onResume(){super.onResume();surface.onResume();}
     @Override public void chooseFile(File selected,Consumer<File> accepted,String[] extensions,String hint,boolean save){
         runOnUiThread(() -> {
-            fileAccepted=accepted;saving=save;
+            fileAccepted=accepted;saving=save;documentExtensions=extensions.clone();
             Intent intent=new Intent(save?Intent.ACTION_CREATE_DOCUMENT:Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);intent.setType("*/*");
-            if(save)intent.putExtra(Intent.EXTRA_TITLE,selected==null?"reactor.ncpf.json":selected.getName());
+            if(save)intent.putExtra(Intent.EXTRA_TITLE,documentName(selected==null?"reactor":selected.getName(),extensions));
             startActivityForResult(intent,DOCUMENT_REQUEST);
         });
     }
@@ -132,19 +139,40 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
         super.onActivityResult(request,result,data);
         if(request!=DOCUMENT_REQUEST || result!=RESULT_OK || data==null){fileAccepted=null;return;}
         Uri uri=data.getData();Consumer<File> accepted=fileAccepted;fileAccepted=null;boolean save=saving;
+        String[] extensions=documentExtensions;
+        if(uri==null || accepted==null)return;
         surface.queueEvent(() -> {
-            File file=null;
             try{
-                String name="document.ncpf.json";
+                String name="document";
                 try(Cursor cursor=getContentResolver().query(uri,null,null,null,null)){
-                    if(cursor!=null && cursor.moveToFirst()){int index=cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);if(index>=0)name=cursor.getString(index);}
+                    if(cursor!=null && cursor.moveToFirst()){int index=cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);if(index>=0 && !cursor.isNull(index))name=cursor.getString(index);}
                 }
-                file=new File(getCacheDir(),new File(name).getName());
+                File directory=Files.createTempDirectory(getCacheDir().toPath(),"document-").toFile();
+                File file=new File(directory,save?documentName(name,extensions):new File(name).getName());
                 if(!save)try(InputStream input=getContentResolver().openInputStream(uri)){Files.copy(input,file.toPath(),StandardCopyOption.REPLACE_EXISTING);}
                 accepted.accept(file);
-                if(save)try(OutputStream output=getContentResolver().openOutputStream(uri)){Files.copy(file.toPath(),output);}
+                if(save)documentExports.add(new DocumentExport(file,uri));
             }catch(Exception ex){Core.error("Could not access document",ex);}
         });
+    }
+    static String documentName(String name,String[] extensions){
+        name=new File(name).getName();
+        for(String extension:extensions)if(name.endsWith("."+extension))return name;
+        return extensions.length==0?name:name+"."+extensions[0];
+    }
+    private void transferCompletedExports(){
+        for(Iterator<DocumentExport> iterator=documentExports.iterator();iterator.hasNext();){
+            DocumentExport export=iterator.next();
+            // MenuMain may defer the write for several frames while its menu is hidden.
+            // A unique, initially absent path prevents an old export from looking complete.
+            if(!export.file().isFile())continue;
+            iterator.remove();
+            try(OutputStream output=getContentResolver().openOutputStream(export.uri(),"wt")){
+                if(output==null)throw new IOException("Document provider did not open an output stream");
+                Files.copy(export.file().toPath(),output);
+            }catch(Exception ex){Core.error("Could not export document",ex);}
+            finally{export.file().delete();export.file().getParentFile().delete();}
+        }
     }
     @Override public boolean openURL(String url){runOnUiThread(() -> startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url))));return true;}
     @Override public boolean loadOptionalConfigurations(){return false;}
