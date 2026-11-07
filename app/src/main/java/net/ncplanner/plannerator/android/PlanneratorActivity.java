@@ -122,7 +122,12 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
         return classes;
     }
     @Override protected void onPause(){
-        if(initialized)surface.queueEvent(() -> {try{Core.autosave();}catch(IOException ex){android.util.Log.w("Plannerator","Autosave failed",ex);}});
+        // Queue before pausing the surface so recovery data and preferences are
+        // persisted on the GL thread while the planner is still available.
+        surface.queueEvent(() -> {
+            if(initialized)try{Core.shutdownHosted();}
+            catch(Exception ex){android.util.Log.w("Plannerator","Saving hosted state failed",ex);}
+        });
         surface.onPause();super.onPause();
     }
     @Override protected void onResume(){super.onResume();surface.onResume();}

@@ -26,6 +26,8 @@ This builds a fresh debug APK, installs it, and launches the app. It uses explic
 
 Updating the main source checkouts and rerunning the same command builds the updated app. There is no planner source copy or desktop build prerequisite. The existing NetBeans/Ant build files are unchanged.
 
+The shared Plannerator checkout must include commit `f7c7f280561c4a67a8ccca939c7d37d43bb1c803` (or its equivalent): ordinary Save/Export actions use `Core.storageFile` to write into Android's private files directory, and recovery saves capture current designs. Use Save Dialog to export to a user-selected document provider. The Android activity saves recovery data and preferences on the GL thread before pausing its surface.
+
 ## Draft scope
 
 The app loads the standard NuclearCraft configuration and the existing menus/editor, with a single touch mapped to the left mouse button. Optional modpack configurations are skipped during Android startup. UI redesign, touch gestures, software keyboard integration, VR, Discord bot mode, desktop updates, and DSSL native interop are outside this draft. The Android document picker adapts imported/exported files through private cache files. Pause/resume with a preserved GL context is verified; recovery after GL context loss or activity recreation still needs lifecycle work before production release.
