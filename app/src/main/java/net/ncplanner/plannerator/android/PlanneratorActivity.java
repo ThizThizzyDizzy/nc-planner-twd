@@ -181,5 +181,7 @@ public final class PlanneratorActivity extends Activity implements Core.Host {
     }
     @Override public boolean openURL(String url){runOnUiThread(() -> startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url))));return true;}
     @Override public boolean loadOptionalConfigurations(){return false;}
+    // Exports in private app storage cannot be opened by a desktop folder launcher.
+    @Override public boolean canOpenFolder(){return false;}
     @Override public void close(){runOnUiThread(this::finish);}
 }

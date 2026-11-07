@@ -26,7 +26,7 @@ This builds a fresh debug APK, installs it, and launches the app. It uses explic
 
 Updating the main source checkouts and rerunning the same command builds the updated app. There is no planner source copy or desktop build prerequisite. The existing NetBeans/Ant build files are unchanged.
 
-The shared Plannerator checkout must include commit `f7c7f280561c4a67a8ccca939c7d37d43bb1c803` (or its equivalent): ordinary Save/Export actions use `Core.storageFile` to write into Android's private files directory, and recovery saves capture current designs. Use Save Dialog to export to a user-selected document provider. The Android activity saves recovery data and preferences on the GL thread before pausing its surface.
+The shared Plannerator checkout must include commit `7672d7476a1e2cbad832107dca23555802bb971e` (or its equivalent): ordinary Save/Export actions use `Core.storageFile` to write into Android's private files directory, recovery saves capture current designs, and the export confirmation hides the desktop-only Open Folder action on Android. Use Save Dialog to export to a user-selected document provider. The Android activity saves recovery data and preferences on the GL thread before pausing its surface.
 
 ## Draft scope
 
